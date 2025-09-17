@@ -130,7 +130,7 @@ void on_adc_fifo() {
     else {
         duty_cycle = throttle * 256;    // Set duty cycle based directly on throttle
         bool do_synchronous = true;     // Note, if doing synchronous duty-cycle control, the motor will regen if the throttle decreases. This may regen VERY HARD
-
+        //*********** Regen Breaking **********//
         writePWM(motorState, (uint)(duty_cycle / 256), do_synchronous);
     }
 
@@ -144,6 +144,7 @@ void on_pwm_wrap() {
     // Takes ~1.3 microseconds
 
     gpio_put(FLAG_PIN, 1);      // Toggle the flag pin high for debugging
+    //***************** Probe this with an oscilliscope to see when the interupt occures should be able to see how long it runs for too
     adc_select_input(0);        // Force the ADC to start with input 0
     adc_run(true);              // Start the ADC
     pwm_clear_irq(A_PWM_SLICE); // Clear this interrupt flag
@@ -253,8 +254,11 @@ void init_hardware() {
     adc_bias /= ADC_BIAS_OVERSAMPLE;
 
     adc_set_round_robin(0b111);     // Set ADC to read our three ADC pins one after the other (round robin)
+    //************* How the ADCs get read in order
     adc_fifo_setup(true, false, 3, false, false);   // ADC writes into a FIFO buffer, and an interrupt is fired once FIFO reaches 3 samples
+    //****** sets up ADC first in first out (enable fifo,...,3 channels,...,...)
     irq_set_exclusive_handler(ADC_IRQ_FIFO, on_adc_fifo);   // Sets ADC interrupt
+    //******** tells the cpu to run on_adc_fifo when the ADC fifo interupt occures
     irq_set_priority(ADC_IRQ_FIFO, 0);
     adc_irq_set_enabled(true);
     irq_set_enabled(ADC_IRQ_FIFO, true);
