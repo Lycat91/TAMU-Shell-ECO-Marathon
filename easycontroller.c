@@ -8,6 +8,8 @@
 #include "hardware/sync.h"
 #include "hardware/uart.h"
 
+//Test
+
 // Begin user config section ---------------------------
 
 const bool IDENTIFY_HALLS_ON_BOOT = true;   // If true, controller will initialize the hall table by slowly spinning the motor
