@@ -33,3 +33,17 @@ pico_enable_stdio_usb(easycontroller_debug 1)
 pico_enable_stdio_uart(easycontroller_debug 0)
 
 pico_add_extra_outputs(easycontroller_debug)
+
+
+#easycontroller_experimental
+
+add_executable(easycontroller_experimental
+    easycontroller_experimental.c
+)
+
+target_link_libraries(easycontroller_experimental pico_stdlib hardware_pwm hardware_adc)
+
+pico_enable_stdio_usb(easycontroller_experimental 1)
+pico_enable_stdio_uart(easycontroller_experimental 0)
+
+pico_add_extra_outputs(easycontroller_experimental)
