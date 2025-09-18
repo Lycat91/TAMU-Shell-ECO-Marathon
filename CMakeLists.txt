@@ -14,9 +14,9 @@ add_executable(easycontroller
 
 target_link_libraries(easycontroller pico_stdlib hardware_pwm hardware_adc)
 
-add_executable(easymotor_experimental easymotor_experimental.c)
-pico_add_extra_outputs(easymotor_experimental)
-target_link_libraries(easymotor_experimental pico_stdlib hardware_pwm hardware_adc)
+# add_executable(easymotor_experimental easymotor_experimental.c)
+# pico_add_extra_outputs(easymotor_experimental)
+# target_link_libraries(easymotor_experimental pico_stdlib hardware_pwm hardware_adc)
 
 
 pico_enable_stdio_usb(easycontroller 1)	# Enable USB printf output
