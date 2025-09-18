@@ -353,6 +353,7 @@ void commutate_open_loop()
     }
 }
 
+//********** wait function !!!do not use after interrupts are enabled!!!
 void wait_for_serial_command(const char *message) {
     printf("%s\n", message);
     printf("Type any key + Enter to continue...\n");
@@ -365,13 +366,13 @@ int main() {
     printf("Hello from Pico!\n");
     init_hardware();
 
-    wait_for_serial_command("System initialized. Waiting to start...");
+    wait_for_serial_command("System initialized. Waiting to start..."); //***Wait function press any key to pass
 
     //commutate_open_loop();   // May be helpful for debugging electrical problems
 
     if(IDENTIFY_HALLS_ON_BOOT)
         identify_halls();
-        wait_for_serial_command("Hall identification done. Review table above.");
+        wait_for_serial_command("Hall identification done. Review table above."); //***Wait function press any key to pass
 
     sleep_ms(1000);
 
