@@ -196,8 +196,8 @@ void writePWM(uint motorState, uint duty, bool synchronous)
     //******** EX duty=200, high side duty=200 low side (compliment) duty=(248-200=48). High side will turn on for 200 cycles, then dead band for 7 cycles, then low side turns on for 48 cycles.
     //******** The pwm is configured to center alighned (each cycle counts 0...244...0) and the low side pwm is inverted (pin=high when counter>=duty) The high side acts normally (pin=high when counter<duty)
     //******** This creates the alternating pwm and with the compliment calculation, the saftey deadband
-    //******** EX counter: 0 ................ 200   201..206   207 .......... 254
-    //********              ↑————— High ON ———↑    (both OFF)    ↑—— Low ON ——↑ 
+    //******** EX counter: 0 ................ 200   201..206   207 .......... 254 ........... 207......200..............0
+    //********              ↑————— High ON ———↑    (both OFF)    ↑——           Low ON        ——↑   off           high
 
 
     if(motorState == 0)                         // LOW A, HIGH B
