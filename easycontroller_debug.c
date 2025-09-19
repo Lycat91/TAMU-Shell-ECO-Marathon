@@ -363,6 +363,7 @@ void wait_for_serial_command(const char *message) {
 }
 
 int main() {
+    wait_for_serial_command("Ready to initialize hardware."); //***Wait function press any key to pass
     printf("Hello from Pico!\n");
     init_hardware();
 
