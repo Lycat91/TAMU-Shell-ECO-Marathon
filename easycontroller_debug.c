@@ -17,6 +17,11 @@ const bool IDENTIFY_HALLS_REVERSE = false;  // If true, will initialize the hall
 
 uint8_t hallToMotor[8] = {255, 255, 255, 255, 255, 255, 255, 255};  // Default hall table. Overwrite this with the output of the hall auto-identification 
 // uint8_t hallToMotor[8] = {255, 2, 0, 1, 4, 3, 5, 255};  // Example hall table
+// 255, 1, 2, 4, 5, 0, 6, 255, 
+
+
+//255, 1, 2, 4, 4, 0, 6, 255,
+
 
 const int THROTTLE_LOW = 600;               // ADC value corresponding to minimum throttle, 0-4095
 const int THROTTLE_HIGH = 2650;             // ADC value corresponding to maximum throttle, 0-4095
@@ -321,6 +326,7 @@ void identify_halls()
         {
             sleep_us(500);
             writePWM(i, HALL_IDENTIFY_DUTY_CYCLE, false);
+            printf("%u\n", i);
             sleep_us(500);
             writePWM((i + 1) % 6, HALL_IDENTIFY_DUTY_CYCLE, false);     // PWM to the next half-state
         }
@@ -368,11 +374,12 @@ int main() {
 
     wait_for_serial_command("System initialized. Waiting to start..."); //***Wait function press any key to pass
 
-    //commutate_open_loop();   // May be helpful for debugging electrical problems
+    commutate_open_loop();   // May be helpful for debugging electrical problems
 
     if(IDENTIFY_HALLS_ON_BOOT)
         identify_halls();
-        wait_for_serial_command("Hall identification done. Review table above."); //***Wait function press any key to pass
+    
+    wait_for_serial_command("Hall identification done. Review table above."); //***Wait function press any key to pass
 
     sleep_ms(1000);
 
