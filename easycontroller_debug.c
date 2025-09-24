@@ -14,6 +14,16 @@
 
 const bool IDENTIFY_HALLS_ON_BOOT = true;   // If true, controller will initialize the hall table by slowly spinning the motor
 const bool IDENTIFY_HALLS_REVERSE = false;  // If true, will initialize the hall table to spin the motor backwards
+//------------------------------------------------------------------------------------------
+
+
+
+const bool COMPUTER_CONTROL = false;      // If true will enable throttle control via serial communication 
+
+
+
+
+//---------------------------------------------------------------------------------------------
 
 uint8_t hallToMotor[8] = {255, 0, 4, 5, 2, 1, 3, 255};  // Default hall table. Overwrite this with the output of the hall auto-identification 
 // uint8_t hallToMotor[8] = {255, 2, 0, 1, 4, 3, 5, 255};  // Example hall table
@@ -72,12 +82,12 @@ int hall = 0;
 uint motorState = 0;
 int fifo_level = 0;
 uint64_t ticks_since_init = 0;
+volatile int throttle = 0;   // 0–255, updated from ADC or serial
 
 uint get_halls();
 void writePWM(uint motorState, uint duty, bool synchronous);
 uint8_t read_throttle();
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------
 void on_adc_fifo() {
     // This interrupt is where the magic happens. This is fired once the ADC conversions have finished (roughly 6us for 3 conversions)
     // This reads the hall sensors, determines the motor state to switch to, and reads the current sensors and throttle to
@@ -103,9 +113,33 @@ void on_adc_fifo() {
 
     hall = get_halls();                 // Read the hall sensors
     motorState = hallToMotor[hall];     // Convert the current hall reading to the desired motor state
+    
+//--------------------------------------------------------------------------------------------------------------------------------------
+    if (COMPUTER_CONTROL == true){
+        int c = getchar_timeout_us(0); // non-blocking read, returns PICO_ERROR_TIMEOUT if nothing available
+        if (c != PICO_ERROR_TIMEOUT) {
+            static char buf[8];
+            static int idx = 0;
 
-    int throttle = ((adc_throttle - THROTTLE_LOW) * 256) / (THROTTLE_HIGH - THROTTLE_LOW);  // Scale the throttle value read from the ADC
+            if (c == '\n' || c == '\r') {
+                buf[idx] = '\0';
+                int val = atoi(buf);           // convert to integer
+                if (val >= 0 && val <= 255) {  // clamp range
+                    throttle = val;
+                }
+                idx = 0;   // reset buffer
+            } else if (idx < (int)(sizeof(buf) - 1)) {
+                buf[idx++] = (char)c;  // store digit
+            }
+        }
+    }
+
+
+    else{
+    throttle = ((adc_throttle - THROTTLE_LOW) * 256) / (THROTTLE_HIGH - THROTTLE_LOW);  // Scale the throttle value read from the ADC
     throttle = MAX(0, MIN(255, throttle));      // Clamp to 0-255
+    }
+//--------------------------------------------------------------------------------------------------------------------------------------
 
     current_ma = (adc_isense - adc_bias) * CURRENT_SCALING;     // Since the current sensor is bidirectional, subtract the zero-current value and scale
     voltage_mv = adc_vsense * VOLTAGE_SCALING;  // Calculate the bus voltage
