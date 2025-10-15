@@ -50,15 +50,15 @@ pico_add_extra_outputs(easycontroller_experimental)
 
 
 
-add_executable(Chat_Controller
-    Chat_Controller.c
+add_executable(UART_Test
+    UART_Test.c
 )
-target_link_libraries(Chat_Controller
+target_link_libraries(UART_Test
     pico_stdlib
     hardware_pwm
     hardware_uart
     hardware_gpio
 )
-pico_enable_stdio_usb(Chat_Controller 1)
-pico_enable_stdio_uart(Chat_Controller 0)
-pico_add_extra_outputs(Chat_Controller)
+pico_enable_stdio_usb(UART_Test 1)
+pico_enable_stdio_uart(UART_Test 0)
+pico_add_extra_outputs(UART_Test)

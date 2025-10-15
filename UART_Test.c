@@ -13,20 +13,16 @@ int main() {
     uart_init(UART_ID, BAUD_RATE);
     gpio_set_function(TX_PIN, GPIO_FUNC_UART);
     gpio_set_function(RX_PIN, GPIO_FUNC_UART);
+    int counter =0;
 
-    int speed = 120;
-    float temperature = 24.5f;
     char message[64];
 
     while (true) {
-        // Example 1: send speed
-        sprintf(message, "speed=%d\n", speed);
+  
+        counter += 1;
+        sprintf(message, "counter=%d\n", counter);
         uart_puts(UART_ID, message);
 
-        // Example 2: send temperature
-        sprintf(message, "temp=%.2f\n", temperature);
-        uart_puts(UART_ID, message);
-
-        sleep_ms(2000);
+        sleep_ms(250);
     }
 }
