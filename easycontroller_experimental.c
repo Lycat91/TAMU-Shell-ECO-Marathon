@@ -394,8 +394,8 @@ void commutate_open_loop()
         //printf("State = %d\n", state % 6); //*********** print the motor state being written to
         sleep_ms(50);
         state++;
-        mode = getchar_timeot_us(0);
-                    if (atoi(mode) == 9){
+        mode = getchar_timeout_us(0);
+                    if (mode == 9){
                         break;
                 }
     }
@@ -437,8 +437,8 @@ void commutate_open_loop_Computer_Control()
         //printf("State = %d\n", state % 6); //*********** print the motor state being written to
         sleep_ms(100);
         state++;
-        mode = getchar_timeot_us(0);
-        if (atoi(mode) == 9){
+        mode = getchar_timeout_us(0);
+        if (mode == 9){
             break;
         }
     }
@@ -493,7 +493,7 @@ int main() {
         
    
 
-            if (atoi(mode) == 1){
+            if (mode == 1){
                 wait_for_serial_command("Throttle activated, enter any key to continue");
                 // int rpm = 0;
                 // pwm_set_irq_enabled(A_PWM_SLICE, true);
@@ -513,24 +513,24 @@ int main() {
 
 
 
-                mode = getchar_timeot_us(0);
-                if (atoi(mode) == 9){
+                mode = getchar_timeout_us(0);
+                if (pwm_set_clkdiv_mode == 9){
                     break;
                 }
             }
 
-            else if (atoi(mode) == 2){
+            else if (mode == 2){
                 printf("Open looop commutation activated \n");
                 // commutate_open_loop();
             }
               
 
-            else if (atoi(mode) == 3){
+            else if (mode == 3){
                 printf("PWM Controlled open loop commutation \n");
                 // commutate_open_loop_Computer_Control();
             }
 
-            else if (atoi(mode) == 4){
+            else if (mode == 4){
                 printf("Retrieving Hall Table \n");
                 identify_halls();
             }

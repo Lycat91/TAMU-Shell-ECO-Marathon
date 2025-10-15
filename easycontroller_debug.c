@@ -79,6 +79,8 @@ uint motorState = 0;
 int fifo_level = 0;
 uint64_t ticks_since_init = 0;
 volatile int throttle = 0;   // 0–255, updated from ADC or serial
+int motorstate_counter = 0;
+int prev_motorstate = 0;
 
 
 
@@ -109,8 +111,14 @@ void on_adc_fifo() {
         return;
     }
 
+    prev_motorstate = motorState;       // keeps track of previous motor state for rpm counting
     hall = get_halls();                 // Read the hall sensors
     motorState = hallToMotor[hall];     // Convert the current hall reading to the desired motor state
+
+    //RPM counting variable
+    if (motorState == 1 && prev_motorstate != 1){
+        motorstate_counter += 1;
+    }
         
     throttle = ((adc_throttle - THROTTLE_LOW) * 256) / (THROTTLE_HIGH - THROTTLE_LOW);  // Scale the throttle value read from the ADC
     throttle = MAX(0, MIN(255, throttle));      // Clamp to 0-25
@@ -448,7 +456,7 @@ int main() {
 
     init_hardware();
 
-    wait_for_serial_command("System initialized. Waiting to start..."); //***Wait function press any key to pass
+    //wait_for_serial_command("System initialized. Waiting to start..."); //***Wait function press any key to pass
     printf("Hello from Pico!\n");
 
     //commutate_open_loop();   // May be helpful for debugging electrical problems
@@ -462,11 +470,20 @@ int main() {
     sleep_ms(1000);
 
     pwm_set_irq_enabled(A_PWM_SLICE, true); // Enables interrupts, starting motor commutation
+    
+    int rpm = 0;
 
     while (true) {
-        printf("%6d, %6d, %6d, %6d, %2d, %2d\n", current_ma, current_target_ma, duty_cycle, voltage_mv, hall, motorState);
+        printf("%6d, %6d, %6d, %6d, %2d, %2d, %2d\n", current_ma, current_target_ma, duty_cycle, voltage_mv, hall, motorState, rpm);
+
         gpio_put(LED_PIN, !gpio_get(LED_PIN));  // Toggle the LED
-        sleep_ms(100);
+
+        
+        rpm = (motorstate_counter * 4 * 60) / 23; //23 occurences of motorState 1 in 1 revolution
+        motorstate_counter = 0;
+
+        
+        sleep_ms(250);
     }
 
     return 0;
