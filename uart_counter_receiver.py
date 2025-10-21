@@ -1,28 +1,32 @@
 ## Usage
-#1. Connect the TX of the sender Pico to RX of the receiver Pico.
-#2. Connect a common GND between both Picos.
-#3. Run `uart_counter_receiver.py` on the receiver Pico.
-#4. The terminal will print incoming counter values every 250 ms.
+# 1. Connect the TX (GP8) of the sender Pico to RX (GP5) of the receiver Pico.
+# 2. Connect the RX (GP9) of the sender Pico to TX (GP4) of the receiver Pico.
+# 3. Connect a common GND between both Picos.
+# 4. Run `uart_counter_receiver.py` on the receiver Pico.
+# 5. The terminal will print incoming counter values every 250 ms.
+
 
 
 from machine import UART, Pin
 import time
 
-#UART Setup ----------------
-# UART0 uses pins GP0 (TX) and GP1 (RX) on the Pico
+# UART Setup ----------------
+# Using UART1: GP4 (TX) and GP5 (RX)
 # Baud rate must match Lucas' code: 115200
-uart = UART(0, baudrate=115200, tx=Pin(0), rx=Pin(1))
+uart = UART(1, baudrate=115200, tx=Pin(4), rx=Pin(5))
 
 buffer = ""       # Temporary storage for incomplete messages
 counter = 0       # Stores the latest counter value
+print("Counter received:", counter)
 
 #Main Loop ----------------
 while True:
-    # Check if any UART data has arrived
+    # Check if any UART data has arrived iterate through the string, to figure out how to isulate the counter part and the actual number. =/
     if uart.any():
         # Read all available bytes from UART and decode to string
-        data = uart.read().decode(errors="ignore")
-        buffer += data  # Add to buffer in case the message is split
+        data = uart.read()
+        print(data)
+        #buffer += data  # Add to buffer in case the message is split
 
         # Process complete lines ending with '\n'
         while "\n" in buffer:
