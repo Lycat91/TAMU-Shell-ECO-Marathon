@@ -4,8 +4,8 @@
 #include <string.h>
 
 #define UART_ID   uart1
-#define TX_PIN    4        // UART1 TX (default pin)
-#define RX_PIN    5        // UART1 RX (default pin)
+#define TX_PIN    8        // UART1 TX (default pin)
+#define RX_PIN    9        // UART1 RX (default pin)
 #define BAUD_RATE 115200
 
 int main() {
