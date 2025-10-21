@@ -9,8 +9,7 @@
 #include "hardware/sync.h"
 #include "hardware/uart.h"
 
-
-//Test
+//Voltage of new pedal 0.96V-4.09V
 
 // Begin user config section ---------------------------
 
