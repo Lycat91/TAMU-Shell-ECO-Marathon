@@ -90,6 +90,5 @@ while True:
             except Exception as e:
                 print("Parse error:", e, "on line:", line)
 
-    time.sleep(0.05)
 
 #wheel diameter = 16 inches, 
