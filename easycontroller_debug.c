@@ -96,6 +96,7 @@ uint64_t ticks_since_init = 0;
 volatile int throttle = 0;   // 0–255, updated from ADC or serial
 int motorstate_counter = 0;
 int prev_motorstate = 0;
+int rpm = 0;
 
 
 
@@ -156,6 +157,13 @@ void on_adc_fifo() {
 
         duty_cycle += (current_target_ma - current_ma) / CURRENT_CONTROL_LOOP_GAIN;  // Perform a simple integral controller to adjust the duty cycle
         duty_cycle = MAX(0, MIN(DUTY_CYCLE_MAX, duty_cycle));   // Clamp the duty cycle
+        
+
+        ////////////////HIGH TORQUE LOW SPEED OPERATION//////////////////////
+        if(rpm < 10 && throttle != 0){
+            duty_cycle = 6553; 
+        }
+        /////////////////////////////////////////////////////////////////////
 
         bool do_synchronous = ticks_since_init > 16000;    // Only enable synchronous switching some time after beginning control loop. This allows control loop to stabilize
         writePWM(motorState, (uint)(duty_cycle / 256), do_synchronous);
@@ -460,7 +468,7 @@ void wait_for_serial_command(const char *message) {
 }
 
 
-void check_serial_input() {
+void check_serial_input_for_Phase_Current() {
     static char buf[8];
     static int idx = 0;
 
@@ -486,8 +494,6 @@ void check_serial_input() {
 
 int main() {
     printf("Hello from Pico!\n");
-    
-    
     // if (COMPUTER_CONTROL) {
     //     F_PWM = 1000;   // slow for visible LEDs  !!!!!!!!!!!!!!!!!!!!!!!IF TESTING WITH MOTOR CHANGE THIS BACK TO 16000!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // }
@@ -495,11 +501,30 @@ int main() {
 
     init_hardware();
 
-    //wait_for_serial_command("System initialized. Waiting to start..."); //***Wait function press any key to pass
+    
     printf("Hello from Pico!\n");
 
-    //commutate_open_loop();   // May be helpful for debugging electrical problems
-    //commutate_open_loop_Computer_Control();
+    
+
+
+
+                        //MODE SELECT//
+    //wait_for_serial_command("System initialized. Waiting to start..."); //***Wait function press any key to pass
+    int mode;
+    printf("Select mode of operation");
+    printf("Current control: 0     Open loop commutate: 1     Open loop comutate serial command pwm: 2");
+    mode=getchar();
+
+    if (mode == '1'){
+        commutate_open_loop();   // May be helpful for debugging electrical problems
+    }
+    
+
+    if (mode == '2'){
+        commutate_open_loop_Computer_Control();
+    }
+    
+
 
     if(IDENTIFY_HALLS_ON_BOOT){
         identify_halls();
@@ -510,20 +535,20 @@ int main() {
 
     pwm_set_irq_enabled(A_PWM_SLICE, true); // Enables interrupts, starting motor commutation
     
-    int rpm = 0;
     
 
-
-    while (true) {
-        float current_A = (float)current_ma/1000;
-        float current_TargetA = (float)current_target_ma / 1000.0;
-        float voltage_V = (float)voltage_mv / 1000.0;
-        printf("%6.2f, %6.2f, %6d, %6.2f, %2d, %2d, %2d\n", current_A, current_TargetA, duty_cycle, voltage_V, hall, motorState, rpm);
-        gpio_put(LED_PIN, !gpio_get(LED_PIN));  // Toggle the LED
-        rpm = (motorstate_counter * 4 * 60) / 23; //23 occurences of motorState 1 in 1 revolution
-        motorstate_counter = 0;
-        check_serial_input(); //Changes Phase current max based on serial inputs
-        sleep_ms(250);
+    if (mode == '0'){
+        while (true) {
+            float current_A = (float)current_ma/1000;
+            float current_TargetA = (float)current_target_ma / 1000.0;
+            float voltage_V = (float)voltage_mv / 1000.0;
+            printf("%6.2f, %6.2f, %6d, %6.2f, %2d, %2d, %2d\n", current_A, current_TargetA, duty_cycle, voltage_V, hall, motorState, rpm);
+            gpio_put(LED_PIN, !gpio_get(LED_PIN));  // Toggle the LED
+            rpm = (motorstate_counter * 4 * 60) / 23; //23 occurences of motorState 1 in 1 revolution
+            motorstate_counter = 0;
+            check_serial_input_for_Phase_Current(); //Changes Phase current max based on serial inputs
+            sleep_ms(250);
+        }
     }
 
     return 0;
