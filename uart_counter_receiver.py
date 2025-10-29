@@ -1,47 +1,95 @@
 ## Usage
-# 1. Connect the TX (GP8) of the sender Pico to RX (GP5) of the receiver Pico.
-# 2. Connect the RX (GP9) of the sender Pico to TX (GP4) of the receiver Pico.
+# 1. Connect the TX (GP4) of the sender Pico to RX (GP5) of the receiver Pico.
+# 2. Connect the RX (GP5) of the sender Pico to TX (GP4) of the receiver Pico.
 # 3. Connect a common GND between both Picos.
 # 4. Run `uart_counter_receiver.py` on the receiver Pico.
 # 5. The terminal will print incoming counter values every 250 ms.
 
-
-
 from machine import UART, Pin
 import time
+import math  # for pi
 
-# UART Setup ----------------
-# Using UART1: GP4 (TX) and GP5 (RX)
-# Baud rate must match Lucas' code: 115200
+# UART Setup
 uart = UART(1, baudrate=115200, tx=Pin(4), rx=Pin(5))
 
-buffer = ""       # Temporary storage for incomplete messages
-counter = 0       # Stores the latest counter value
-print("Counter received:", counter)
+voltage = 0.0
+current = 0.0
+rpm = 0
+buffer = ""
 
-#Main Loop ----------------
+# Wheel parameters
+wheel_diameter_in = 16
+wheel_circumference_in = math.pi * wheel_diameter_in  # Circumference in inches
+
+print("Waiting for UART data...\n")
+
+# ----------------- TIME VARIABLES -----------------
+start_time = time.ticks_ms()        # Program start timestamp
+last_sample_time = start_time       # Last sample timestamp
+# ---------------------------------------------------
+
 while True:
-    # Check if any UART data has arrived iterate through the string, to figure out how to isulate the counter part and the actual number. =/
     if uart.any():
-        # Read all available bytes from UART and decode to string
         data = uart.read()
-        print(data)
-        #buffer += data  # Add to buffer in case the message is split
+        if not data:
+            continue
 
-        # Process complete lines ending with '\n'
-        while "\n" in buffer:
-            line, buffer = buffer.split("\n", 1)  # Split first full line
-            line = line.strip()                    # Remove extra spaces or newline characters
+        # Convert bytes to printable characters manually
+        for b in data:
+            if 32 <= b <= 126 or b == 10:  # printable ASCII + newline
+                buffer += chr(b)
 
-            # Check if the line starts with "counter="
-            if line.startswith("counter="):
-                try:
-                    # Extract the number after "=" and convert to integer
-                    counter = int(line.split("=")[1])
-                    print("Counter received:", counter)
-                except ValueError:
-                    # If conversion fails, print an error
-                    print("Error: could not convert value to integer:", line)
+        # Process complete lines
+        while '\n' in buffer:
+            line, buffer = buffer.split('\n', 1)
+            line = line.strip()
+            if not line:
+                continue
 
-    # Small delay to keep CPU responsive
+            # ----------------- TIME CALCULATION -----------------
+            current_time = time.ticks_ms()
+            elapsed_time = time.ticks_diff(current_time, start_time) / 1000  # total seconds since start
+            sample_dt = time.ticks_diff(current_time, last_sample_time) / 1000  # seconds since last sample
+            last_sample_time = current_time  # update for next line
+            # ------------------------------------------------------
+
+            # Split line into parts: "V=..., I=..., RPM=..."
+            try:
+                parts = line.split(',')
+                for p in parts:
+                    p = p.strip()
+                    if '=' in p:
+                        key, value = p.split('=', 1)
+                        key = key.strip()
+                        value = value.strip()
+
+                        if key == "V":
+                            voltage = float(value)
+                        elif key == "I":
+                            current = float(value)
+                        elif key == "RPM":
+                            rpm = int(float(value))
+                        elif key == "DUTY":
+                            duty = int(float(value))
+                        elif key == "THROTTLE":
+                            throttle = int(float(value))/255 * 100
+
+                # Calculate power
+                power = voltage * current
+
+                # Calculate speed in MPH
+                mph = rpm * wheel_circumference_in * 60 / 63360  # inches/min to miles/hour
+
+                # Print all values including MPH and time
+                print(f"Time: {elapsed_time:.2f}s | delta t: {sample_dt:.2f}s | Voltage: {voltage:.2f} V | Current: {current:.2f} A | RPM: {rpm} | Power: {power:.2f} W | Speed: {mph:.2f} MPH | Duty: {duty:.2f} | Throttle: {throttle:.2f} %")
+
+                # Stall detection
+                if throttle != 0 and rpm < 30:
+                    print("----------------------------------Stall occurred!------------------------------------")
+
+            except Exception as e:
+                print("Parse error:", e, "on line:", line)
+
     time.sleep(0.05)
+
+#wheel diameter = 16 inches, 
