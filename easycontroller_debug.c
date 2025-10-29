@@ -39,11 +39,11 @@ const bool CURRENT_CONTROL = true;          // Use current control or duty cycle
 // const int PHASE_MAX_CURRENT_MA = 6000;      // If using current control, the maximum phase current allowed
 // const int BATTERY_MAX_CURRENT_MA = 3000;    // If using current control, the maximum battery current allowed
 
-const int PHASE_MAX_CURRENT_MA = 15000;
-const int BATTERY_MAX_CURRENT_MA = 15000;
+int PHASE_MAX_CURRENT_MA = 15000;
+int BATTERY_MAX_CURRENT_MA = 15000;
 
 /*
-The IRF87730 can handle 7A. Split between three pahses we get 21 A max (No heat sink)
+The IRFB7730 can handle 7A. Split between three pahses we get 21 A max (No heat sink)
 The throttle sets the current target mapped off phase max current but the battery max current sets the max current allowed based on battery specs.
 */
 
@@ -458,6 +458,30 @@ void wait_for_serial_command(const char *message) {
     int c = getchar();  // Blocks until at least one character arrives
     (void)c;            // discard it, we only care about pausing
 }
+
+
+void check_serial_input() {
+    static char buf[8];
+    static int idx = 0;
+
+    // keep reading until input buffer is empty
+    int c;
+    while ((c = getchar_timeout_us(0)) != PICO_ERROR_TIMEOUT) {
+        if (c == '\n' || c == '\r') {
+            if (idx > 0) {
+                buf[idx] = '\0';
+                int val = atoi(buf);
+                if (val > 0 && val < 21001){
+                    PHASE_MAX_CURRENT_MA = val;
+                }
+                idx = 0; // reset buffer
+            }
+        } else if (idx < (int)(sizeof(buf) - 1)) {
+            buf[idx++] = (char)c;
+        }
+    }
+}
+
 
 
 int main() {
