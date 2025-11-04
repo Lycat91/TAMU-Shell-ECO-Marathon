@@ -23,11 +23,12 @@ const bool COMPUTER_CONTROL = true;      // If true will enable throttle control
 int LAUNCH_DUTY_CYCLE = 6553;
 int PHASE_MAX_CURRENT_MA = 15000;
 int BATTERY_MAX_CURRENT_MA = 15000;
-const int THROTTLE_LOW = 1000;               
+const int THROTTLE_LOW = 700;               
 const int THROTTLE_HIGH = 2000;
+int ECO_CURRENT_ma=6000;
 
 
-uint8_t hallToMotor[8] = {255, 0, 4, 5, 2, 1, 3, 255};  //Correct Hall Table !!!DO NOT CHANGE!!!
+uint8_t hallToMotor[8] = {255, 3, 1, 2, 5, 4, 0, 255};  //Correct Hall Table !!!DO NOT CHANGE!!!
 // uint8_t hallToMotor[8] = {255, 255, 255, 255, 255, 255, 255, 255};  // Default hall table. Overwrite this with the output of the hall auto-identification 
 // uint8_t hallToMotor[8] = {255, 2, 0, 1, 4, 3, 5, 255};  // Example hall table
 
@@ -37,6 +38,7 @@ uint8_t hallToMotor[8] = {255, 0, 4, 5, 2, 1, 3, 255};  //Correct Hall Table !!!
 // const int THROTTLE_HIGH = 2650;             // ADC value corresponding to maximum throttle, 0-4095
 
 //Voltage of new pedal 0.96V-4.09V
+//adc_throttle range   616-2590
 //Old 0.0V-4.15V
 
 
@@ -137,12 +139,15 @@ void on_adc_fifo() {
     motorState = hallToMotor[hall];     // Convert the current hall reading to the desired motor state
 
     //RPM counting variable
-    if (motorState == 1 && prev_motorstate != 1){
+    if (motorState != prev_motorstate){
         motorstate_counter += 1;
     }
-        
+    
     throttle = ((adc_throttle - THROTTLE_LOW) * 256) / (THROTTLE_HIGH - THROTTLE_LOW);  // Scale the throttle value read from the ADC
     throttle = MAX(0, MIN(255, throttle));      // Clamp to 0-255
+
+    
+
 
     current_ma = (adc_isense - adc_bias) * CURRENT_SCALING;     // Since the current sensor is bidirectional, subtract the zero-current value and scale
     voltage_mv = adc_vsense * VOLTAGE_SCALING;  // Calculate the bus voltage
@@ -159,13 +164,19 @@ void on_adc_fifo() {
         }
         else
             ticks_since_init++;
+        
+        
+            //////////////////////ECO MODE/////////////////////////////
+        if (adc_throttle > 2000){
+            current_target_ma=ECO_CURRENT_ma;
+        }
 
         duty_cycle += (current_target_ma - current_ma) / CURRENT_CONTROL_LOOP_GAIN;  // Perform a simple integral controller to adjust the duty cycle
         duty_cycle = MAX(0, MIN(DUTY_CYCLE_MAX, duty_cycle));   // Clamp the duty cycle
         
 
         ////////////////LAUNCH FUNCTION//////////////////////////////////////
-        if(rpm < 10 && throttle != 0){
+        if(rpm < 30 && throttle != 0){
             duty_cycle = LAUNCH_DUTY_CYCLE; 
         }
         /////////////////////////////////////////////////////////////////////
@@ -554,8 +565,12 @@ int main() {
             float current_TargetA = (float)current_target_ma / 1000.0;
             float voltage_V = (float)voltage_mv / 1000.0;
             printf("%6.2f, %6.2f, %6d, %6.2f, %2d, %2d, %2d\n", current_A, current_TargetA, duty_cycle, voltage_V, hall, motorState, rpm);
+            //printf("ADC_THROTTLE=%4d\n", adc_throttle);
+            if(current_target_ma == ECO_CURRENT_ma){
+                printf("----------------------------ECO MODE ACTIVATED(----------------------------");
+            }
             gpio_put(LED_PIN, !gpio_get(LED_PIN));  // Toggle the LED
-            rpm = (motorstate_counter * 4 * 60) / 23; //23 occurences of motorState 1 in 1 revolution
+            rpm = (motorstate_counter * 10 * 60) / 23 / 6; //23 occurences of motorState 1 in 1 revolution 6 motor states
             motorstate_counter = 0;
             check_serial_input_for_Phase_Current(); //Changes Phase current max based on serial inputs
 
@@ -563,9 +578,9 @@ int main() {
 
             // Send over UART1 to the other Pico
             snprintf(message, sizeof(message), "V=%3.2f, I=%3.2f, RPM=%4d, DUTY=%6d, THROTTLE=%3d\n", voltage_V, current_A, rpm, duty_cycle, throttle);
-            printf(message);
+            //printf(message);
             uart_puts(UART_ID, message);
-                sleep_ms(250);
+            sleep_ms(100);
         }
     }
 
