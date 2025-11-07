@@ -11,5 +11,8 @@
     ],
     "python.analysis.extraPaths": [
         "~/.micropico-stubs/included"
-    ]
+    ],
+    "micropico.syncFolder": "DIS/device",
+    "micropico.syncFileTypes": "py,txt,json,mpy",
+    "micropico.pyIgnore": ""
 }
