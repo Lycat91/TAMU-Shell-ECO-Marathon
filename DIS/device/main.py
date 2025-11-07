@@ -1,19 +1,20 @@
+import config
 import uasyncio
-from machine import Pin
 
-pin = Pin("LED", Pin.OUT)
-
-async def blink():
-    while True:
-        pin.value(not pin.value())
-        print(pin.value())
-        await uasyncio.sleep(3)
+oled = config.OLED_1inch3()
 
 async def main():
-    uasyncio.create_task(blink())
-    await uasyncio.sleep(1)
 
-uasyncio.run(main())
+    # Check for button press
+
+
+    # Check for UART and calculate
+
+
+    # Update screen
+        # Screen State
+
+
 
 
     
