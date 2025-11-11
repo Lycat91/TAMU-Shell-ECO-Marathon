@@ -103,7 +103,7 @@ while True:
     # Display
     oled.fill(0)
     oled.text("Timer", 45, 10)
-    oled.text("{:.0f}s".format(elapsed_time), 40, 30)
+    oled.text("{:.2f}s".format(elapsed_time), 40, 30)
     oled.text("K0/K1: Start/Pause", 5, 50)
     oled.show()
 
