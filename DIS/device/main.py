@@ -1,4 +1,5 @@
 import config, utime
+import comm
 oled = config.OLED_1inch3()
 
 # # Zones
@@ -24,3 +25,5 @@ for i in range(999):
     i_time = utime.ticks_diff(draw_start_time, final_time)/1000
 
     print(i/1000, "draw:", draw_time, " total: ", i_time)
+
+    print("Voltage",comm.voltage,"Current",comm.current,"RPM",comm.rpm)
