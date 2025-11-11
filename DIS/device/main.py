@@ -84,16 +84,16 @@ while True:
                     power = voltage * current
                     mph = rpm * wheel_circumference_in * 60 / 63360.0
 
-                    print(f"Time: {elapsed_time:.2f}s | delta t: {sample_dt:.2f}s | "
-                          f"Voltage: {voltage:.2f} V | Current: {current:.2f} A | RPM: {rpm} | "
-                          f"Power: {power:.2f} W | Speed: {mph:.2f} MPH | "
-                          f"Duty: {duty:.0f} | Throttle: {throttle:.1f} %")
+                    #print(f"Time: {elapsed_time:.2f}s | delta t: {sample_dt:.2f}s | "
+                     #     f"Voltage: {voltage:.2f} V | Current: {current:.2f} A | RPM: {rpm} | "
+                      ##   f"Duty: {duty:.0f} | Throttle: {throttle:.1f} %")
 
                     if throttle != 0 and rpm < 30:
                         print("----------------------------------Stall occurred!------------------------------------")
 
                 except Exception as e:
                     print("Parse error:", e, "on line:", line)
-    print("Voltage",voltage,"Current",current,"RPM",rpm)
+    oled.speed(voltage)
+    oled.show()
 
    
