@@ -94,5 +94,6 @@ while True:
 
                 except Exception as e:
                     print("Parse error:", e, "on line:", line)
+    print("Voltage",voltage,"Current",current,"RPM",rpm)
 
    
