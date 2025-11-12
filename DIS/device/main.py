@@ -1,5 +1,7 @@
-import config, utime
+import config
+import utime as time
 import comm
+
 oled = config.OLED_1inch3()
 from machine import Pin, SPI
 from machine import UART, Pin
@@ -22,8 +24,8 @@ uart = UART(1, baudrate=115200, tx=Pin(4), rx=Pin(5))
 voltage = 0.0
 current = 0.0
 rpm = 0
-duty = 0                # NEW: init so it's always defined
-throttle = 0.0          # NEW: init so it's always defined
+duty = 0  # NEW: init so it's always defined
+throttle = 0.0  # NEW: init so it's always defined
 buffer = ""
 
 # Wheel parameters
@@ -35,8 +37,8 @@ print("Waiting for UART data...\n")
 # ----------------- TIME VARIABLES -----------------
 start_time = time.ticks_ms()
 last_sample_time = start_time
-elapsed_time = 0.0      # NEW: init so OLED can show time before UART data
-sample_dt = 0.0         # NEW
+elapsed_time = 0.0  # NEW: init so OLED can show time before UART data
+sample_dt = 0.0  # NEW
 # ---------------------------------------------------
 
 while True:
@@ -49,8 +51,8 @@ while True:
                     buffer += chr(b)
 
             # Process complete lines
-            while '\n' in buffer:
-                line, buffer = buffer.split('\n', 1)
+            while "\n" in buffer:
+                line, buffer = buffer.split("\n", 1)
                 line = line.strip()
                 if not line:
                     continue
@@ -63,11 +65,11 @@ while True:
                 # ----------------------------------
 
                 try:
-                    parts = line.split(',')
+                    parts = line.split(",")
                     for p in parts:
                         p = p.strip()
-                        if '=' in p:
-                            key, value = p.split('=', 1)
+                        if "=" in p:
+                            key, value = p.split("=", 1)
                             key = key.strip()
                             value = value.strip()
                             if key == "V":
@@ -84,16 +86,17 @@ while True:
                     power = voltage * current
                     mph = rpm * wheel_circumference_in * 60 / 63360.0
 
-                    #print(f"Time: {elapsed_time:.2f}s | delta t: {sample_dt:.2f}s | "
-                     #     f"Voltage: {voltage:.2f} V | Current: {current:.2f} A | RPM: {rpm} | "
-                      ##   f"Duty: {duty:.0f} | Throttle: {throttle:.1f} %")
+                    # print(
+                    #     f"Time: {elapsed_time:.2f}s | delta t: {sample_dt:.2f}s | "
+                    #     f"Voltage: {voltage:.2f} V | Current: {current:.2f} A | RPM: {rpm} | Speed: {mph:.2f} Mph |"
+                    #     f"Duty: {duty:.0f} | Throttle: {throttle:.1f} %"
+                    # )
+                    oled.draw_speed(throttle)
 
                     if throttle != 0 and rpm < 30:
-                        print("----------------------------------Stall occurred!------------------------------------")
+                        print(
+                            "----------------------------------Stall occurred!------------------------------------"
+                        )
 
                 except Exception as e:
                     print("Parse error:", e, "on line:", line)
-    oled.speed(voltage)
-    oled.show()
-
-   
