@@ -14,6 +14,8 @@ RST = 12
 MOSI = 11
 SCK = 10
 CS = 9
+keyA = Pin(15, Pin.IN, Pin.PULL_UP)
+keyB = Pin(17, Pin.IN, Pin.PULL_UP)
 
 # ---------------------- Main Program -----------------------
 
@@ -27,6 +29,7 @@ rpm = 0
 duty = 0  # NEW: init so it's always defined
 throttle = 0.0  # NEW: init so it's always defined
 buffer = ""
+mode = 0
 
 # Wheel parameters
 wheel_diameter_in = 16
@@ -91,7 +94,28 @@ while True:
                     #     f"Voltage: {voltage:.2f} V | Current: {current:.2f} A | RPM: {rpm} | Speed: {mph:.2f} Mph |"
                     #     f"Duty: {duty:.0f} | Throttle: {throttle:.1f} %"
                     # )
+
                     oled.draw_speed(throttle)
+
+                    if keyA.value == 0:
+                        mode += 1
+                        print("Forward switch")
+                    if keyB.value == 0:
+                        mode -= 1
+                        print("Backward switch")
+
+                    if mode < 0:
+                        mode = 3
+
+                    if mode > 2:
+                        mode = 0
+
+                    if mode == 0:
+                        oled.draw_speed(mph)
+                    if mode == 1:
+                        oled.draw_speed(time)
+                    if mode == 2:
+                        oled.draw_speed(voltage)
 
                     if throttle != 0 and rpm < 30:
                         print(
