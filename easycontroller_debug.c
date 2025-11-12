@@ -570,7 +570,7 @@ int main() {
                 printf("----------------------------ECO MODE ACTIVATED(----------------------------");
             }
             gpio_put(LED_PIN, !gpio_get(LED_PIN));  // Toggle the LED
-            rpm = (motorstate_counter * 10 * 60) / 23 / 6; //23 occurences of motorState 1 in 1 revolution 6 motor states
+            rpm = (motorstate_counter * 4 * 60) / 23 / 6; //23 occurences of motorState 1 in 1 revolution 6 motor states
             motorstate_counter = 0;
             check_serial_input_for_Phase_Current(); //Changes Phase current max based on serial inputs
 
@@ -580,7 +580,7 @@ int main() {
             snprintf(message, sizeof(message), "V=%3.2f, I=%3.2f, RPM=%4d, DUTY=%6d, THROTTLE=%3d\n", voltage_V, current_A, rpm, duty_cycle, throttle);
             //printf(message);
             uart_puts(UART_ID, message);
-            sleep_ms(100);
+            sleep_ms(250);
         }
     }
 
