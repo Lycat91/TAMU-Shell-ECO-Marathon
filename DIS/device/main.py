@@ -25,10 +25,11 @@ uart = UART(1, baudrate=115200, tx=Pin(4), rx=Pin(5))
 voltage = 0.0
 current = 0.0
 rpm = 0
-duty = 0  # NEW: init so it's always defined
-throttle = 0.0  # NEW: init so it's always defined
+duty = 0
+throttle = 0.0
 buffer = ""
 mode = 0
+distance = 0
 
 # Wheel parameters
 wheel_diameter_in = 16
@@ -87,13 +88,14 @@ while True:
 
                     power = voltage * current
                     mph = rpm * wheel_circumference_in * 60 / 63360.0
+                    distance += mph * sample_dt / 3600  # distance in miles
 
                     # print(
                     #     f"Time: {elapsed_time:.2f}s | delta t: {sample_dt:.2f}s | "
                     #     f"Voltage: {voltage:.2f} V | Current: {current:.2f} A | RPM: {rpm} | Speed: {mph:.2f} Mph |"
                     #     f"Duty: {duty:.0f} | Throttle: {throttle:.1f} %"
                     # )
-
+                    # Display switching logic
                     if keyA.value() == 0:
                         mode += 1
                         print("Forward switch")
@@ -101,18 +103,31 @@ while True:
                         mode -= 1
                         print("Backward switch")
 
+                    ##Time/Distance reset##
+                    if keyA.value() == 0 and keyB.value() == 0:
+                        start_time = time.ticks_ms()
+                        last_sample_time = time.ticks_ms()
+                        elapsed_time = 0
+                        distance = 0
+
                     if mode < 0:
                         mode = 3
 
-                    if mode > 2:
+                    if mode > 3:
                         mode = 0
 
                     if mode == 0:
-                        oled.draw_speed(mph,mode)
+                        oled.draw_speed(mph, mode)
+
                     if mode == 1:
-                        oled.draw_speed(elapsed_time,mode)
+                        oled.draw_speed(elapsed_time, mode)
+
                     if mode == 2:
-                        oled.draw_speed(voltage,mode)
+                        oled.draw_speed(voltage, mode)
+                    
+                    if mode == 3:
+                        oled.draw_speed(voltage, distance)
+
                     print("mode =", mode)
 
                 except Exception as e:

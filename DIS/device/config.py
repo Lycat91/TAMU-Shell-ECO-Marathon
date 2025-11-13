@@ -71,7 +71,7 @@ class OLED_1inch3(framebuf.FrameBuffer):
 
         # --- cache for small glyphs (digits only) ---
     def _digit_rows(self, ch):
-        """Return 8x8 bitmap rows for digits 0–9 (cached)."""
+        """Return 8x8 bitmap rows for digits 0-9 (cached)."""
         r = self._glyph_cache.get(ch)
         if r is not None:
             return r
@@ -115,6 +115,8 @@ class OLED_1inch3(framebuf.FrameBuffer):
             self.text("sec", 100, 54, 1)
         if mode == 2:
             self.text(" V ", 100, 54, 1)
+        if mode == 2:
+            self.text("Miles", 100, 54, 1)
 
 
         # format and clamp number
