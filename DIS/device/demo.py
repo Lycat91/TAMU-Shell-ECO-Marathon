@@ -135,7 +135,7 @@ if __name__=='__main__':
     OLED.show()
     time.sleep(0.01)
     OLED.line(0,0,20,64,OLED.white)
-                        OLED.show()
+    OLED.show()
     time.sleep(0.01)
     OLED.line(0,0,35,64,OLED.white)
     OLED.show()
