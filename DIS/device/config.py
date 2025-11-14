@@ -1,5 +1,7 @@
 from machine import Pin, SPI, UART
 import framebuf, time
+from writer import Writer
+from fonts import font_digits_large, font_digits_med, font_letters_large
 
 # ------- Pins -------
 DC, RST, MOSI, SCK, CS = 8, 12, 11, 10, 9
@@ -26,9 +28,6 @@ class OLED_1inch3(framebuf.FrameBuffer):
         self.dc = Pin(DC, Pin.OUT)
         self.cs(1)
 
-        self.cs(1)
-        # self.spi = SPI(1)
-        # self.spi = SPI(1,2000_000)
         self.spi = SPI(1,20000_000,polarity=0, phase=0,sck=Pin(SCK),mosi=Pin(MOSI),miso=None)
         self.dc = Pin(DC,Pin.OUT)
         self.dc(1)
@@ -36,9 +35,44 @@ class OLED_1inch3(framebuf.FrameBuffer):
         super().__init__(self.buffer, self.width, self.height, framebuf.MONO_HMSB)
         self.init_display()
 
-        self.buffer = bytearray(self.width * self.height // 8)
-        super().__init__(self.buffer, self.width, self.height, framebuf.MONO_HMSB)
-        self.init_display()
+        # --- Custom Font Writers ----
+        self.w_digits_large = Writer(self, font_digits_large, verbose = False)
+        self.w_digits_med = Writer(self, font_digits_med, verbose = False)
+        self.w_letters_big = Writer(self, font_letters_large, verbose = False)
+
+        # Large digits: no wrapping
+        self.w_digits_large.set_wrap(False)
+        # Medium digits: no wrapping
+        self.w_digits_med.set_wrap(False)
+
+        # ---- Precompute fixed slot positions for DD.D ----
+        digit_w = self.w_digits_large.stringlen("0")
+        x0 = 0
+        self._big_slot_x0   = x0                      # tens
+        self._big_slot_x1   = x0 + digit_w            # ones
+        self._big_slot_xdot = x0 + 2 * digit_w - 2        # '.'
+        self._big_slot_x2   = self._big_slot_xdot + 17  # tenths
+
+        # ---- Precompute fixed slot positions for MM:SS ----
+        dmed = self.w_digits_med.stringlen("0")
+        colon_w = self.w_digits_med.stringlen(":")
+        GAP_MED = 0   # tweak this if spacing looks weird
+
+        # layout: M M : S S with gaps
+        total_w_med = dmed * 4 + colon_w + GAP_MED * 4
+        x0m = -4
+
+        self._time_x_m10   = x0m
+        self._time_x_m1    = self._time_x_m10   + dmed - 4
+        self._time_x_colon = self._time_x_m1    + dmed - 4
+        self._time_x_s10   = self._time_x_colon + colon_w - 22
+        self._time_x_s1    = self._time_x_s10   + dmed - 4
+
+        # vertical center for the MM:SS display (you can tweak later)
+        self._time_y = 5
+
+        # Vertical positioning
+        self._big_slot_y = 0
 
     def write_cmd(self, cmd):
         self.cs(1); self.dc(0); self.cs(0)
@@ -101,16 +135,16 @@ class OLED_1inch3(framebuf.FrameBuffer):
         self.write_cmd(0XAF)
 
     def show(self):
-            self.write_cmd(0xB0)
-            for page in range(0, 64):
-                column = page if self.rotate == 180 else (63 - page)
-                self.write_cmd(0x00 + (column & 0x0F))
-                self.write_cmd(0x10 + (column >> 4))
-                # OPTIMIZATION: Slice the buffer and send 16 bytes at once
-                # instead of looping 16 times for 1 byte.
-                start_index = page * 16
-                end_index = start_index + 16
-                self.write_data(self.buffer[start_index:end_index])
+        self.write_cmd(0xB0)
+        for page in range(0, 64):
+            column = page if self.rotate == 180 else (63 - page)
+            self.write_cmd(0x00 + (column & 0x0F))
+            self.write_cmd(0x10 + (column >> 4))
+            # OPTIMIZATION: Slice the buffer and send 16 bytes at once
+            # instead of looping 16 times for 1 byte.
+            start_index = page * 16
+            end_index = start_index + 16
+            self.write_data(self.buffer[start_index:end_index])
 
         # --- cache for small glyphs (digits only) ---
     def _digit_rows(self, ch):
@@ -167,7 +201,7 @@ class OLED_1inch3(framebuf.FrameBuffer):
             # draw decimal dot
             self.fill_rect(86, 42, 5, 5, 1)
         if mode == 4:
-            self.text(" Miles ", 100, 54, 1)
+            self.text(" Miles ", 75, 54, 1)
             # draw decimal dot
             self.fill_rect(0, 42, 5, 5, 1)
 
@@ -196,5 +230,118 @@ class OLED_1inch3(framebuf.FrameBuffer):
         self._draw_scaled_char(d1, 0,  y_offset, scale)
         self._draw_scaled_char(d2, 41, y_offset, scale)
         self._draw_scaled_char(d3, 87, y_offset, scale)
+
+        self.show()
+
+    def draw_large_num(self, num, label):
+        """
+        Draw speed as fixed DD.D using precomputed slots.
+        """
+
+        # Clamp range
+        if num < 0:
+            num = 0.0
+        if num > 99.9:
+            num = 99.9
+
+        # Avoid rounding 9.95 -> 10.0 and jumping weirdly
+        v = num
+
+        # Integer part and tenths
+        int_part = int(v)              # 0..99
+        tenths   = int((v * 10) % 10)  # 0..9
+
+        ones = int_part % 10
+        if int_part >= 10:
+            tens = int_part // 10
+            show_tens = True
+        else:
+            tens = 0      # value won't be used when show_tens is False
+            show_tens = False
+
+        self.fill(0)
+        y = self._big_slot_y
+
+        self.w_digits_large.set_wrap(False)
+
+        # Tens digit (only if >= 10.0)
+        if show_tens:
+            self.w_digits_large.set_textpos(self._big_slot_x0, y)
+            self.w_digits_large.printstring(str(tens))
+        # else: leave that slot blank (screen already cleared)
+
+        # Ones digit
+        self.w_digits_large.set_textpos(self._big_slot_x1, y)
+        self.w_digits_large.printstring(str(ones))
+
+        # Decimal point
+        self.w_digits_large.set_textpos(self._big_slot_xdot, y)
+        self.w_digits_large.printstring(".")
+
+        # Tenths digit
+        self.w_digits_large.set_textpos(self._big_slot_x2, y)
+        self.w_digits_large.printstring(str(tenths))
+
+        #Draw the label in
+        label_x = self.width - len(label) * 8
+        label_y = self.height - 8
+        self.text(label, label_x, label_y, 1)
+
+        self.show()
+
+    def draw_time(self, seconds, label):
+        """
+        Draw elapsed time as MM:SS using the medium digit font.
+        - Always shows leading zeros (00:05, 01:23, 10:00, etc).
+        - Digits and colon use fixed screen positions.
+        """
+
+        if seconds < 0:
+            seconds = 0
+
+        total = int(seconds)
+
+        # Clamp to 99:59 max
+        max_total = 99 * 60 + 59
+        if total > max_total:
+            total = max_total
+
+        mins = total // 60          # 0..99
+        secs = total % 60           # 0..59
+
+        m10  = mins // 10
+        m1   = mins % 10
+        s10  = secs // 10
+        s1   = secs % 10
+
+        self.fill(0)
+
+        y = self._time_y
+        self.w_digits_med.set_wrap(False)
+
+        # Minutes tens
+        self.w_digits_med.set_textpos(self._time_x_m10, y)
+        self.w_digits_med.printstring(str(m10))
+
+        # Minutes ones
+        self.w_digits_med.set_textpos(self._time_x_m1, y)
+        self.w_digits_med.printstring(str(m1))
+
+        # Colon
+        self.w_digits_med.set_textpos(self._time_x_colon, y-7)
+        self.w_digits_med.printstring(":")
+
+        # Seconds tens
+        self.w_digits_med.set_textpos(self._time_x_s10, y)
+        self.w_digits_med.printstring(str(s10))
+
+        # Seconds ones
+        self.w_digits_med.set_textpos(self._time_x_s1, y)
+        self.w_digits_med.printstring(str(s1))
+
+        #Draw the label in
+        label_x = self.width - len(label) * 8
+        label_y = self.height - 8
+        self.text(label, label_x, label_y, 1)
 
         self.show()

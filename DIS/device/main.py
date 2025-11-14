@@ -35,7 +35,7 @@ uart = UART(1, baudrate=115200, tx=Pin(4), rx=Pin(5))
 # Live values
 voltage = 0.0
 current = 0.0
-rpm = 0
+rpm = 5
 duty = 0
 throttle = 0.0
 buffer = ""
@@ -177,15 +177,17 @@ while True:
 
     # --------- DISPLAY (always runs) ------------------
     if mode == 0:
-        oled.draw_speed(mph, mode)
+        oled.draw_large_num(mph, "MPH")
     if mode == 1:
-        oled.draw_speed(elapsed_time, mode)
+        oled.draw_time(elapsed_time, "ELAPSED")
     if mode == 2:
-        oled.draw_speed(current, mode)
+        oled.draw_large_num(current, "AMPS")
     if mode == 3:
-        oled.draw_speed(voltage, mode)
+
+        oled.draw_large_num(voltage, "VOLTS")
     if mode == 4:
         oled.draw_speed(distance, mode)
+
 
     # print(
     #     f"Time: {elapsed_time:.2f}s | delta t: {sample_dt:.2f}s | "
