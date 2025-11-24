@@ -86,10 +86,11 @@ while True:
                     if line[0] == "s":
                         # print([line[0]])
                         voltage = float(line[1:4])/10
-                        current = float(line[4:10])/100
-                        rpm = int(line[11:13])
+                        current = float(line[4:10])/1000
+                        rpm = int(line[10:13])
                         duty = int(line[13:16])
                         throttle = int(line[16:])
+                        print(line, voltage, current, rpm, duty, throttle)
                         
                 except Exception as e:
                     print("Parse error:", e, "on line:", line)
@@ -166,17 +167,17 @@ while True:
         oled.draw_large_num(target_mph, "TARGET MPH")
 
 
-    # Fluctuations around the target speed for debug purposes
-    if below:
-        if mph < target_mph + 5:
-            rpm += 1
-        else:
-            below = False
-    if not below:
-        if mph > target_mph - 5:
-            rpm -= 1
-        else:
-            below = True
+    # # Fluctuations around the target speed for debug purposes
+    # if below:
+    #     if mph < target_mph + 5:
+    #         rpm += 1
+    #     else:
+    #         below = False
+    # if not below:
+    #     if mph > target_mph - 5:
+    #         rpm -= 1
+    #     else:
+    #         below = True
 
 
 
