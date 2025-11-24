@@ -165,9 +165,6 @@ while True:
     if screen == 5:
         oled.draw_large_num(target_mph, "TARGET MPH")
 
-    # --------- Status Icons --------------------------
-    timer_state = "running" if timer_running else ("paused" if timer_elapsed_ms > 0 else "stopped")
-    oled.draw_status(uart_blink, timer_state)
 
     # Fluctuations around the target speed for debug purposes
     if below:

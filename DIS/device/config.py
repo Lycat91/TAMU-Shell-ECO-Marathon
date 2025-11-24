@@ -165,7 +165,6 @@ class OLED_1inch3(framebuf.FrameBuffer):
         self.invert_buffer()
         self.show()
 
-
     def draw_demo_distance(self, distance):
         """Draw distance that caps at out .999 for demo purposes only"""
         # Turn into integer in thousands, clamp, then peel off digits n1, n2, n3
