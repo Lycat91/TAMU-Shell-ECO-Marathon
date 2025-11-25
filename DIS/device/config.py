@@ -209,7 +209,7 @@ class OLED_1inch3(framebuf.FrameBuffer):
 
         self.show()
         
-    def draw_large_num(self, num, label, uart_blink, timer_state, invert=False):
+    def draw_large_num(self, num, label, uart_blink, timer_state, invert=False, eco=False):
         """
         Draw speed as fixed DD.D using precomputed slots.
         Set invert=True to flip colors before showing.
@@ -266,6 +266,13 @@ class OLED_1inch3(framebuf.FrameBuffer):
 
         # Draw the status bar
         self.draw_status(uart_blink, timer_state)
+
+        # Draw the eco mode line
+        if eco:
+            self.line(0, self.height - 12, self.width, self.height - 12, 1)
+
+        
+
 
         if invert:
             self.invert_buffer()

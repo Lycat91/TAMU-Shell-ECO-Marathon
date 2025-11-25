@@ -38,6 +38,12 @@ timer_elapsed_ms = 0
 timer_start_ms = time.ticks_ms()
 target_mph = 0.0
 uart_blink = False
+eco = False
+last_print_ticks = time.ticks_ms() #Demo for time and distance reamining 
+timer_start_ticks = 0
+
+
+
 
 # Race targets
 RACE_DISTANCE_MI = 1
@@ -91,9 +97,8 @@ while True:
                         rpm = int(line[10:13])
                         duty = int(line[13:16])
                         throttle = int(line[16:19])
-                        eco = int(line[19:])
-                        if eco:
-                            print(current, eco)
+                        eco = bool(int(line[19:]))
+    
                         
                 except Exception as e:
                     print("Parse error:", e, "on line:", line)
@@ -160,7 +165,7 @@ while True:
 
     if screen == 0:
         invert_speed = target_mph > 0 and mph < target_mph
-        oled.draw_large_num(mph, "MPH", uart_blink, timer_state, invert=invert_speed)
+        oled.draw_large_num(mph, "MPH", uart_blink, timer_state, invert=invert_speed, eco=eco)
     if screen == 1:
         oled.draw_time(elapsed_time, "ELAPSED", uart_blink, timer_state)
     if screen == 2:
@@ -171,6 +176,17 @@ while True:
         oled.draw_demo_distance(distance)
     if screen == 5:
         oled.draw_large_num(target_mph, "TARGET MPH", uart_blink, timer_state)
+    # Demo for time and distance remaining
+    if timer_running:
+        now = time.ticks_ms()
+        elapsed_time = time.ticks_diff(now, timer_start_ticks) / 1000  # seconds
+        
+        if elapsed_time > 0:   # timer actually running
+            if time.ticks_diff(now, last_print_ticks) >= 1000:
+                last_print_ticks = now
+                print(f"Time remaining: {remaining_time_sec:.0f}  Distance remaining: {remaining_distance:.3f}")
+
+
 
 
     # # Fluctuations around the target speed for debug purposes
