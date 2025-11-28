@@ -536,6 +536,7 @@ int main() {
     int signal = 's';
     int duty_cycle_norm = 0;
     int throttle_norm = 0;
+    int eco;
     printf("Select mode of operation");
     printf("Current control: 0     Open loop commutate: 1     Open loop comutate serial command pwm: 2");
     //mode=getchar();
@@ -580,8 +581,15 @@ int main() {
             duty_cycle_norm = duty_cycle*100/DUTY_CYCLE_MAX;
             throttle_norm = throttle*100/255;
             int UARTvoltage_mv=voltage_mv/100;
+            if (throttle_norm >= 90){
+                eco = 1;
+            }
+            else
+            { 
+                eco = 0;
+            }
             // Send over UART1 to the other Pico
-            snprintf(message, sizeof(message), "%c%03d%06d%03d%03d%03d\n", signal, UARTvoltage_mv, current_ma, rpm, duty_cycle_norm, throttle_norm);
+            snprintf(message, sizeof(message), "%c%03d%06d%03d%03d%03d%1d\n", signal, UARTvoltage_mv, current_ma, rpm, duty_cycle_norm, throttle_norm,eco);
             printf("%3d\n",rpm);
             printf("%6d\n",current_ma);
             printf(message);
