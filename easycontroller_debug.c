@@ -627,5 +627,5 @@ Notes for next testing session
 
 Test rpm with new time sampling function adjust occurences if needed
 
-Test smoothed current reading and implement into target current if data is improved
+Test smoothed current reading and implement into target current if data is improved,/
 */
