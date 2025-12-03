@@ -106,6 +106,9 @@ int prev_motorstate = 0;
 int rpm = 0;
 float rpm_time_start=0;
 float rpm_time_end = 0;
+int current_smoothing_counter = 0;
+int current_ma_smoothing = 0;
+int current_ma_smoothed = 0;
 
 
 
@@ -163,6 +166,12 @@ void on_adc_fifo() {
 
 
     current_ma = (adc_isense - adc_bias) * CURRENT_SCALING;     // Since the current sensor is bidirectional, subtract the zero-current value and scale
+    current_smoothing_counter+=1;
+    current_ma_smoothing += current_ma;
+    if (current_smoothing_counter = 10){
+        current_ma_smoothed=current_ma_smoothing/10; //adjust sample size for more drastic smoothing
+    }
+
     voltage_mv = adc_vsense * VOLTAGE_SCALING;  // Calculate the bus voltage
 
     if(CURRENT_CONTROL) {
@@ -580,7 +589,7 @@ int main() {
             //float current_A = (float)current_ma/1000;
             //float current_TargetA = (float)current_target_ma / 1000.0;
             //float voltage_V = (float)voltage_mv / 1000.0;
-            //printf("%6.2d, %6.2f, %6d, %6.2d, %6d, %3d, %2d\n", current_ma, current_TargetA, duty_cycle, voltage_mv, duty_cycle, throttle, rpm);
+            //printf("%6.2d, %6.2f, %6d, %6.2d, %6d, %3d, %2d\n", current_ma_smoothed, current_TargetA, duty_cycle, voltage_mv, duty_cycle, throttle, rpm);
             if(current_target_ma == ECO_CURRENT_ma){
                 printf("----------------------------ECO MODE ACTIVATED(----------------------------");
             }
@@ -599,7 +608,7 @@ int main() {
                 eco = 0;
             }
 
-            snprintf(message, sizeof(message), "%c%03d%06d%03d%03d%03d%1d\n", signal, UARTvoltage_mv, current_ma, rpm, duty_cycle_norm, throttle_norm,eco);
+            snprintf(message, sizeof(message), "%c%03d%06d%03d%03d%03d%1d\n", signal, UARTvoltage_mv, current_ma_smoothed, rpm, duty_cycle_norm, throttle_norm,eco);
             printf("%3d\n",rpm);
             printf("%6d\n",current_ma);
             printf(message);
@@ -610,3 +619,13 @@ int main() {
 
     return 0;
 }
+
+
+
+/*
+Notes for next testing session
+
+Test rpm with new time sampling function adjust occurences if needed
+
+Test smoothed current reading and implement into target current if data is improved
+*/
