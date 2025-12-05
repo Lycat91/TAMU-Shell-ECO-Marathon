@@ -203,11 +203,11 @@ void on_adc_fifo() {
             current_target_ma=ECO_CURRENT_ma;
         }
         //////////////////////////Smart Cruise//////////////////////////
-        if (smart_cruise && (current_target_ma)){
+        if (smart_cruise && (current_target_ma<PHASE_MAX_CURRENT_MA+250)){
             current_target_ma = prev_current_target_ma;
         }
-        current_target_ma = MAX(0, MIN(current_target_ma, MIN(PHASE_MAX_CURRENT_MA, battery_current_limit_ma)));
-        
+
+        current_target_ma = MIN(current_target_ma, PHASE_MAX_CURRENT_MA);
         duty_cycle += (current_target_ma - current_ma) / CURRENT_CONTROL_LOOP_GAIN;  // Perform a simple integral controller to adjust the duty cycle
         duty_cycle = MAX(0, MIN(DUTY_CYCLE_MAX, duty_cycle));   // Clamp the duty cycle
         
@@ -654,9 +654,9 @@ int main() {
             cruise_counter+=1; //delay increment
             if (smart_cruise == true && cruise_counter == 3){ //checking if current speed within error of target and if weve waited long enough to detect a change
                 if (rpm*rpmtomph > (target_speed - cruise_error) && speed < (target_speed + cruise_error)){
-                    continue; // Speed is within target range - no adjustment needed
+                    // Speed is within target range - no adjustment needed
                 }
-                else if (speed < (target_speed - cruise_error) && current_target_ma < PHASE_MAX_CURRENT_MA){ // checking if speed below target and that we arent above max current
+                else if (speed < (target_speed - cruise_error)){ // checking if speed below target
                     current_target_ma +=cruise_increment;//increase target current (aka increase speed)
                 }
                 else if (speed > (target_speed+cruise_error)){ // checking if speed above target 
@@ -664,7 +664,6 @@ int main() {
                 }
                 cruise_counter=0;
                 printf("Smart_cruise activated");
-                printf("Current Target mA: %6d\n", current_target_ma);
             }
             //Smart cruise
         }

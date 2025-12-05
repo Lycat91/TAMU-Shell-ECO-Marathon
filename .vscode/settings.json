@@ -14,5 +14,7 @@
     ],
     "micropico.syncFolder": "DIS/device",
     "micropico.syncFileTypes": "py,txt,json,mpy",
-    "micropico.pyIgnore": ""
+    "micropico.pyIgnore": "",
+    "cmake.sourceDirectory": "C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/Motor_Code",
+    "chatgpt.commentCodeLensEnabled": false
 }
