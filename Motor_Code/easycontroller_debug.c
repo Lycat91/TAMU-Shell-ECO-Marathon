@@ -177,7 +177,7 @@ void on_adc_fifo() {
 
 
     current_ma = (adc_isense - adc_bias) * CURRENT_SCALING;     // Since the current sensor is bidirectional, subtract the zero-current value and scale
-    current_ma_smoothed = (current_ma + (9 * current_ma_smoothed)) / 10;
+    current_ma_smoothed = (current_ma + (199 * current_ma_smoothed)) / 200;
 
     voltage_mv = adc_vsense * VOLTAGE_SCALING;  // Calculate the bus voltage
 
@@ -649,12 +649,12 @@ int main() {
 
 
             //Smart cruise
-            if (throttle_norm > 90){
-                smart_cruise = true;
-            }
-            else {
-                smart_cruise = false;
-            }
+            // if (throttle_norm > 90){
+            //     smart_cruise = true;
+            // }
+            // else {
+            //     smart_cruise = false;
+            // }
 
             if (smart_cruise == true){ //checking if current speed within error of target and if weve waited long enough to detect a change
                 if (rpm*rpmtomph > (target_speed - cruise_error) && speed < (target_speed + cruise_error)){
@@ -668,12 +668,13 @@ int main() {
                 }
             }
             //Smart cruise
-        printf("rpm:%6f | mph:%6.2f | smoothed_ma:%6d | current_ma:%6d | target_ma:%6d | throttle_norm:%3d%% | throttle_raw:%3d | duty_norm:%3d%% | motor_state:%d\n",
+        printf("rpm:%6f | mph:%6.2f | smoothed_ma:%6d | current_ma:%6d | target_ma:%6d | battery_ma:%6d | throttle_norm:%3d%% | throttle_raw:%3d | duty_norm:%3d%% | motor_state:%d\n",
        rpm,
        rpm * rpmtomph,
        current_ma_smoothed,
        current_ma,
        current_target_ma,
+       battery_current_ma,
        throttle_norm,
        throttle,
        duty_cycle_norm,
@@ -697,4 +698,6 @@ set up scaling factor
 
 Tune smart cruise see if it works 
 integrate time and and in the interrupt
+
+Add correction factor of .6 to current reading to match meter reading
 */
