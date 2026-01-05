@@ -88,17 +88,17 @@ while True:
 
                 try:
                     # Determine type of message based on identifying char
+                    parts = line.split(',')
+                    # If Status message ('s'), parse the delimited values
+                    if parts[0] == "s" and len(parts) >= 7:
+                        # s,voltage*10,current*1000,rpm,duty,throttle,eco
+                        voltage = float(parts[1]) / 10.0
+                        current = float(parts[2]) / 1000.0
+                        rpm = int(parts[3])
+                        duty = int(parts[4])
+                        throttle = int(parts[5])
+                        eco = bool(int(parts[6]))
 
-                    # If Status message, parse the message
-                    if line[0] == "s":
-                        # print([line[0]])
-                        voltage = float(line[1:4])/10
-                        current = float(line[4:10])/1000
-                        rpm = int(line[10:13])
-                        duty = int(line[13:16])
-                        throttle = int(line[16:19])
-                        eco = bool(int(line[19:]))
-    
                         
                 except Exception as e:
                     print("Parse error:", e, "on line:", line)
@@ -200,7 +200,3 @@ while True:
     #         rpm -= 1
     #     else:
     #         below = True
-
-
-
-
