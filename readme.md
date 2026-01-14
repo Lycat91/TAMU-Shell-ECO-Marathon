@@ -64,13 +64,12 @@ This software plays a critical role in achieving competitive efficiency by tight
 
 ## Team
 
-Senior Electrical Engineering Students  
-**Texas A&M University**  
-- Lucas Ybarra
-- Alfredo Rivas Vazquez
-- Alejandro Cantu
-- James DePoy
-- Shell Eco-Marathon 2025–2026
+**Texas A&M University** Shell Eco-Marathon 2025–2026
+Senior Electrical Engineering Students:  
+Lucas Ybarra
+Alfredo Rivas Vazquez
+Alejandro Cantu
+James DePoy
 
 
 
