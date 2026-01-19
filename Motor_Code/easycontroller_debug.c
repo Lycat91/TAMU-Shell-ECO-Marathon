@@ -213,6 +213,14 @@ void on_adc_fifo() {
         //////////////////////////Smart Cruise//////////////////////////
         if (adc_throttle > 2000){
             current_target_ma = prev_current_target_ma;
+            smart_cruise = true;
+        }
+        else {
+            smart_cruise = false;
+        }
+
+        if (smart_cruise){
+
         }
 
         current_target_ma = MIN(current_target_ma, battery_current_limit_ma);
@@ -647,7 +655,6 @@ int main() {
             uart_puts(UART_ID, message);
             sleep_ms(250);
 
-
             //Smart cruise
             // if (throttle_norm > 90){
             //     smart_cruise = true;
@@ -655,8 +662,9 @@ int main() {
             // else {
             //     smart_cruise = false;
             // }
+    
 
-            if (smart_cruise == true){ //checking if current speed within error of target and if weve waited long enough to detect a change
+            if (smart_cruise == true){ //checking if current speed within error of target and if we've waited long enough to detect a change
                 if (rpm*rpmtomph > (target_speed - cruise_error) && speed < (target_speed + cruise_error)){
                     continue; // Speed is within target range - no adjustment needed
                 }
@@ -690,14 +698,11 @@ int main() {
 /*
 Notes for next testing session
 
-Test rpm with new time sampling function adjust occurences if needed
-RPM gets stuck when motor state = 0
-
 Test smoothed current reading and implement into target current if data is improved
-set up scaling factor 
+set up scaling factor
+Add correction factor of .6 to current reading to match meter reading 
 
 Tune smart cruise see if it works 
 integrate time and and in the interrupt
 
-Add correction factor of .6 to current reading to match meter reading
 */
