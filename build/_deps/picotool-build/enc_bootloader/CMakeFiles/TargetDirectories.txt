@@ -1,2 +1,0 @@
-C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/build/_deps/picotool-build/enc_bootloader/CMakeFiles/edit_cache.dir
-C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/build/_deps/picotool-build/enc_bootloader/CMakeFiles/rebuild_cache.dir
