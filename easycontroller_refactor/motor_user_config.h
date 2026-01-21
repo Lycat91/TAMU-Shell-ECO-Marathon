@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 // -----------------------------------------------------------------------------
-// User-configurable settings (keep values/meaning identical to original)
+// User-configurable settings
 // -----------------------------------------------------------------------------
 
 extern const bool IDENTIFY_HALLS_ON_BOOT;   // If true, controller will initialize the hall table by slowly spinning the motor

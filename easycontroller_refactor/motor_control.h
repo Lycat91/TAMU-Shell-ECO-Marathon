@@ -18,7 +18,5 @@ void identify_halls(void);
 void commutate_open_loop(void);
 void commutate_open_loop_Computer_Control(void);
 
-// Serial helpers (used by debug modes)
-void check_serial_input(void);
-void check_serial_input_for_Phase_Current(void);
-void wait_for_serial_command(const char *message);
+
+

@@ -36,3 +36,14 @@ extern bool smart_cruise;
 extern int battery_current_ma;
 extern int prev_current_target_ma;
 extern absolute_time_t time_since_last_movement;
+extern uint32_t motor_ticks;
+
+// Serial helpers (used by debug modes)
+void check_serial_input(void);
+void check_serial_input_for_Phase_Current(void);
+void wait_for_serial_command(const char *message);
+void increment_motor_ticks();
+uint32_t get_motor_ticks();
+void reset_motor_ticks();
+void start_motor_ticks();
+void stop_motor_ticks();
