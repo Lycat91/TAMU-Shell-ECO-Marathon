@@ -51,6 +51,7 @@ void on_adc_fifo(void) {
     if (motorState != prev_motorstate) {
         time_since_last_movement = get_absolute_time();
         motorstate_counter += 1;
+        increment_motor_ticks();
     }
 
     if (motorstate_counter >= 10) {
@@ -115,7 +116,8 @@ void on_adc_fifo(void) {
         duty_cycle += (current_target_ma - current_ma) / CURRENT_CONTROL_LOOP_GAIN;  // Simple integral controller
         duty_cycle = MAX(0, MIN(DUTY_CYCLE_MAX, duty_cycle));                        // Clamp
 
-        battery_current_ma = (int)(((long long)current_ma_smoothed * duty_cycle) / DUTY_CYCLE_MAX);
+        battery_current_ma = (int)(((long long)current_ma_smoothed * duty_cycle * 6) / (DUTY_CYCLE_MAX * 10));
+;
 
         //////////////////////// Launch Function ///////////////////////////
         if (rpm < 30 && throttle != 0) {

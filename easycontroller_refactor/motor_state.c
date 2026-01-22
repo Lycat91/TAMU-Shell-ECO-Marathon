@@ -1,5 +1,7 @@
 #include "motor_state.h"
 #include "motor_user_config.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 int adc_isense = 0;
 int adc_vsense = 0;

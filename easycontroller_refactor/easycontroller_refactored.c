@@ -10,40 +10,8 @@
 #include "motor_state.h"
 #include "motor_hw.h"
 #include "motor_control.h"
+#include "UART.h"
 
-// UART COMs
-#define UART_ID   uart1
-#define TX_PIN    4
-#define RX_PIN    5
-#define BAUD_RATE 115200
-
-static void send_telemetry_uart(void) {
-    char message[64];
-    int duty_cycle_norm = duty_cycle * 100 / DUTY_CYCLE_MAX;
-    int throttle_norm = throttle * 100 / 255;
-    int speed = (int)(rpm * rpmtomph);
-    int UARTvoltage_mv = voltage_mv / 100;
-
-    int eco;
-    if (throttle_norm >= 90) {
-        eco = 1;
-    } else {
-        eco = 0;
-    }
-
-    int signal = 's';
-
-    snprintf(message, sizeof(message), "%c%03d%06d%03d%03d%03d%1d\n",
-             signal,
-             UARTvoltage_mv,
-             battery_current_ma,
-             (int)rpm,
-             duty_cycle_norm,
-             throttle_norm,
-             eco);
-
-    uart_puts(UART_ID, message);
-}
 
 int main(void) {
     printf("Hello from Pico!\n");
@@ -92,8 +60,9 @@ int main(void) {
             }
         }
 
+
         printf(
-            "rpm:%6f | mph:%6.2f | smoothed_ma:%6d | current_ma:%6d | target_ma:%6d | battery_ma:%6d | throttle_norm:%3d%% | throttle_raw:%3d | duty_norm:%3d%% | motor_state:%d\n",
+            "rpm:%6f | mph:%6.2f | smoothed_ma:%6d | current_ma:%6d | target_ma:%6d | battery_ma:%6d | throttle_norm:%3d%% | throttle_raw:%3d | duty_norm:%3d%% | motor_state:%d | motor_ticks:%9d\n",
             rpm,
             rpm * rpmtomph,
             current_ma_smoothed,
@@ -103,7 +72,8 @@ int main(void) {
             throttle * 100 / 255,
             throttle,
             duty_cycle * 100 / DUTY_CYCLE_MAX,
-            motorState);
+            motorState,
+            motor_ticks);
     }
 
     return 0;

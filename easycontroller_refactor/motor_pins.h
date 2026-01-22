@@ -3,7 +3,7 @@
 #include "pico/stdlib.h"
 
 // -----------------------------------------------------------------------------
-// Pinout & low-level constants (unchanged)
+// Pinout & low-level constants & UART definitions
 // -----------------------------------------------------------------------------
 
 extern const uint LED_PIN;
@@ -34,3 +34,9 @@ extern const int DUTY_CYCLE_MAX;
 extern const int CURRENT_SCALING;
 extern const int VOLTAGE_SCALING;
 extern const int ADC_BIAS_OVERSAMPLE;
+
+// UART COMs
+#define UART_ID   uart1
+#define TX_PIN    4
+#define RX_PIN    5
+#define BAUD_RATE 115200
