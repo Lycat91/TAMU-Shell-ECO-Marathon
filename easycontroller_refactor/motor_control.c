@@ -110,7 +110,7 @@ void on_adc_fifo(void) {
         if (smart_cruise) {
             // placeholder (kept as-is)
         }
-
+ 
         current_target_ma = MIN(current_target_ma, battery_current_limit_ma);
 
         duty_cycle += (current_target_ma - current_ma) / CURRENT_CONTROL_LOOP_GAIN;  // Simple integral controller
