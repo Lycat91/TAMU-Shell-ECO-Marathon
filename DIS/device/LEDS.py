@@ -56,7 +56,11 @@ def dot_position(current_speed, target_speed):
         np[7] = COL_GREEN
     else:
         # Write the dot and show the strip
-        np[dot_position] = (0, 255, 0)
+        if diff > 0:
+            np[dot_position] = (0, 0, 255)
+        else:
+            np[dot_position] = (255, 0, 0)
+
     np.write()
 
 
@@ -66,16 +70,16 @@ while True:
     ################# Manual input mode
     current_speed = float(input("Current speed: "))
 
-    # ################### Auto scrolling
-    # if reverse:
-    #     current_speed -= 0.1
-    #     if current_speed <= 8:
-    #         reverse = False
-    # else:
-    #     current_speed += 0.1
-    #     if current_speed >= 26:
-    #         reverse = True
-    # print("Current speed: ", current_speed)
-    # utime.sleep(0.1)
+    ################### Auto scrolling
+    if reverse:
+        current_speed -= 0.1
+        if current_speed <= 13:
+            reverse = False
+    else:
+        current_speed += 0.1
+        if current_speed >= 19:
+            reverse = True
+    print("Current speed: ", current_speed)
+    utime.sleep(0.05)
 
     dot_position(current_speed, target_speed)
