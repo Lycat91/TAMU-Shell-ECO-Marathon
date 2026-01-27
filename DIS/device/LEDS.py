@@ -5,6 +5,8 @@ np = neopixel.NeoPixel(machine.Pin(16), NUM_LEDS)
 CENTER_LEDS = [6, 7]
 COL_WHITE = (10, 10, 10)
 COL_GREEN = (0, 255, 0)
+COL_RED = (255, 0, 0)
+COL_PURPLE = (255, 0, 255)
 FINE_DEVIATION = 3
 COARSE_DEVIATION = 12
 CENTER_DEVIATION = 0.5
@@ -61,19 +63,19 @@ def dot_position(current_speed, target_speed):
 # Testing the indicator
 while True:
 
-    ################## Manual input mode
-    # current_speed = float(input("Current speed: "))
+    ################# Manual input mode
+    current_speed = float(input("Current speed: "))
 
-    ################### Auto scrolling
-    if reverse:
-        current_speed -= 0.1
-        if current_speed <= 8:
-            reverse = False
-    else:
-        current_speed += 0.1
-        if current_speed >= 26:
-            reverse = True
-    print("Current speed: ", current_speed)
-    utime.sleep(0.1)
+    # ################### Auto scrolling
+    # if reverse:
+    #     current_speed -= 0.1
+    #     if current_speed <= 8:
+    #         reverse = False
+    # else:
+    #     current_speed += 0.1
+    #     if current_speed >= 26:
+    #         reverse = True
+    # print("Current speed: ", current_speed)
+    # utime.sleep(0.1)
 
     dot_position(current_speed, target_speed)
