@@ -1,5 +1,5 @@
 # ninja log v7
-53	77	7906634754638852	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/CMakeFiles/cmake.verify_globs	89d5e9d6fb6e1386
+49	90	7912452105245411	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/CMakeFiles/cmake.verify_globs	89d5e9d6fb6e1386
 106	206	7906623181882881	picotool/src/picotoolBuild-stamp/picotoolBuild-mkdir	71b5df0a66a2ce8e
 106	206	7906623181882881	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/picotool/src/picotoolBuild-stamp/picotoolBuild-mkdir	71b5df0a66a2ce8e
 217	300	7906623182801840	picotool/src/picotoolBuild-stamp/picotoolBuild-download	5cd9ed74522bddd3
@@ -8,15 +8,15 @@
 300	386	7906623183655788	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/picotool/src/picotoolBuild-stamp/picotoolBuild-update	6a63976b6be5d274
 387	466	7906623184474421	picotool/src/picotoolBuild-stamp/picotoolBuild-patch	d59f1327c12a48df
 387	466	7906623184474421	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/picotool/src/picotoolBuild-stamp/picotoolBuild-patch	d59f1327c12a48df
-61	636	7906623180452847	pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default.dir/compile_time_choice.S.obj	87092aaa1ad1a5f8
-638	1076	7906623190535571	pico-sdk/src/rp2040/boot_stage2/bs2_default.elf	886e73512e2289de
-638	1076	7906623190535571	pico-sdk/src/rp2040/boot_stage2/bs2_default.dis	886e73512e2289de
-638	1076	7906623190535571	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/boot_stage2/bs2_default.dis	886e73512e2289de
-1077	1250	7906623192350902	pico-sdk/src/rp2040/boot_stage2/bs2_default.bin	a4d13b3e56172a61
-1077	1250	7906623192350902	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/boot_stage2/bs2_default.bin	a4d13b3e56172a61
-1251	1458	7906623194338423	pico-sdk/src/rp2040/boot_stage2/bs2_default_padded_checksummed.S	e1e9d9c0a21df0db
-1251	1458	7906623194338423	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/boot_stage2/bs2_default_padded_checksummed.S	e1e9d9c0a21df0db
-1458	1565	7906623194459058	pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default_library.dir/bs2_default_padded_checksummed.S.obj	fc5b85262c7be50f
+144	375	7907589145164005	pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default.dir/compile_time_choice.S.obj	b9ffd85d9f9f023e
+376	687	7907589150581572	pico-sdk/src/rp2040/boot_stage2/bs2_default.elf	4b3229e3b79758af
+376	687	7907589150581572	pico-sdk/src/rp2040/boot_stage2/bs2_default.dis	4b3229e3b79758af
+376	687	7907589150581572	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/boot_stage2/bs2_default.dis	4b3229e3b79758af
+687	733	7907589150987484	pico-sdk/src/rp2040/boot_stage2/bs2_default.bin	a4d13b3e56172a61
+687	733	7907589150987484	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/boot_stage2/bs2_default.bin	a4d13b3e56172a61
+733	1114	7907589154788842	pico-sdk/src/rp2040/boot_stage2/bs2_default_padded_checksummed.S	e1e9d9c0a21df0db
+733	1114	7907589154788842	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/boot_stage2/bs2_default_padded_checksummed.S	e1e9d9c0a21df0db
+149	255	7907590249386900	pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default_library.dir/bs2_default_padded_checksummed.S.obj	2a4d1765aa8b6e5d
 468	6982	7906623249645233	picotool/src/picotoolBuild-stamp/picotoolBuild-configure	189e42236946970e
 468	6982	7906623249645233	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/picotool/src/picotoolBuild-stamp/picotoolBuild-configure	189e42236946970e
 35194	35734	7906623537109013	picotool/src/picotoolBuild-stamp/picotoolBuild-test	8d52c85235c7ef3a
@@ -202,105 +202,105 @@
 40478	40959	7906623584693431	CMakeFiles/easycontroller_debug.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/tusb.c.obj	18819d94f7ce988
 39800	40984	7906623577877101	CMakeFiles/easycontroller_debug.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/device/usbd.c.obj	b858b448d50a992d
 40493	41075	7906623584819360	CMakeFiles/easycontroller_debug.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj	3cad7db3ed9f01ad
-121	1329	7907579161618757	build.ninja	53ca64827064bc08
-121	1329	7907579160078011	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160078011	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160078011	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/tools/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160129640	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160157882	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/boot_picobin_headers/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160167873	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/boot_picoboot_headers/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160187866	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/boot_uf2_headers/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160197864	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_base_headers/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160207907	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_usb_reset_interface_headers/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160227904	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_bit_ops_headers/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160237912	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_binary_info/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160247905	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_divider_headers/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160267905	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_sync/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160277904	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_time/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160287906	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_util/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160297906	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_stdlib_headers/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160317911	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/hardware_claim/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160327905	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/pico_platform/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160337907	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/hardware_regs/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160352942	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/hardware_structs/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160382984	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/boot_stage2/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160402990	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_base/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160412987	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_adc/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160422989	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_boot_lock/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160432987	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_clocks/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160452988	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_divider/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160462988	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_dma/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160477409	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_exception/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160477409	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_flash/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160477409	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_gpio/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160518371	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_i2c/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160518371	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_interp/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160538439	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_irq/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160538439	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_pio/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160573076	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_pll/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160573076	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_pwm/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160593143	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_resets/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160613209	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_rtc/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160613209	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_spi/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160633280	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_sync/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160653358	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_sync_spin_lock/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160653358	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_ticks/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160673424	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_timer/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160693496	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_uart/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160693496	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_vreg/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160693496	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_watchdog/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160728641	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_xip_cache/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160728641	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_xosc/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160728641	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/boot_bootrom_headers/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160773729	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_platform_common/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160773729	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_platform_compiler/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160793801	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_platform_sections/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160811314	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_platform_panic/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160822792	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_aon_timer/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160842813	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_bootrom/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160852808	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_bootsel_via_double_reset/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160862807	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_multicore/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160882813	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_unique_id/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160892809	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_atomic/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160902807	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_bit_ops/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160912807	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_divider/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160932809	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_double/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160942806	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_int64_ops/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160952810	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_flash/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160972810	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_float/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160989813	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_mem_ops/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579160999548	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_malloc/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161009559	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_printf/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161029569	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_rand/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161039564	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_stdio_semihosting/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161049564	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_stdio_uart/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161069569	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_stdio_rtt/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161079565	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/cmsis/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161089560	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/tinyusb/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161109550	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_stdio_usb/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161119558	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_i2c_slave/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161129567	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_async_context/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161144624	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_btstack/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161144624	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_cyw43_driver/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161144624	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_cyw43_driver/cybt_shared_bus/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161196053	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_mbedtls/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161216130	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_lwip/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161216130	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_lwip/tools/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161242170	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_cyw43_arch/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161263644	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_time_adapter/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161273634	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_crt0/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161283637	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_clib_interface/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161303637	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_cxx_options/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161313637	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_standard_binary_info/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161323658	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_standard_link/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161333621	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_fix/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161358764	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161368758	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_status_led/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161388763	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_runtime_init/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161398762	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_runtime/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161408747	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_stdio/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161428763	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_stdlib/cmake_install.cmake	53ca64827064bc08
-121	1329	7907579161438758	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/docs/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075440577853	build.ninja	53ca64827064bc08
+121	1329	7914075436145155	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436165287	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436202821	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/tools/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436210371	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436234641	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/boot_picobin_headers/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436274959	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/boot_picoboot_headers/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436306792	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/boot_uf2_headers/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436339114	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_base_headers/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436339114	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_usb_reset_interface_headers/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436387244	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_bit_ops_headers/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436408671	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_binary_info/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436446000	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_divider_headers/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436466083	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_sync/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436486158	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_time/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436506247	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_util/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436538049	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/pico_stdlib_headers/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436552863	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/common/hardware_claim/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436590920	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/pico_platform/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436615458	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/hardware_regs/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436652541	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/hardware_structs/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436734914	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/boot_stage2/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436786599	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_base/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436812023	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_adc/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436812023	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_boot_lock/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436812023	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_clocks/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436877246	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_divider/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436906693	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_dma/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436926772	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_exception/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075436986095	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_flash/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437010930	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_gpio/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437075027	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_i2c/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437129417	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_interp/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437147927	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_irq/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437233884	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_pio/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437308514	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_pll/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437372330	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_pwm/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437419853	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_resets/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437456301	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_rtc/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437497501	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_spi/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437537182	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_sync/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437558877	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_sync_spin_lock/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437618243	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_ticks/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437661640	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_timer/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437729140	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_uart/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437768962	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_vreg/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437799101	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_watchdog/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437837522	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_xip_cache/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437881997	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/hardware_xosc/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437942939	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/boot_bootrom_headers/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075437979325	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_platform_common/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438027164	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_platform_compiler/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438118474	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_platform_sections/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438149785	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_platform_panic/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438180887	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_aon_timer/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438213059	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_bootrom/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438265163	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_bootsel_via_double_reset/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438285325	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_multicore/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438333342	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_unique_id/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438369817	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_atomic/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438389909	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_bit_ops/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438412070	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_divider/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438450918	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_double/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438477642	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_int64_ops/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438526933	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_flash/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438537020	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_float/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438619556	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_mem_ops/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438676388	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_malloc/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438716779	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_printf/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438757161	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_rand/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438817465	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_stdio_semihosting/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438850108	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_stdio_uart/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438899650	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_stdio_rtt/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438939927	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/cmsis/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075438980101	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/tinyusb/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439040415	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_stdio_usb/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439080683	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_i2c_slave/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439120898	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_async_context/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439161078	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_btstack/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439241401	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_cyw43_driver/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439241401	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_cyw43_driver/cybt_shared_bus/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439342354	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_mbedtls/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439342354	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_lwip/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439407432	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_lwip/tools/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439445219	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_cyw43_arch/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439508271	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_time_adapter/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439545988	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_crt0/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439588456	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_clib_interface/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439631013	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_cxx_options/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439658528	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_standard_binary_info/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439721956	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_standard_link/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439772376	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_fix/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439813250	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439873914	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_status_led/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439894021	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_runtime_init/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439914118	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_runtime/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075439995031	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_stdio/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075440039615	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2_common/pico_stdlib/cmake_install.cmake	53ca64827064bc08
+121	1329	7914075440077084	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/docs/cmake_install.cmake	53ca64827064bc08
 149	379	7906626568168829	CMakeFiles/easycontroller_debug.dir/easycontroller_refactored.c.obj	3847e2c670d96b14
 171	738	7906630577332539	easycontroller.elf	11d42cc1cce89a82
 171	738	7906630577332539	easycontroller.dis	11d42cc1cce89a82
@@ -320,236 +320,101 @@
 189	771	7906630577710555	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_debug.hex	e9f9a93274c05c79
 189	771	7906630577710555	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_debug.bin	e9f9a93274c05c79
 189	771	7906630577710555	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_debug.uf2	e9f9a93274c05c79
-107	364	7906634755173470	CMakeFiles/easycontroller_refactored.dir/motor_pins.c.obj	80e882f66b84c189
-131	372	7906634755425233	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2040/pico_platform/platform.c.obj	ca6f95e78848d2aa
-117	380	7906634755275993	CMakeFiles/easycontroller_refactored.dir/motor_user_config.c.obj	e096347b0abed927
-136	388	7906634755478286	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_platform_common/common.c.obj	f7a81e17ff4ed266
-177	451	7906634755878481	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_irq/irq_handler_chain.S.obj	ca74dda8aef4a90c
-164	460	7906634755747949	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.obj	9d14ba741f60dcbc
-155	475	7906634755678311	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj	befa3534945025c2
-112	484	7906634755225994	CMakeFiles/easycontroller_refactored.dir/motor_state.c.obj	d67468bcd70a9ddc
-121	492	7906634755325965	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj	4e9be3bca9990f6b
-149	502	7906634755602777	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/hardware_claim/claim.c.obj	13b21e5437c6f15c
-195	514	7906634756046536	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_sync/lock_core.c.obj	8c129a18dac22bd9
-211	582	7906634756237236	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_sync/critical_section.c.obj	2c3f194a49388dbc
-91	592	7906634754990575	CMakeFiles/easycontroller_refactored.dir/easycontroller_refactored.c.obj	adc20f2b6185510f
-101	605	7906634755119919	CMakeFiles/easycontroller_refactored.dir/motor_hw.c.obj	751be95402ff3c15
-142	613	7906634755522303	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_platform_panic/panic.c.obj	bede33e0e931b024
-226	621	7906634756372305	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_time/timeout_helper.c.obj	481862043863784
-184	629	7906634755978463	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_sync/sem.c.obj	fd0de9876742b956
-170	703	7906634755809448	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj	90c0b5889c605236
-127	738	7906634755365289	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj	686941eead4b2f52
-201	745	7906634756144175	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_sync/mutex.c.obj	409621d2683619c4
-475	835	7906634758865966	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj	5f1d04e00baabfc2
-96	842	7906634755065512	CMakeFiles/easycontroller_refactored.dir/motor_control.c.obj	fa39692f5243dc44
-484	850	7906634758956027	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_vreg/vreg.c.obj	411ab09bb4c43542
-452	857	7906634758629181	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_uart/uart.c.obj	cea1464c715a47e0
-621	865	7906634760323910	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_divider/divider.S.obj	5bbdfe74aece76ec
-582	872	7906634759930768	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_bootrom/bootrom_lock.c.obj	740b1f17f388e5e1
-372	879	7906634757827289	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_util/datetime.c.obj	f8e5e729366020de
-592	887	7906634760044918	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_boot_lock/boot_lock.c.obj	8b1c4a4f74f795b9
-502	895	7906634759154265	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_ticks/ticks.c.obj	9a8e89bde203c940
-613	902	7906634760224398	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj	522c70e4cb3e870d
-629	922	7906634760405174	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj	e49ab58ed8b29473
-493	931	7906634759033107	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj	c81bc8c3be39f3c1
-441	938	7906634758519171	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_util/queue.c.obj	3fbdd246f01c6dbf
-365	945	7906634757757281	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj	4dee734b1c1860fa
-530	961	7906634759532199	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj	875fd9f7a9465933
-605	971	7906634760162566	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_flash/flash.c.obj	a427d101aee06411
-746	978	7906634761555451	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.obj	d13df43150b1517a
-380	990	7906634757915043	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_util/pheap.c.obj	203ab59364ae4302
-219	998	7906634756299903	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_time/time.c.obj	eedfd6e28657ab67
-872	1025	7906634762831850	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.obj	a7780e523fef426
-835	1032	7906634762455740	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj	aaedaff1fff6e90f
-703	1044	7906634761129274	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init.c.obj	14db1ae638eaabf9
-738	1051	7906634761477721	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.obj	1c361286298f319f
-842	1059	7906634762535377	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_divider/divider_hardware.S.obj	6974ed7e8360aafa
-460	1066	7906634758709782	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj	6ec5318e2be6bc16
-887	1074	7906634762982178	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_float/float_aeabi_rp2040.S.obj	82a12d4d538c6194
-880	1081	7906634762912089	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj	c894516ca06f0f9f
-850	1099	7906634762611801	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_double/double_aeabi_rp2040.S.obj	60da444cec4d7397
-938	1131	7906634763486963	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj	16b854df04e90a27
-923	1202	7906634763344574	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.obj	5b9905668cf2d4ed
-931	1229	7906634763420227	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_malloc/malloc.c.obj	d99db425b23d22bd
-971	1245	7906634763809947	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_standard_binary_info/standard_binary_info.c.obj	c4a3585ec1650806
-858	1261	7906634762687193	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_double/double_init_rom_rp2040.c.obj	e11ff19ae47b0895
-895	1276	7906634763059523	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_float/float_init_rom_rp2040.c.obj	bc73d30dff1c639f
-991	1283	7906634764022400	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_crt0/crt0.S.obj	a2f9c33099d53cb9
-1074	1383	7906634764843426	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_xip_cache/xip_cache.c.obj	f89bbcd09f802944
-963	1452	7906634763739971	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_cxx_options/new_delete.cpp.obj	a66d8e8cedd4957d
-1051	1460	7906634764618102	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj	77733f514eb28c8c
-1229	1516	7906634766406819	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/audio/audio_device.c.obj	544dddf3cfb7c07e
-998	1523	7906634764102360	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_clib_interface/newlib_interface.c.obj	790eedf31bdddb5
-1059	1531	7906634764682553	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj	b3828f0ca50b47ce
-946	1546	7906634763562240	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_atomic/atomic.c.obj	aa2f57168def597
-1033	1554	7906634764440910	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj	c24390db16005680
-1283	1581	7906634766936823	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/hid/hid_device.c.obj	919c6849c2ed4a0c
-1276	1590	7906634766868369	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/dfu/dfu_rt_device.c.obj	df05e15bd92f4bb7
-1261	1598	7906634766726953	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/dfu/dfu_device.c.obj	24da44ec30606307
-1202	1605	7906634766131953	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj	ea4318c76f3c1493
-1099	1620	7906634765100504	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj	1f95fb16a1d5499
-1066	1631	7906634764773894	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_flash/flash.c.obj	5bfce6d3e40f676c
-1025	1648	7906634764363664	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj	9710269fa1e1bff2
-1044	1648	7906634764550652	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj	495d9a454d46ada1
-1383	1664	7906634767945573	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/midi/midi_device.c.obj	40988a4b025e0cf6
-1460	1726	7906634768712052	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/net/ecm_rndis_device.c.obj	bf09b36bdcacac0
-1516	1732	7906634769265061	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/net/ncm_device.c.obj	b0be6927492131d6
-1453	1741	7906634768634112	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/msc/msc_device.c.obj	3cbfda46d4969437
-1524	1744	7906634769342557	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/usbtmc/usbtmc_device.c.obj	9de863d6f9202759
-902	1747	7906634763134624	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_float/float_math.c.obj	d240fc62cdaab542
-1546	1749	7906634769559674	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/video/video_device.c.obj	772968ab66d9bb8
-1245	1751	7906634766563370	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj	b5ff90425259a794
-1082	1765	7906634764920812	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj	b4f105975cdc368a
-1598	1786	7906634770086966	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_adc/adc.c.obj	bbf84b3658bb7a9f
-865	1791	7906634762759044	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_double/double_math.c.obj	7d489208736285c7
-1591	1850	7906634770013713	CMakeFiles/easycontroller_refactored.dir/31a9ca481aaf3abd53b54baed5e19673/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.obj	94446dd2f9891249
-1531	1880	7906634769417410	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/vendor/vendor_device.c.obj	473478f5433db4e2
-1132	1923	7906634765420747	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/device/usbd.c.obj	2319e54fcdfee3ea
-979	1935	7906634763894466	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_printf/printf.c.obj	efc092895be49af5
-1554	1980	7906634769640924	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/tusb.c.obj	89d24198043959ea
-1581	2026	7906634769920633	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj	369a8ee43cf161f1
-2026	2543	7906634779474687	easycontroller_refactored.elf	795fa29fe4dc5076
-2026	2543	7906634779474687	easycontroller_refactored.dis	795fa29fe4dc5076
-2026	2543	7906634779474687	easycontroller_refactored.hex	795fa29fe4dc5076
-2026	2543	7906634779474687	easycontroller_refactored.bin	795fa29fe4dc5076
-2026	2543	7906634779474687	easycontroller_refactored.uf2	795fa29fe4dc5076
-2026	2543	7906634779474687	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.dis	795fa29fe4dc5076
-2026	2543	7906634779474687	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.hex	795fa29fe4dc5076
-2026	2543	7906634779474687	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.bin	795fa29fe4dc5076
-2026	2543	7906634779474687	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.uf2	795fa29fe4dc5076
-55	119	7907589144366702	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/CMakeFiles/cmake.verify_globs	89d5e9d6fb6e1386
-144	375	7907589145164005	pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default.dir/compile_time_choice.S.obj	b9ffd85d9f9f023e
-376	687	7907589150581572	pico-sdk/src/rp2040/boot_stage2/bs2_default.elf	4b3229e3b79758af
-376	687	7907589150581572	pico-sdk/src/rp2040/boot_stage2/bs2_default.dis	4b3229e3b79758af
-376	687	7907589150581572	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/boot_stage2/bs2_default.dis	4b3229e3b79758af
-687	733	7907589150987484	pico-sdk/src/rp2040/boot_stage2/bs2_default.bin	a4d13b3e56172a61
-687	733	7907589150987484	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/boot_stage2/bs2_default.bin	a4d13b3e56172a61
-733	1114	7907589154788842	pico-sdk/src/rp2040/boot_stage2/bs2_default_padded_checksummed.S	e1e9d9c0a21df0db
-733	1114	7907589154788842	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/pico-sdk/src/rp2040/boot_stage2/bs2_default_padded_checksummed.S	e1e9d9c0a21df0db
-1169	1419	7907589155501811	CMakeFiles/easycontroller_refactored.dir/motor_user_config.c.obj	30b4cae3776520cb
-1209	1500	7907589155889316	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2040/pico_platform/platform.c.obj	97cd114e50a7a244
-1182	1503	7907589155629089	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj	f71475e3afb82d9
-1123	1520	7907589155021494	CMakeFiles/easycontroller_refactored.dir/UART.c.obj	328a9cd2d660881a
 1144	1527	7907589155249097	CMakeFiles/easycontroller_refactored.dir/motor_pins.c.obj	e9cddea7fa14c97e
-1231	1529	7907589156097442	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/hardware_claim/claim.c.obj	4db630e2a3344df
-1114	1531	7907589154926551	CMakeFiles/easycontroller_refactored.dir/easycontroller_refactored.c.obj	1fc0690abe16aed2
-1237	1532	7907589156185487	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj	68a840da166a8ffa
+1209	1500	7907589155889316	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2040/pico_platform/platform.c.obj	97cd114e50a7a244
+1169	1419	7907589155501811	CMakeFiles/easycontroller_refactored.dir/motor_user_config.c.obj	30b4cae3776520cb
 1217	1534	7907589155982382	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_platform_common/common.c.obj	fe30f83c31ba7441
-1244	1548	7907589156245757	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.obj	cad741f56601b6fb
-1270	1549	7907589156510917	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_sync/lock_core.c.obj	5dd8dd10e5681fc5
-1138	1552	7907589155182916	CMakeFiles/easycontroller_refactored.dir/motor_hw.c.obj	522a4a1a44bd060c
 1257	1553	7907589156383543	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_irq/irq_handler_chain.S.obj	ef6f06fd0345be17
-1224	1554	7907589156047159	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_platform_panic/panic.c.obj	bad285810ba4d349
-1197	1558	7907589155781495	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj	da3a7f5e9dee13bf
-1264	1569	7907589156443815	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_sync/sem.c.obj	b845bde008142b37
-1130	1569	7907589155077952	CMakeFiles/easycontroller_refactored.dir/motor_control.c.obj	96ad4a48c749909a
-1251	1583	7907589156314203	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj	c0cd6e60b8b81a09
+1244	1548	7907589156245757	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.obj	cad741f56601b6fb
+1237	1532	7907589156185487	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj	68a840da166a8ffa
+117	331	7912452105970354	CMakeFiles/easycontroller_refactored.dir/motor_state.c.obj	150c8f07dc2743a6
+1182	1503	7907589155629089	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj	f71475e3afb82d9
+1231	1529	7907589156097442	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/hardware_claim/claim.c.obj	4db630e2a3344df
+1270	1549	7907589156510917	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_sync/lock_core.c.obj	5dd8dd10e5681fc5
 1283	1594	7907589156623682	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_sync/critical_section.c.obj	cd32e62f20bfec12
-1277	1602	7907589156565968	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_sync/mutex.c.obj	db3003267a46b181
+159	610	7912451530981602	CMakeFiles/easycontroller_refactored.dir/easycontroller_refactored.c.obj	1fc0690abe16aed2
+189	655	7912451531290808	CMakeFiles/easycontroller_refactored.dir/motor_hw.c.obj	522a4a1a44bd060c
+1224	1554	7907589156047159	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_platform_panic/panic.c.obj	bad285810ba4d349
 1419	1622	7907589158001928	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_time/timeout_helper.c.obj	d3e050b9c26f0cda
-1289	1701	7907589156694075	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_time/time.c.obj	e9689275d82feffd
-48	81	7907589331416213	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/CMakeFiles/cmake.verify_globs	89d5e9d6fb6e1386
+1264	1569	7907589156443815	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_sync/sem.c.obj	b845bde008142b37
+1251	1583	7907589156314203	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj	c0cd6e60b8b81a09
+1197	1558	7907589155781495	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj	da3a7f5e9dee13bf
+1277	1602	7907589156565968	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_sync/mutex.c.obj	db3003267a46b181
+132	413	7907589332261469	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj	a779a4a2bcd8c39d
+180	678	7912451531188880	CMakeFiles/easycontroller_refactored.dir/motor_control.c.obj	96ad4a48c749909a
 138	392	7907589332316502	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_vreg/vreg.c.obj	f79d9e62b0505aa8
+123	437	7907589332171454	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_uart/uart.c.obj	820d4a1118aef1ca
 184	393	7907589332781487	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_divider/divider.S.obj	5c1999564c889465
 159	394	7907589332528776	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_bootrom/bootrom_lock.c.obj	211d6de0de61f838
-148	395	7907589332416767	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_ticks/ticks.c.obj	715c183879ac0cd5
-166	400	7907589332598786	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_boot_lock/boot_lock.c.obj	234d62e9173388b0
-107	400	7907589332002735	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj	6b33d58c2c11e9b8
-115	402	7907589332082594	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_util/pheap.c.obj	4ee58ebba94306be
-218	405	7907589333109327	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj	5b4b5328019d16c9
-172	411	7907589332655902	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_flash/flash.c.obj	5ad2423894ac3499
-191	412	7907589332851509	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj	3fa8955ea14a3e42
-132	413	7907589332261469	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj	a779a4a2bcd8c39d
-153	436	7907589332466989	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj	ccb5adce850dddc9
-123	437	7907589332171454	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_uart/uart.c.obj	820d4a1118aef1ca
-211	438	7907589333041503	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.obj	c7fabbab74e29feb
-128	439	7907589332211438	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj	9107da900a24d3f
 111	443	7907589332042579	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_util/datetime.c.obj	298ce8bd2867cb3f
-143	449	7907589332367190	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj	870ace61240de7d3
+166	400	7907589332598786	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_boot_lock/boot_lock.c.obj	234d62e9173388b0
+148	395	7907589332416767	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_ticks/ticks.c.obj	715c183879ac0cd5
 178	450	7907589332716294	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj	36d4f4bccbcb8adc
-197	451	7907589332911506	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init.c.obj	75406482b12ab7f0
+191	412	7907589332851509	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj	3fa8955ea14a3e42
+143	449	7907589332367190	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj	870ace61240de7d3
 119	456	7907589332132571	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_util/queue.c.obj	bec4721d854cb727
-204	457	7907589332971501	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.obj	1da35aee8cd4fed0
-84	121	7907589404323790	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/CMakeFiles/cmake.verify_globs	89d5e9d6fb6e1386
-172	365	7907589405183544	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_double/double_aeabi_rp2040.S.obj	b9111ccf94972ceb
-164	374	7907589405151856	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_divider/divider_hardware.S.obj	fb54338680a0be9e
-201	381	7907589405522271	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj	348a48abaa518fc6
-209	389	7907589405592268	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_float/float_aeabi_rp2040.S.obj	76f01387e8bcdbd8
-229	398	7907589405793095	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.obj	bf16ebbb51b96b11
+107	400	7907589332002735	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj	6b33d58c2c11e9b8
+153	436	7907589332466989	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj	ccb5adce850dddc9
+172	411	7907589332655902	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_flash/flash.c.obj	5ad2423894ac3499
+211	438	7907589333041503	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.obj	c7fabbab74e29feb
+115	402	7907589332082594	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_util/pheap.c.obj	4ee58ebba94306be
+1289	1701	7907589156694075	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/common/pico_time/time.c.obj	e9689275d82feffd
 194	398	7907589405442268	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.obj	7ad70312b07b5941
+218	405	7907589333109327	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj	5b4b5328019d16c9
+197	451	7907589332911506	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init.c.obj	75406482b12ab7f0
+204	457	7907589332971501	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.obj	1da35aee8cd4fed0
+164	374	7907589405151856	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_divider/divider_hardware.S.obj	fb54338680a0be9e
+128	439	7907589332211438	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj	9107da900a24d3f
+209	389	7907589405592268	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_float/float_aeabi_rp2040.S.obj	76f01387e8bcdbd8
+201	381	7907589405522271	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj	348a48abaa518fc6
+172	365	7907589405183544	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_double/double_aeabi_rp2040.S.obj	b9111ccf94972ceb
 243	428	7907589405939267	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj	dd90cc77b271d682
+229	398	7907589405793095	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.obj	bf16ebbb51b96b11
+237	527	7907589405875583	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_malloc/malloc.c.obj	d9167e04d4c059ff
+269	505	7907589406201221	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_standard_binary_info/standard_binary_info.c.obj	31d0accfec37e848
 180	446	7907589405310334	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_double/double_init_rom_rp2040.c.obj	f7a7df086ed3828d
 216	447	7907589405673004	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_float/float_init_rom_rp2040.c.obj	7139d680162bf70
-269	505	7907589406201221	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_standard_binary_info/standard_binary_info.c.obj	31d0accfec37e848
-237	527	7907589405875583	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_malloc/malloc.c.obj	d9167e04d4c059ff
 287	528	7907589406360975	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_crt0/crt0.S.obj	9512e8b2ad754f5e
-187	576	7907589405380339	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_double/double_math.c.obj	17fad0d4f10ffdf2
-251	582	7907589406013531	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_atomic/atomic.c.obj	f4d2a446e9c3e1b2
-374	607	7907589407250039	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj	98ccccde10990d40
-259	621	7907589406072353	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_cxx_options/new_delete.cpp.obj	41899d0b03f55bad
-222	625	7907589405733005	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_float/float_math.c.obj	afd4007e36e1e8c5
-316	638	7907589406666404	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj	e390323c50d86070
-294	651	7907589406451208	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_clib_interface/newlib_interface.c.obj	eb11173d84e408a4
-278	664	7907589406279053	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_printf/printf.c.obj	520655b88b25c632
-324	666	7907589406746493	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj	77fdbd2e493f168f
-382	672	7907589407324374	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_flash/flash.c.obj	353e944d1dc9f99
-366	676	7907589407167599	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj	d1c9b4fcb96315ea
-304	690	7907589406551185	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj	b651f13ce981e6c2
-75	110	7907589677036679	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/CMakeFiles/cmake.verify_globs	89d5e9d6fb6e1386
-181	419	7907589678094923	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/audio/audio_device.c.obj	b4024f0125d563b2
-202	430	7907589678304484	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/dfu/dfu_rt_device.c.obj	1cff3c40eb606a27
-208	433	7907589678373741	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/hid/hid_device.c.obj	70c85af268ce224f
 139	437	7907589677680928	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_xip_cache/xip_cache.c.obj	f7baa203623da3f8
+259	621	7907589406072353	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_cxx_options/new_delete.cpp.obj	41899d0b03f55bad
+366	676	7907589407167599	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj	d1c9b4fcb96315ea
+181	419	7907589678094923	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/audio/audio_device.c.obj	b4024f0125d563b2
+294	651	7907589406451208	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_clib_interface/newlib_interface.c.obj	eb11173d84e408a4
+374	607	7907589407250039	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj	98ccccde10990d40
+251	582	7907589406013531	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_atomic/atomic.c.obj	f4d2a446e9c3e1b2
+316	638	7907589406666404	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj	e390323c50d86070
+208	433	7907589678373741	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/hid/hid_device.c.obj	70c85af268ce224f
+202	430	7907589678304484	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/dfu/dfu_rt_device.c.obj	1cff3c40eb606a27
 196	450	7907589678244459	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/dfu/dfu_device.c.obj	c4347fe6a0493fe6
-226	452	7907589678512047	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/net/ecm_rndis_device.c.obj	fbac2eb553a8a483
-221	457	7907589678496944	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/msc/msc_device.c.obj	57baa03d319f4ed1
-214	495	7907589678436635	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/midi/midi_device.c.obj	a52ddbd2b81be7d3
-232	496	7907589678580447	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/net/ncm_device.c.obj	7f1f04a3427d49a9
-239	502	7907589678670943	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/usbtmc/usbtmc_device.c.obj	8dff2ece3e545f46
-252	505	7907589678800943	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/video/video_device.c.obj	68e3395cc0b045cd
 173	509	7907589678015325	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj	685f3239868dc22c
 155	523	7907589677830792	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj	d01b01804166033c
+382	672	7907589407324374	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_flash/flash.c.obj	353e944d1dc9f99
+304	690	7907589406551185	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj	b651f13ce981e6c2
+324	666	7907589406746493	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj	77fdbd2e493f168f
+214	495	7907589678436635	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/midi/midi_device.c.obj	a52ddbd2b81be7d3
+226	452	7907589678512047	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/net/ecm_rndis_device.c.obj	fbac2eb553a8a483
+232	496	7907589678580447	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/net/ncm_device.c.obj	7f1f04a3427d49a9
+221	457	7907589678496944	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/msc/msc_device.c.obj	57baa03d319f4ed1
+239	502	7907589678670943	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/usbtmc/usbtmc_device.c.obj	8dff2ece3e545f46
+222	625	7907589405733005	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_float/float_math.c.obj	afd4007e36e1e8c5
+252	505	7907589678800943	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/video/video_device.c.obj	68e3395cc0b045cd
+189	566	7907589678174494	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj	3e88a49c416fa73d
 146	530	7907589677750765	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj	b7db5721977bd379
 278	534	7907589679070935	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/hardware_adc/adc.c.obj	a8e00dfdf9f97f8a
+187	576	7907589405380339	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_double/double_math.c.obj	17fad0d4f10ffdf2
 272	564	7907589679010945	CMakeFiles/easycontroller_refactored.dir/31a9ca481aaf3abd53b54baed5e19673/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.obj	3b5d50a7c997e435
-189	566	7907589678174494	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj	3e88a49c416fa73d
 245	570	7907589678740944	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/class/vendor/vendor_device.c.obj	8256112eb8114d45
+164	641	7907589677920783	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/device/usbd.c.obj	c9e5c6cd8aeb5915
+278	664	7907589406279053	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/src/rp2_common/pico_printf/printf.c.obj	520655b88b25c632
 259	626	7907589678880927	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/tusb.c.obj	aef1b0691dbf3b04
 265	629	7907589678940948	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj	f16e21e998b03685
-164	641	7907589677920783	CMakeFiles/easycontroller_refactored.dir/C_/Users/Owner/pico-sdk/lib/tinyusb/src/device/usbd.c.obj	c9e5c6cd8aeb5915
-66	108	7907590248482883	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/CMakeFiles/cmake.verify_globs	89d5e9d6fb6e1386
-149	255	7907590249386900	pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default_library.dir/bs2_default_padded_checksummed.S.obj	2a4d1765aa8b6e5d
-140	395	7907590249293671	CMakeFiles/easycontroller_refactored.dir/motor_state.c.obj	150c8f07dc2743a6
-395	1191	7907590259743594	easycontroller_refactored.elf	4971e739cfd204b4
-395	1191	7907590259743594	easycontroller_refactored.dis	4971e739cfd204b4
-395	1191	7907590259743594	easycontroller_refactored.hex	4971e739cfd204b4
-395	1191	7907590259743594	easycontroller_refactored.bin	4971e739cfd204b4
-395	1191	7907590259743594	easycontroller_refactored.uf2	4971e739cfd204b4
-395	1191	7907590259743594	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.dis	4971e739cfd204b4
-395	1191	7907590259743594	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.hex	4971e739cfd204b4
-395	1191	7907590259743594	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.bin	4971e739cfd204b4
-395	1191	7907590259743594	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.uf2	4971e739cfd204b4
-73	115	7907598568830688	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/CMakeFiles/cmake.verify_globs	89d5e9d6fb6e1386
-153	408	7907598569587509	CMakeFiles/easycontroller_refactored.dir/easycontroller_refactored.c.obj	1fc0690abe16aed2
-160	461	7907598569689987	CMakeFiles/easycontroller_refactored.dir/motor_control.c.obj	96ad4a48c749909a
-461	1123	7907598579228905	easycontroller_refactored.elf	4971e739cfd204b4
-461	1123	7907598579228905	easycontroller_refactored.dis	4971e739cfd204b4
-461	1123	7907598579228905	easycontroller_refactored.hex	4971e739cfd204b4
-461	1123	7907598579228905	easycontroller_refactored.bin	4971e739cfd204b4
-461	1123	7907598579228905	easycontroller_refactored.uf2	4971e739cfd204b4
-461	1123	7907598579228905	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.dis	4971e739cfd204b4
-461	1123	7907598579228905	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.hex	4971e739cfd204b4
-461	1123	7907598579228905	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.bin	4971e739cfd204b4
-461	1123	7907598579228905	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.uf2	4971e739cfd204b4
-72	115	7907598866576915	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/CMakeFiles/cmake.verify_globs	89d5e9d6fb6e1386
-53	90	7907598930789259	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/CMakeFiles/cmake.verify_globs	89d5e9d6fb6e1386
-118	436	7907598931433558	CMakeFiles/easycontroller_refactored.dir/motor_control.c.obj	96ad4a48c749909a
-437	926	7907598939409237	easycontroller_refactored.elf	4971e739cfd204b4
-437	926	7907598939409237	easycontroller_refactored.dis	4971e739cfd204b4
-437	926	7907598939409237	easycontroller_refactored.hex	4971e739cfd204b4
-437	926	7907598939409237	easycontroller_refactored.bin	4971e739cfd204b4
-437	926	7907598939409237	easycontroller_refactored.uf2	4971e739cfd204b4
-437	926	7907598939409237	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.dis	4971e739cfd204b4
-437	926	7907598939409237	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.hex	4971e739cfd204b4
-437	926	7907598939409237	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.bin	4971e739cfd204b4
-437	926	7907598939409237	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.uf2	4971e739cfd204b4
+332	1407	7912452118655217	easycontroller_refactored.elf	4971e739cfd204b4
+332	1407	7912452118655217	easycontroller_refactored.dis	4971e739cfd204b4
+332	1407	7912452118655217	easycontroller_refactored.hex	4971e739cfd204b4
+332	1407	7912452118655217	easycontroller_refactored.bin	4971e739cfd204b4
+332	1407	7912452118655217	easycontroller_refactored.uf2	4971e739cfd204b4
+332	1407	7912452118655217	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.dis	4971e739cfd204b4
+332	1407	7912452118655217	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.hex	4971e739cfd204b4
+332	1407	7912452118655217	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.bin	4971e739cfd204b4
+332	1407	7912452118655217	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.uf2	4971e739cfd204b4
+170	604	7912451531099972	CMakeFiles/easycontroller_refactored.dir/UART.c.obj	328a9cd2d660881a

@@ -18,17 +18,15 @@
 void writePhases(uint ah, uint bh, uint ch, uint al, uint bl, uint cl);
 
 void on_adc_fifo(void) {
-    // This interrupt is where the magic happens. This is fired once the ADC conversions have finished (roughly 6us for 3 conversions)
-    // This reads the hall sensors, determines the motor state to switch to, and reads the current sensors and throttle to
-    // determine the desired duty cycle. This takes ~7us to complete.
+    
 
-    uint32_t flags = save_and_disable_interrupts(); // Disable interrupts for the time-critical reading ADC section. USB interrupts may interfere
+    uint32_t flags = save_and_disable_interrupts(); // Disable interrupts
 
     adc_run(false);             // Stop the ADC from free running
     gpio_put(FLAG_PIN, 1);      // For debugging, toggle the flag pin
 
     fifo_level = adc_fifo_get_level();
-    adc_isense = adc_fifo_get();    // Read the ADC values into the registers
+    adc_isense = adc_fifo_get();    // Read the ADC values
     adc_vsense = adc_fifo_get();
     adc_throttle = adc_fifo_get();
 
@@ -43,37 +41,45 @@ void on_adc_fifo(void) {
     hall = get_halls();                 // Read the hall sensors
     motorState = hallToMotor[hall];     // Convert the current hall reading to the desired motor state
 
-    // RPM counting variable
-    if (motorstate_counter == 0) {
-        rpm_time_start = get_absolute_time();
-    }
-
-    if (motorState != prev_motorstate) {
-        time_since_last_movement = get_absolute_time();
-        motorstate_counter += 1;
-        increment_motor_ticks();
-    }
-
-    if (motorstate_counter >= 10) {
-        rpm_time_end = get_absolute_time();
-        float dt_us = (float)absolute_time_diff_us(rpm_time_start, rpm_time_end);
-        rpm = (motorstate_counter * 60.0f * 1e6f) / (dt_us * 144.0f); // adjust 144 if needed
-        motorstate_counter = 0;
-    }
-
-    if (absolute_time_diff_us(time_since_last_movement, get_absolute_time()) > 500000) { // resets rpm counter if no motor movement for .5 seconds
-        rpm = 0;
-        motorstate_counter = 0;
-    }
+    get_RPM(); // Update RPM 
 
     throttle = ((adc_throttle - THROTTLE_LOW) * 256) / (THROTTLE_HIGH - THROTTLE_LOW);  // Scale the throttle value read from the ADC
     throttle = MAX(0, MIN(255, throttle));      // Clamp to 0-255
 
     current_ma = (adc_isense - adc_bias) * CURRENT_SCALING;     // Since the current sensor is bidirectional, subtract the zero-current value and scale
     current_ma_smoothed = (current_ma + (199 * current_ma_smoothed)) / 200;
+    battery_current_ma = (int)(((long long)current_ma_smoothed * duty_cycle * 6) / (DUTY_CYCLE_MAX * 10));
 
     voltage_mv = adc_vsense * VOLTAGE_SCALING;  // Calculate the bus voltage
 
+
+    //-------------------------------Motor drive operation logic tree-----------------------------------------------
+    launch = false;
+    race_mode = true;
+    UCO = false; //User Configured Operation currently used for smart cruise
+
+    if (race_mode){
+        if (rpm < 30 && throttle != 0){ 
+            launch = true;
+        }
+        else if (adc_throttle > 2000){ 
+            UCO = true;
+        }
+    if (drive_mode){
+        if (rpm < 30 && throttle != 0){ 
+            launch = true;
+        }
+        UCO = false;
+    }
+    if (test_mode){
+        UCO = false;
+        launch = false;
+        //extra test conditions can be added here
+    }
+
+    //-----------------------------------------------------------------------------------------------
+
+    
     if (CURRENT_CONTROL) {
         prev_current_target_ma = current_target_ma;
         int user_current_target_ma = throttle * PHASE_MAX_CURRENT_MA / 256;  // Calculate the user-demanded phase current
@@ -94,36 +100,56 @@ void on_adc_fifo(void) {
             ticks_since_init++;
         }
 
-        //////////////////////////// ECO MODE /////////////////////////////
-        if (adc_throttle > 2000) {
-            current_target_ma = ECO_CURRENT_ma;
-        }
+        
+        if (race_mode){
+            if (launch) {
+                if (current_ma < 80000) {
+                    duty_cycle = LAUNCH_DUTY_CYCLE;
+                }
+                else {
+                    launch = false; // Battery overload 
+                }
+            }
+            else if (UCO && race_mode) {
+                float target_speed = 16.0f;
+                float cruise_error = 1.0f;
+                float cruise_increment = 250.0f;
+                current_target_ma = prev_current_target_ma;
+                int speed = (int)(rpm * rpmtomph);
 
-        ////////////////////////// Smart Cruise ////////////////////////////
-        if (adc_throttle > 2000) {
-            current_target_ma = prev_current_target_ma;
-            smart_cruise = true;
-        } else {
-            smart_cruise = false;
-        }
+                if (speed > (target_speed - cruise_error) && speed < (target_speed + cruise_error)) {
+                    at_target_speed = true;
+                    // Maintain current target current
+                } else if (speed < (target_speed - cruise_error) && current_target_ma < PHASE_MAX_CURRENT_MA) {
+                    current_target_ma += (int)cruise_increment;
+                } else if (speed > (target_speed + cruise_error) && current_target_ma > 250) {
+                    current_target_ma -= (int)cruise_increment;
+                }
+            }
+    }
 
-        if (smart_cruise) {
-            // placeholder (kept as-is)
-        }
+    if (drive_mode){
+        if (launch) {
+                if (current_ma < 80000) {
+                    duty_cycle = LAUNCH_DUTY_CYCLE;
+                }
+                else {
+                    launch = false; // Battery overload 
+                }
+            }
+        THROTTLE_HIGH = 2200;
+        user_current_target_ma = throttle * PHASE_MAX_CURRENT_MA / 256;  // Recalculate the user-demanded phase current with updated THROTTLE_HIGH
+    }
+
+    if (test_mode){
+        //Constant current test conditions
+    }
  
-        current_target_ma = MIN(current_target_ma, battery_current_limit_ma);
 
-        duty_cycle += (current_target_ma - current_ma) / CURRENT_CONTROL_LOOP_GAIN;  // Simple integral controller
-        duty_cycle = MAX(0, MIN(DUTY_CYCLE_MAX, duty_cycle));                        // Clamp
 
-        battery_current_ma = (int)(((long long)current_ma_smoothed * duty_cycle * 6) / (DUTY_CYCLE_MAX * 10));
-;
-
-        //////////////////////// Launch Function ///////////////////////////
-        if (rpm < 30 && throttle != 0) {
-            duty_cycle = LAUNCH_DUTY_CYCLE;
-        }
-
+        current_target_ma = MIN(current_target_ma, battery_current_limit_ma); //Safety clamp again after launch and cruise adjustments
+        duty_cycle += (current_target_ma - current_ma) / CURRENT_CONTROL_LOOP_GAIN;  // Adjust duty cycle
+        duty_cycle = MAX(0, MIN(DUTY_CYCLE_MAX, duty_cycle));                        // Safety clamp duty cycle
         bool do_synchronous = ticks_since_init > 16000;    // Enable synchronous switching after some delay
         writePWM(motorState, (uint)(duty_cycle / 256), do_synchronous);
     } else {
@@ -133,6 +159,7 @@ void on_adc_fifo(void) {
     }
 
     gpio_put(FLAG_PIN, 0);
+}
 }
 
 void on_pwm_wrap(void) {

@@ -36,11 +36,6 @@ int main(void) {
     // Enables interrupts, starting motor commutation (unchanged)
     pwm_set_irq_enabled(A_PWM_SLICE, true);
 
-    // Smart cruise
-    float target_speed = 16.0f;
-    float cruise_error = 1.0f;
-    float cruise_increment = 250.0f;
-
     while (true) {
         gpio_put(LED_PIN, !gpio_get(LED_PIN));
         check_serial_input_for_Phase_Current();
@@ -48,17 +43,7 @@ int main(void) {
         send_telemetry_uart();
 
         sleep_ms(250);
-        int speed = (int)(rpm * rpmtomph);
-
-        if (smart_cruise == true) {
-            if (rpm * rpmtomph > (target_speed - cruise_error) && speed < (target_speed + cruise_error)) {
-                continue;
-            } else if (speed < (target_speed - cruise_error) && current_target_ma < PHASE_MAX_CURRENT_MA) {
-                current_target_ma += (int)cruise_increment;
-            } else if (speed > (target_speed + cruise_error) && current_target_ma > 200) {
-                current_target_ma -= (int)cruise_increment;
-            }
-        }
+    
 
 
         printf(

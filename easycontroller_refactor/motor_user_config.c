@@ -10,8 +10,8 @@ int LAUNCH_DUTY_CYCLE = 6553;
 int PHASE_MAX_CURRENT_MA = 15000;
 int BATTERY_MAX_CURRENT_MA = 15000;
 
-const int THROTTLE_LOW = 700;
-const int THROTTLE_HIGH = 2000;
+int THROTTLE_LOW = 700;
+int THROTTLE_HIGH = 2000;
 
 int ECO_CURRENT_ma = 6000;
 float rpmtomph = 0.04767f; // Conversion from rpm to mph

@@ -14,8 +14,8 @@ extern const bool COMPUTER_CONTROL;        // If true will enable throttle contr
 extern int LAUNCH_DUTY_CYCLE;
 extern int PHASE_MAX_CURRENT_MA;
 extern int BATTERY_MAX_CURRENT_MA;
-extern const int THROTTLE_LOW;
-extern const int THROTTLE_HIGH;
+extern int THROTTLE_LOW;
+extern int THROTTLE_HIGH;
 extern int ECO_CURRENT_ma;
 extern float rpmtomph;                    // Conversion from rpm to mph
 

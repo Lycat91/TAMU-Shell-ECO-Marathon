@@ -33,7 +33,12 @@ int battery_current_ma = 0;
 int prev_current_target_ma = 0;
 absolute_time_t time_since_last_movement = 0;
 uint32_t motor_ticks = 0;
-
+bool UCO = false;
+bool at_target_speed = false;
+bool launch = false;
+bool race_mode = true;
+bool test_mode = false;
+bool drive_mode = false;
 
 
 
@@ -103,4 +108,28 @@ void start_motor_ticks() {
 }
 void stop_motor_ticks() {
     record_motor_ticks = false;
+}
+
+void get_RPM(){
+    if (motorstate_counter == 0) {
+        rpm_time_start = get_absolute_time();
+    }
+
+    if (motorState != prev_motorstate) {
+        time_since_last_movement = get_absolute_time();
+        motorstate_counter += 1;
+        increment_motor_ticks();
+    }
+
+    if (motorstate_counter >= 10) {
+        rpm_time_end = get_absolute_time();
+        float dt_us = (float)absolute_time_diff_us(rpm_time_start, rpm_time_end);
+        rpm = (motorstate_counter * 60.0f * 1e6f) / (dt_us * 138.0f); // 138 motor ticks in one rotation
+        motorstate_counter = 0;
+    }
+
+    if (absolute_time_diff_us(time_since_last_movement, get_absolute_time()) > 500000) { // resets rpm counter if no motor movement for .5 seconds
+        rpm = 0;
+        motorstate_counter = 0;
+    }
 }
