@@ -10,9 +10,9 @@ oled_driver = config.OLED_1inch3()
 display = DisplayManager(oled_driver)
 
 # --- Debug Flags ---
-DEBUG_PERFORMANCE = True
-DEBUG_VERBOSE = True
-DEBUG_SIMULATE_SPEED = True
+DEBUG_PERFORMANCE = False
+DEBUG_VERBOSE = False
+DEBUG_SIMULATE_SPEED = False
 perf_monitor = (
     PerformanceMonitor(verbose=DEBUG_VERBOSE) if DEBUG_PERFORMANCE else None
 )
