@@ -3,17 +3,10 @@ class UartManager:
         self.uart = uart_instance
         self.buffer = ""
 
-        # Live values
-        self.voltage = 0.0
-        self.current = 0.0
-        self.rpm = 0
-        self.duty = 0
-        self.throttle = 0.0
-        self.eco = False
         self.uart_blink = False
         self.new_data = False # Flag to indicate if new data was parsed
 
-    def update(self):
+    def update(self, vehicle):
         """
         Reads from UART, parses messages, and updates internal state.
         Should be called once per main loop iteration.
@@ -34,19 +27,19 @@ class UartManager:
                     if not line:
                         continue
 
-                    self._parse_line(line)
+                    self._parse_line(line, vehicle)
                     self.new_data = True
                     self.uart_blink = not self.uart_blink
 
-    def _parse_line(self, line):
+    def _parse_line(self, line, vehicle):
         """Parses a single line of data from the UART."""
         try:
             if line.startswith("s"):
-                self.voltage = float(line[1:4]) / 10
-                self.current = float(line[4:10]) / 1000
-                self.rpm = int(line[10:13])
-                self.duty = int(line[13:16])
-                self.throttle = int(line[16:19])
-                self.eco = bool(int(line[19:]))
+                vehicle.voltage = float(line[1:4]) / 10
+                vehicle.current = float(line[4:10]) / 1000
+                vehicle.rpm = int(line[10:13])
+                vehicle.duty_cycle = int(line[13:16])
+                vehicle.throttle = int(line[16:19])
+                vehicle.eco = bool(int(line[19:]))
         except Exception as e:
             print("Parse error:", e, "on line:", line)

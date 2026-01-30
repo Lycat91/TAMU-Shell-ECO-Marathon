@@ -1,12 +1,162 @@
 from writer import Writer
 from fonts import font_digits_large, font_digits_med, font_letters_large
 import time
+import framebuf
+import hardware
+
+class OLEDDriver(framebuf.FrameBuffer):
+    def __init__(self):
+        self.width = 128
+        self.height = 64
+        self.rotate = 180
+
+        self.cs = hardware.oled_cs
+        self.rst = hardware.oled_rst
+        self.dc = hardware.oled_dc
+        self.spi = hardware.spi
+        
+        # Initialize Pins
+        self.cs(1)
+        self.dc(1)
+
+        self.buffer = bytearray(self.height * self.width // 8)
+        super().__init__(self.buffer, self.width, self.height, framebuf.MONO_HMSB)
+        self.init_display()
+
+    def write_cmd(self, cmd):
+        self.cs(1); self.dc(0); self.cs(0)
+        self.spi.write(bytearray([cmd]))
+        self.cs(1)
+
+    def write_data(self, buf):
+        self.cs(1); self.dc(1); self.cs(0)
+        if isinstance(buf, int):
+            self.spi.write(bytes([buf]))
+        else:
+            self.spi.write(buf)
+        self.cs(1)
+
+    def init_display(self):
+        self.rst(1)
+        time.sleep(0.001)
+        self.rst(0)
+        time.sleep(0.01)
+        self.rst(1)
+        
+        self.write_cmd(0xAE) # turn off OLED display
+        self.write_cmd(0x00) # set lower column address
+        self.write_cmd(0x10) # set higher column address 
+        self.write_cmd(0xB0) # set page address 
+        self.write_cmd(0xdc) # set display start line 
+        self.write_cmd(0x00) 
+        self.write_cmd(0x81) # contract control 
+        self.write_cmd(0x6f) # 128
+        self.write_cmd(0x21) # Set Memory addressing mode
+        if self.rotate == 0:
+            self.write_cmd(0xa0)
+        elif self.rotate == 180:
+            self.write_cmd(0xa1)
+        self.write_cmd(0xc0) # Com scan direction
+        self.write_cmd(0xa4) # Disable Entire Display On
+        self.write_cmd(0xa6) # normal / reverse
+        self.write_cmd(0xa8) # multiplex ratio 
+        self.write_cmd(0x3f) # duty = 1/64
+        self.write_cmd(0xd3) # set display offset 
+        self.write_cmd(0x60)
+        self.write_cmd(0xd5) # set osc division 
+        self.write_cmd(0x41)
+        self.write_cmd(0xd9) # set pre-charge period
+        self.write_cmd(0x22)   
+        self.write_cmd(0xdb) # set vcomh 
+        self.write_cmd(0x35)  
+        self.write_cmd(0xad) # set charge pump enable 
+        self.write_cmd(0x8a) # Set DC-DC enable
+        self.write_cmd(0XAF)
+
+    def show(self):
+        self.write_cmd(0xB0)
+        for page in range(0, 64):
+            column = page if self.rotate == 180 else (63 - page)
+            self.write_cmd(0x00 + (column & 0x0F))
+            self.write_cmd(0x10 + (column >> 4))
+            start_index = page * 16
+            end_index = start_index + 16
+            self.write_data(self.buffer[start_index:end_index])
+
+    def set_invert(self, invert):
+        if invert:
+            self.write_cmd(0xa7)
+        else:
+            self.write_cmd(0xa6)
+
+class ButtonManager:
+    def __init__(self):
+        self.key0 = hardware.key0
+        self.key1 = hardware.key1
+        
+        now = time.ticks_ms()
+        self._debounce_ms = 150
+        self._longpress_ms = 3000
+        
+        self._last_key0 = self.key0.value()
+        self._last_key1 = self.key1.value()
+        self._last_time_k0 = now
+        self._last_time_k1 = now
+        self._k1_press_start = None
+        self._k1_reset_fired = False
+
+    def check_events(self):
+        now = time.ticks_ms()
+        k0 = self.key0.value()
+        k1 = self.key1.value()
+
+        k0_press = False
+        k1_press = False
+        k1_long_press = False
+        k1_long_release = False
+
+        # KEY0 short press
+        if self._last_key0 == 1 and k0 == 0:
+            if time.ticks_diff(now, self._last_time_k0) > self._debounce_ms:
+                k0_press = True
+                self._last_time_k0 = now
+
+        # KEY1 press start
+        if self._last_key1 == 1 and k1 == 0:
+            if time.ticks_diff(now, self._last_time_k1) > self._debounce_ms:
+                self._k1_press_start = now
+                self._k1_reset_fired = False
+
+        # KEY1 long press detection
+        if self._k1_press_start is not None and k1 == 0 and not self._k1_reset_fired:
+            press_ms = time.ticks_diff(now, self._k1_press_start)
+            if press_ms >= self._longpress_ms:
+                k1_long_press = True
+                self._k1_reset_fired = True
+
+        # KEY1 release
+        if self._last_key1 == 0 and k1 == 1 and self._k1_press_start is not None:
+            press_ms = time.ticks_diff(now, self._k1_press_start)
+            if not self._k1_reset_fired and press_ms < self._longpress_ms:
+                k1_press = True
+            if self._k1_reset_fired:
+                k1_long_release = True
+                self._k1_reset_fired = False
+            self._k1_press_start = None
+            self._last_time_k1 = now
+
+        self._last_key0 = k0
+        self._last_key1 = k1
+
+        return k0_press, k1_press, k1_long_press, k1_long_release
 
 class DisplayManager:
     def __init__(self, oled_driver):
         self.oled = oled_driver
         self.width = oled_driver.width
         self.height = oled_driver.height
+        self.current_screen = 0
+        self.num_screens = 6
 
         # --- Custom Font Writers ----
         self.w_digits_large = Writer(self.oled, font_digits_large, verbose=False)
@@ -40,6 +190,11 @@ class DisplayManager:
         self._msg_until = 0  # ms timestamp; 0 means no active message
         self._is_inverted = False
         self._screen_changed = True
+
+    def change_screen(self, delta):
+        self.current_screen = (self.current_screen + delta) % self.num_screens
+        self.screen_changed()
+        print(f"screen: {self.current_screen}")
 
     def _set_inversion(self, invert):
         """Internal helper to manage hardware inversion state."""
@@ -256,3 +411,19 @@ class DisplayManager:
 
         self.draw_alert(self._msg_top, self._msg_bottom)
         return True
+
+    def draw_screen(self, vehicle, uart_manager):
+        """Dispatch drawing based on the current screen index."""
+        if self.current_screen == 0:
+            invert_speed = vehicle.target_mph > 0 and vehicle.motor_mph < vehicle.target_mph
+            self.draw_large_num(vehicle.motor_mph, "MPH", uart_manager.uart_blink, vehicle.timer_state, invert=invert_speed, eco=vehicle.eco)
+        elif self.current_screen == 1:
+            self.draw_time(vehicle.timer_elapsed_seconds, "ELAPSED", uart_manager.uart_blink, vehicle.timer_state)
+        elif self.current_screen == 2:
+            self.draw_large_num(vehicle.current, "AMPS", uart_manager.uart_blink, vehicle.timer_state)
+        elif self.current_screen == 3:
+            self.draw_large_num(vehicle.voltage, "VOLTS", uart_manager.uart_blink, vehicle.timer_state)
+        elif self.current_screen == 4:
+            self.draw_demo_distance(vehicle.distance_miles)
+        elif self.current_screen == 5:
+            self.draw_large_num(vehicle.target_mph, "TARGET MPH", uart_manager.uart_blink, vehicle.timer_state)
