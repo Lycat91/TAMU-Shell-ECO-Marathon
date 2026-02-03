@@ -27,6 +27,8 @@ extern volatile int throttle;      // 0-255, updated from ADC or serial
 extern int motorstate_counter;
 extern int prev_motorstate;
 extern volatile float rpm;
+extern float speed;
+extern float prev_speed;
 extern absolute_time_t rpm_time_start;
 extern absolute_time_t rpm_time_end;
 
@@ -43,6 +45,9 @@ extern bool launch;
 extern bool race_mode;
 extern bool test_mode;
 extern bool drive_mode;
+extern float target_speed;
+absolute_time_t time_since_at_target_speed;
+
 
 // Serial helpers (used by debug modes)
 void check_serial_input(void);

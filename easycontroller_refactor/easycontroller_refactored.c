@@ -15,7 +15,6 @@
 
 int main(void) {
     printf("Hello from Pico!\n");
-
     init_hardware();
 
     // UART init
@@ -36,29 +35,34 @@ int main(void) {
     // Enables interrupts, starting motor commutation (unchanged)
     pwm_set_irq_enabled(A_PWM_SLICE, true);
 
+    absolute_time_t last_UART_send = get_absolute_time();
+
+
     while (true) {
-        gpio_put(LED_PIN, !gpio_get(LED_PIN));
-        check_serial_input_for_Phase_Current();
-
-        send_telemetry_uart();
-
-        sleep_ms(250);
-    
+        //gpio_put(LED_PIN, !gpio_get(LED_PIN));
+        //check_serial_input_for_Phase_Current();
 
 
-        printf(
-            "rpm:%6f | mph:%6.2f | smoothed_ma:%6d | current_ma:%6d | target_ma:%6d | battery_ma:%6d | throttle_norm:%3d%% | throttle_raw:%3d | duty_norm:%3d%% | motor_state:%d | motor_ticks:%9d\n",
-            rpm,
-            rpm * rpmtomph,
-            current_ma_smoothed,
-            current_ma,
-            current_target_ma,
-            battery_current_ma,
-            throttle * 100 / 255,
-            throttle,
-            duty_cycle * 100 / DUTY_CYCLE_MAX,
-            motorState,
-            motor_ticks);
+        if (absolute_time_diff_us(last_UART_send, get_absolute_time()) >= UART_SEND_INTERVAL_US) {
+            send_telemetry_uart();
+            read_telemetry();
+            parse_telemetry();
+            last_UART_send = get_absolute_time();
+        }
+
+        // printf(
+        //     "rpm:%6f | mph:%6.2f | smoothed_ma:%6d | current_ma:%6d | target_ma:%6d | battery_ma:%6d | throttle_norm:%3d%% | throttle_raw:%3d | duty_norm:%3d%% | motor_state:%d | motor_ticks:%9d\n",
+        //     rpm,
+        //     rpm * rpmtomph,
+        //     current_ma_smoothed,
+        //     current_ma,
+        //     current_target_ma,
+        //     battery_current_ma,
+        //     throttle * 100 / 255,
+        //     throttle,
+        //     duty_cycle * 100 / DUTY_CYCLE_MAX,
+        //     motorState,
+        //     motor_ticks);
     }
 
     return 0;

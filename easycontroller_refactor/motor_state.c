@@ -22,6 +22,8 @@ volatile int throttle = 0;  // 0-255
 int motorstate_counter = 0;
 int prev_motorstate = 0;
 volatile float rpm = 0.0f;
+float speed;
+float prev_speed;
 absolute_time_t rpm_time_start = 0;
 absolute_time_t rpm_time_end = 0;
 
@@ -39,6 +41,7 @@ bool launch = false;
 bool race_mode = true;
 bool test_mode = false;
 bool drive_mode = false;
+absolute_time_t time_since_at_target_speed = 0;
 
 
 

@@ -23,6 +23,15 @@ const bool CURRENT_CONTROL = true;          // Use current control or duty cycle
 
 const int CURRENT_CONTROL_LOOP_GAIN = 200;  // Adjusts the speed of the current control loop
 
-// End user config section -----------------------------
-
 const int HALL_IDENTIFY_DUTY_CYCLE = 25;
+
+int UART_SEND_INTERVAL_US = 250000; // 4 Hz
+
+//Smart cruise parameters
+float cruise_error = 1.0f;
+float cruise_increment = 1.0f; //miliamps
+float CRUISE_INCREMENT_MAX = 500.0f; //max cruise increment in mA
+float kp=.1f;
+float ki=.1f;
+float kd=.1f;
+

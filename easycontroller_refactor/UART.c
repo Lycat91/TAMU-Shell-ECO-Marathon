@@ -15,6 +15,7 @@
 char message_from_DIS[MSG_MAX];
 int msg_len = 0;
 bool msg_ready = false;
+int target_speed = 0;
 
 void send_telemetry_uart() {
     char message[64];
@@ -38,6 +39,7 @@ void send_telemetry_uart() {
              duty_cycle_norm);
 
     uart_puts(UART_ID, message);
+    printf("Sent message: %s", message);
 }
 
 void read_telemetry(void) {
@@ -74,6 +76,7 @@ void parse_telemetry(void) {
     const int max_index = 10;
     int index = 0;
     char *message[10];
+    char mode;
 
     while (tok != NULL && index < max_index) {
         message[index++] = tok;
@@ -89,23 +92,36 @@ void parse_telemetry(void) {
 
     switch (signifier) {
         case 't': //target speed
-            if (index >= 2) {
-                // target_speed = atoi(message[1]);
-            }
+            target_speed = atoi(message[1]);
             break;
 
-        case 'm': // "m,<char>"
-            if (index >= 2) {
-                // mode = message[1][0];            
-            }
+        case 'm':
+            mode = message[1][0];  
+            switch (mode) {
+                case 'r':
+                    drive_mode = false;
+                    race_mode = true;
+                    test_mode = false;    
+                    break;    
+                case 'd':
+                    drive_mode = true;
+                    race_mode = false;
+                    test_mode = false;
+                    break;
+                case 't':
+                    drive_mode = false;
+                    race_mode = false;
+                    test_mode = true;
+                    break;
             break;
 
         default:
-            // unknown signifier
             break;
     }
+}
 
     msg_ready = false;
+    printf("Parsed message: %s\n", message_from_DIS);
 }
 
 

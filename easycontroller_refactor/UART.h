@@ -5,3 +5,5 @@
 void send_telemetry_uart();
 void read_telemetry();
 void parse_telemetry();
+
+int target_speed;
