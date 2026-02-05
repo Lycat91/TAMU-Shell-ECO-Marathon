@@ -80,7 +80,7 @@ class NumberInputScreen(Screen):
                     self.state = "EDIT"
                 elif selection == "SEND":
                     cmd = f"M,TEST,{self.value}"
-                    self.manager.push_screen(SendingScreen(self.manager, cmd, "TEST"))
+                    self.manager.push_screen(SendingScreen(self.manager, cmd, "TEST", on_success=lambda: setattr(vehicle, 'state', 'TEST')))
         
         elif self.state == "EDIT":
             if k0 and self.value > 0: self.value -= 1 # Don't want to set a negative value
@@ -109,12 +109,13 @@ class NumberInputScreen(Screen):
 
 class SendingScreen(Screen):
     """Blocking screen that sends a command and waits for ACK."""
-    def __init__(self, manager: "Menu", command: str, alert_text: str, wait_for_ack: bool = False):
+    def __init__(self, manager: "Menu", command: str, alert_text: str, wait_for_ack: bool = False, on_success=None):
         super().__init__(manager)
         self.command = command
         self.alert_text = alert_text
         self.wait_for_ack = wait_for_ack
         self.sent = False
+        self.on_success = on_success
 
     def handle_input(self, display: "DisplayManager", vehicle: "Vehicle", uart: "UartManager", k0: bool, k1: bool, k1_hold: bool):
         # 1. Send Command Once
@@ -135,6 +136,8 @@ class SendingScreen(Screen):
                 self.finish(display)
 
     def finish(self, display: "DisplayManager"):
+        if self.on_success:
+            self.on_success()
         self.manager.pop_screen() # Pop SendingScreen
         # If we came from NumberInput, we might want to pop that too, but prompt implies just pop this.
         display.show_alert(self.alert_text, "MODE", 2)
@@ -158,9 +161,9 @@ class Menu:
         # Define Main Menu Options
         main_options = [
             ("EXIT", self._exit_menu),
-            ("SET DRIVE MODE", lambda d, v, u: self.push_screen(SendingScreen(self, "M,DRIVE", "DRIVE"))),
+            ("SET DRIVE MODE", lambda d, v, u: self.push_screen(SendingScreen(self, "M,DRIVE", "DRIVE", on_success=lambda: setattr(v, 'state', 'DRIVE')))),
             ("SET TEST MODE", lambda d, v, u: self.push_screen(NumberInputScreen(self))),
-            ("SET RACE MODE", lambda d, v, u: self.push_screen(SendingScreen(self, "M,RACE", "RACE"))),
+            ("SET RACE MODE", lambda d, v, u: self.push_screen(SendingScreen(self, "M,RACE", "RACE", on_success=lambda: setattr(v, 'state', 'RACE')))),
             ("SET MOTOR LIMIT", lambda d, v, u: None)
         ]
         self.push_screen(ListScreen(self, main_options))

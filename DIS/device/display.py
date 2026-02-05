@@ -288,13 +288,14 @@ class DisplayManager:
                     label = "MILES"
                 elif self.current_screen == 5:
                     self.render_gauge(vehicle.target_mph)
-                    label = "TARGET MPH"
+                    label = "TARGET"
                 elif self.current_screen == 6:
                     self.render_menu_gate()
 
             # 3. Render Status Bar
             if self.current_screen < 6:
                 self.render_status_bar(uart_manager.uart_blink, vehicle.timer_state, label)
+                self.oled.text(vehicle.state[:1], 0, 0, 1) ## DEBUG - show vehicle state in upper right corner
 
         # 5. Present
         invert = False
@@ -396,12 +397,14 @@ class DisplayManager:
         """
         y = self.height - 8
 
-        if uart_blink:
-            self.oled.text("U", 0, y, 1)
+        # if uart_blink:
+        #     self.oled.text("U", 0, y, 1)
 
-        x_rec = 11
+        self.oled.text("U", 0, y, 1) ## DEBUG - REMOVE
+
+        x_rec = 10
         if timer_state == "running":
-            self.oled.fill_rect(x_rec - 1, y - 1, 26, 10, 1)
+            self.oled.fill_rect(x_rec - 1, y - 1, 25, 10, 1)
             self.oled.text("REC", x_rec, y, 0)
         elif timer_state == "paused":
             self.oled.text("REC", x_rec, y, 1)

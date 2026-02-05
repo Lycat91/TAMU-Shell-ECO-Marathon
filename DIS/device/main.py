@@ -11,7 +11,7 @@ display = DisplayManager(oled_driver)
 button_manager = ButtonManager()
 
 # --- Debug Flags ---
-DEBUG_PERFORMANCE = True
+DEBUG_PERFORMANCE = False
 DEBUG_VERBOSE = False
 perf_monitor = (
     PerformanceMonitor(verbose=DEBUG_VERBOSE) if DEBUG_PERFORMANCE else None
@@ -30,9 +30,11 @@ print("Waiting for UART data...\n")
 last_sample_time = time.ticks_ms()
 elapsed_time = 0.0
 sample_dt = 0.0
+last_target_send_time = 0
 # ---------------------------------------------------
 
 while True:
+
     # Time Calculation always runs
     current_time = time.ticks_ms()
     sample_dt = time.ticks_diff(current_time, last_sample_time) / 1000
@@ -40,6 +42,11 @@ while True:
 
     # -------- Input Handling ---------------
     uart_manager.update(vehicle)
+
+    if vehicle.state == "RACE":
+        if time.ticks_diff(current_time, last_target_send_time) >= 1000:
+            uart_manager.send("T,{:.1f}".format(vehicle.target_mph))
+            last_target_send_time = current_time
 
     # --------- Derived Values (runs even with stale data)
     vehicle.update_states(sample_dt, current_time)
