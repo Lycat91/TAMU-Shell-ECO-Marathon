@@ -397,10 +397,8 @@ class DisplayManager:
         """
         y = self.height - 8
 
-        # if uart_blink:
-        #     self.oled.text("U", 0, y, 1)
-
-        self.oled.text("U", 0, y, 1) ## DEBUG - REMOVE
+        if uart_blink:
+            self.oled.text("U", 0, y, 1)
 
         x_rec = 10
         if timer_state == "running":

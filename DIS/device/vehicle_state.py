@@ -48,6 +48,7 @@ class Vehicle:
         self._last_update_ticks = time.ticks_ms()
         self._timer_start_ticks = 0
         self._stored_elapsed_ticks = 0 # Saves the time when paused
+        self._prev_motor_ticks = 0
 
     def update_states(self, dt, current_time_ms):
         
@@ -58,10 +59,15 @@ class Vehicle:
         wheel_circumference_in = math.pi * self.WHEEL_DIAMETER_IN
         self.motor_mph = self.rpm * wheel_circumference_in * 60 / 63360.0
 
+        # Calculate Tick Delta
+        delta_ticks = self.motor_ticks - self._prev_motor_ticks
+        self._prev_motor_ticks = self.motor_ticks
+        if delta_ticks < 0: delta_ticks = 0 # Handle wrap/reset
+
         # Update Timer & Distance
         if self.timer_running:
             self.timer_elapsed_seconds = (self._stored_elapsed_ticks + time.ticks_diff(current_time_ms, self._timer_start_ticks)) / 1000
-            self.distance_miles += self.motor_mph * dt / 3600
+            self.distance_miles += delta_ticks / self.TICKS_PER_MILE
         else:
             self.timer_elapsed_seconds = self._stored_elapsed_ticks / 1000
 

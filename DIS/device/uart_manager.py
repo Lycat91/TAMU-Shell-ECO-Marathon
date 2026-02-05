@@ -36,13 +36,18 @@ class UartManager:
         """Parses a single line of data from the UART."""
         try:
             self.last_message = line # Store for read_message()
-            if line.startswith("s"):
-                vehicle.voltage = float(line[1:4]) / 10
-                vehicle.current = float(line[4:10]) / 1000
-                vehicle.rpm = int(line[10:13])
-                vehicle.duty_cycle = int(line[13:16])
-                vehicle.throttle = int(line[16:19])
-                vehicle.eco = bool(int(line[19:]))
+            if line.startswith("s,"):
+                parts = line.split(',')
+                if len(parts) >= 9:
+                    vehicle.motor_ticks = int(parts[1])
+                    vehicle.eco = bool(int(parts[2]))
+                    vehicle.motor_mph = float(parts[3])
+                    vehicle.rpm = int(vehicle.motor_mph / 0.04767) # Back-calculate RPM for physics consistency
+                    vehicle.voltage = int(parts[4]) / 1000.0
+                    vehicle.current = int(parts[5]) / 1000.0
+                    vehicle.throttle_position = int(parts[6])
+                    vehicle.throttle = int(parts[7])
+                    vehicle.duty_cycle = int(parts[8])
         except Exception as e:
             print("Parse error:", e, "on line:", line)
 
