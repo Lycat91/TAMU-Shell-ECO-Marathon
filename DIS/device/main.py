@@ -11,7 +11,7 @@ display = DisplayManager(oled_driver)
 button_manager = ButtonManager()
 
 # --- Debug Flags ---
-DEBUG_PERFORMANCE = False
+DEBUG_PERFORMANCE = True
 DEBUG_VERBOSE = False
 perf_monitor = (
     PerformanceMonitor(verbose=DEBUG_VERBOSE) if DEBUG_PERFORMANCE else None
@@ -44,41 +44,12 @@ while True:
     # --------- Derived Values (runs even with stale data)
     vehicle.update_states(sample_dt, current_time)
 
-    k0_click, k1_click, k1_hold, k1_hold_release = button_manager.check_events()
-
-    if k1_hold_release:
-        display.clear_alert()
-
-    if k1_click:
-        if vehicle.timer_running:
-            vehicle._stored_elapsed_ticks += time.ticks_diff(current_time, vehicle._timer_start_ticks)
-            vehicle.timer_running = False
-            vehicle.timer_state = 'paused'
-            print("Timer stopped")
-        else:
-            vehicle._timer_start_ticks = current_time
-            vehicle.timer_running = True
-            vehicle.timer_state = 'running'
-            print("Timer started")
-
-    if k1_hold:
-        vehicle._stored_elapsed_ticks = 0
-        vehicle.distance_miles = 0
-        vehicle.timer_running = False
-        vehicle.timer_state = 'reset'
-        vehicle._timer_start_ticks = current_time
-        display.show_alert("TIMER", "RESET", 3)
-
-    if k0_click:
-        display.change_screen(1)
+    button_manager.update(vehicle, display, uart_manager)
 
     # --------- DISPLAY (always runs) ------------------
-    if display.update_alert():
-        continue
-
     if perf_monitor: perf_monitor.start()
 
-    display.draw_screen(vehicle, uart_manager)
+    display.update(vehicle, uart_manager)
 
     if perf_monitor: perf_monitor.stop()
 

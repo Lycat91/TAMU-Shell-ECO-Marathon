@@ -1,8 +1,9 @@
 from writer import Writer
-from fonts import font_digits_large, font_digits_med, font_letters_large
+from fonts import font_digits_large, font_digits_med, font_letters_large, font_digits_45
 import time
 import framebuf
 import hardware
+from menu import Menu
 
 class OLEDDriver(framebuf.FrameBuffer):
     def __init__(self):
@@ -22,6 +23,7 @@ class OLEDDriver(framebuf.FrameBuffer):
         self.buffer = bytearray(self.height * self.width // 8)
         super().__init__(self.buffer, self.width, self.height, framebuf.MONO_HMSB)
         self.init_display()
+        self._hw_invert = False
 
     def write_cmd(self, cmd):
         self.cs(1); self.dc(0); self.cs(0)
@@ -73,7 +75,11 @@ class OLEDDriver(framebuf.FrameBuffer):
         self.write_cmd(0x8a) # Set DC-DC enable
         self.write_cmd(0XAF)
 
-    def show(self):
+    def show(self, invert=False):
+        if invert != self._hw_invert:
+            self.write_cmd(0xa7 if invert else 0xa6)
+            self._hw_invert = invert
+
         self.write_cmd(0xB0)
         for page in range(0, 64):
             column = page if self.rotate == 180 else (63 - page)
@@ -83,12 +89,6 @@ class OLEDDriver(framebuf.FrameBuffer):
             end_index = start_index + 16
             self.write_data(self.buffer[start_index:end_index])
 
-    def set_invert(self, invert):
-        if invert:
-            self.write_cmd(0xa7)
-        else:
-            self.write_cmd(0xa6)
-
 class ButtonManager:
     def __init__(self):
         self.key0 = hardware.key0
@@ -96,7 +96,7 @@ class ButtonManager:
         
         now = time.ticks_ms()
         self._debounce_ms = 150
-        self._longpress_ms = 3000
+        self._longpress_ms = 2000
         
         self._last_key0 = self.key0.value()
         self._last_key1 = self.key1.value()
@@ -150,23 +150,71 @@ class ButtonManager:
 
         return k0_press, k1_press, k1_long_press, k1_long_release
 
+    def update(self, vehicle, display, uart_manager):
+        """
+        Polls buttons and executes actions on the vehicle or display.
+        """
+        k0_click, k1_click, k1_hold, k1_hold_release = self.check_events()
+        now = time.ticks_ms()
+
+        # --- MENU MODE INPUTS ---
+        if display.display_mode == "MENU":
+            display.menu.handle_input(display, vehicle, uart_manager, k0_click, k1_click, k1_hold)
+            return
+
+        # --- CLUSTER MODE INPUTS ---
+        if display.display_mode == "CLUSTER":
+            if k1_click:
+                if vehicle.timer_running:
+                    vehicle._stored_elapsed_ticks += time.ticks_diff(now, vehicle._timer_start_ticks)
+                    vehicle.timer_running = False
+                    vehicle.timer_state = 'paused'
+                else:
+                    vehicle._timer_start_ticks = now
+                    vehicle.timer_running = True
+                    vehicle.timer_state = 'running'
+
+            if k1_hold:
+                if display.current_screen == 6:
+                    display.display_mode = "MENU"
+                    display.menu.reset()
+                else:
+                    vehicle._stored_elapsed_ticks = 0
+                    vehicle.distance_miles = 0
+                    vehicle.timer_running = False
+                    vehicle.timer_state = 'reset'
+                    vehicle._timer_start_ticks = now
+                    display.show_alert("TIMER", "RESET", 2)
+
+            if k0_click:
+                display.change_screen(1)
+
 class DisplayManager:
-    def __init__(self, oled_driver):
+    def __init__(self, oled_driver: OLEDDriver):
         self.oled = oled_driver
         self.width = oled_driver.width
         self.height = oled_driver.height
         self.current_screen = 0
-        self.num_screens = 6
+        self.num_screens = 7
+        self.display_mode = "CLUSTER" # Cluster, Menu, Race
+        
+        # Menu System
+        self.menu = Menu()
 
         # --- Custom Font Writers ----
         self.w_digits_large = Writer(self.oled, font_digits_large, verbose=False)
+        self.w_digits_45 = Writer(self.oled, font_digits_45, verbose = False)
         self.w_digits_med = Writer(self.oled, font_digits_med, verbose=False)
         self.w_letters_big = Writer(self.oled, font_letters_large, verbose=False)
 
-        self.w_digits_large.set_wrap(False)
-        self.w_digits_med.set_wrap(False)
+        # Gauge Configuration
+        self.ANCHOR_X = 85
+        self.DIGIT_Y = 0
+        self.DOT_SIZE = 4
+        self.DOT_PADDING = 3
+        
 
-        # ---- Precompute fixed slot positions for DD.D ----
+        # ---- Precompute fixed slot positions for DD.D ---- # Remove when new version is done
         self._big_slot_x0 = 9  # tens
         self._big_slot_x1 = 43  # ones
         self._big_slot_xdot = 79  # '.'
@@ -188,92 +236,109 @@ class DisplayManager:
         self._msg_top = None
         self._msg_bottom = None
         self._msg_until = 0  # ms timestamp; 0 means no active message
-        self._is_inverted = False
-        self._screen_changed = True
 
     def change_screen(self, delta):
         self.current_screen = (self.current_screen + delta) % self.num_screens
-        self.screen_changed()
         print(f"screen: {self.current_screen}")
 
-    def _set_inversion(self, invert):
-        """Internal helper to manage hardware inversion state."""
-        if invert != self._is_inverted:
-            self.oled.set_invert(invert)
-            self._is_inverted = invert
-
-    def screen_changed(self):
-        """Signals that the screen has changed and a full redraw is needed."""
-        self._screen_changed = True
-
-    def draw_large_num(self, num, label, uart_blink, timer_state, invert=False, eco=False):
+    def update(self, vehicle, uart_manager):
         """
-        Draw speed as fixed DD.D using precomputed slots.
-        Set invert=True to flip colors before showing.
+        Main Render Pipeline:
+        1. Clear Buffer
+        2. Render Content (Screen specific)
+        3. Render Overlays (Status bar, Eco)
+        4. Render Alerts (Priority)
+        5. Present (Calculate inversion and show)
         """
-        self._set_inversion(invert)
+        # 1. Clear
+        self.oled.fill(0)
 
-        if self._screen_changed:
-            self.oled.fill(0)
-            label_x = self.width - len(label) * 8
-            label_y = self.height - 8
-            self.oled.text(label, label_x, label_y, 1)
+        # Check for Alerts (Priority)
+        now = time.ticks_ms()
+        alert_active = False
+        if self._msg_top is not None:
+            if time.ticks_diff(self._msg_until, now) > 0:
+                alert_active = True
+            else:
+                self.clear_alert()
 
-        # Clamp range
-        if num < 0: num = 0.0
-        if num > 99.9: num = 99.9
+        if alert_active:
+            self.render_alert(self._msg_top, self._msg_bottom)
+        else:
+            # 2. Render Content
+            label = ""
+            
+            if self.display_mode == "MENU":
+                self.menu.render_menu_list(self)
+            else:
+                if self.current_screen == 0:
+                    self.render_gauge(vehicle.motor_mph, precision=1)
+                    label = "MPH"
+                elif self.current_screen == 1:
+                    self.render_time(vehicle.timer_elapsed_seconds)
+                    label = "ELAPSED"
+                elif self.current_screen == 2:
+                    self.render_gauge(vehicle.current)
+                    label = "AMPS"
+                elif self.current_screen == 3:
+                    self.render_gauge(vehicle.voltage)
+                    label = "VOLTS"
+                elif self.current_screen == 4:
+                    self.render_demo_distance(vehicle.distance_miles)
+                    label = "MILES"
+                elif self.current_screen == 5:
+                    self.render_gauge(vehicle.target_mph)
+                    label = "TARGET MPH"
+                elif self.current_screen == 6:
+                    self.render_menu_gate()
 
-        int_part = int(num)
-        tenths = int((num * 10) % 10)
-        ones = int_part % 10
-        tens = int_part // 10
+            # 3. Render Status Bar
+            if self.current_screen < 6:
+                self.render_status_bar(uart_manager.uart_blink, vehicle.timer_state, label)
 
-        # --- DYNAMIC: Number Area ---
-        number_height = self.w_digits_large.height
-        self.oled.fill_rect(0, 0, self.width, number_height, 0)
+        # 5. Present
+        invert = False
+        self.oled.show(invert=invert)
 
-        y = self._big_slot_y
+    def render_gauge(self, value, precision=1):
+        # Format the number - need absolute value
+        abs_value = abs(value)
+        # Format string based on precision
+        full_str = "{:.{}f}".format(abs_value, precision)
+        # Split number across the decimal place
+        if "." in full_str:
+            int_part, dec_part = full_str.split(".")
+        else:
+            int_part, dec_part = full_str, ""
 
-        # Tens digit (only if >= 10.0)
-        if tens > 0:
-            self.w_digits_large.set_textpos(self._big_slot_x0, y)
-            self.w_digits_large.printstring(str(tens))
+        # --- 2. Draw Numbers ---
+        # Draw the integer part
+        char_width = self.w_digits_45.font.max_width()
+        int_width = len(int_part) * char_width
+        int_x = self.ANCHOR_X - self.DOT_PADDING - int_width
+        
+        self.w_digits_45.set_textpos(int_x, self.DIGIT_Y)
+        self.w_digits_45.printstring(int_part)
 
-        # Ones digit
-        self.w_digits_large.set_textpos(self._big_slot_x1, y)
-        self.w_digits_large.printstring(str(ones))
+        # Draw the decimal point if we have one
+        if precision > 0:
+            dot_y = self.w_digits_45.height - self.DOT_SIZE
+            self.oled.ellipse(self.ANCHOR_X, dot_y, self.DOT_SIZE, self.DOT_SIZE, 1, 1)
+            dec_x = self.ANCHOR_X + self.DOT_SIZE + self.DOT_PADDING
+            self.w_digits_45.set_textpos(dec_x, self.DIGIT_Y)
+            self.w_digits_45.printstring(dec_part)
+        
+        # Draw the negative sign manually
+        if value < 0:
+            minus_width = 10
+            minus_x = int_x - minus_width - 4
+            minus_y = 25
+            self.oled.hline(minus_x, minus_y, minus_width, 1)
 
-        # Decimal point
-        self.w_digits_large.set_textpos(self._big_slot_xdot, y)
-        self.w_digits_large.printstring(".")
-
-        # Tenths digit
-        self.w_digits_large.set_textpos(self._big_slot_x2, y)
-        self.w_digits_large.printstring(str(tenths))
-
-        # --- DYNAMIC: Status Area ---
-        self.draw_status(uart_blink, timer_state)
-
-        # --- DYNAMIC: Eco Line ---
-        eco_line_y = self.height - 12
-        self.oled.hline(0, eco_line_y, self.width, 0)
-        if eco:
-            self.oled.line(0, eco_line_y, self.width, eco_line_y, 1)
-
-        self.oled.show()
-        self._screen_changed = False
-
-    def draw_time(self, seconds, label, uart_blink, timer_state):
+    def render_time(self, seconds):
         """
         Draw elapsed time as MM:SS using the medium digit font.
         """
-        self._set_inversion(False)
-        if self._screen_changed:
-            self.oled.fill(0)
-            label_x = self.width - len(label) * 8
-            label_y = self.height - 8
-            self.oled.text(label, label_x, label_y, 1)
-
         if seconds < 0: seconds = 0
         total = int(seconds)
 
@@ -287,10 +352,6 @@ class DisplayManager:
         m1 = mins % 10
         s10 = secs // 10
         s1 = secs % 10
-
-        # --- DYNAMIC: Time Area ---
-        time_height = self.w_digits_med.height
-        self.oled.fill_rect(0, 0, self.width, time_height, 0)
 
         y = self._time_y
 
@@ -310,16 +371,8 @@ class DisplayManager:
         self.w_digits_med.set_textpos(self._time_x_s1, y)
         self.w_digits_med.printstring(str(s1))
 
-        # --- DYNAMIC: Status Area ---
-        self.draw_status(uart_blink, timer_state)
-        self.oled.show()
-        self._screen_changed = False
-
-    def draw_demo_distance(self, distance):
+    def render_demo_distance(self, distance):
         """Draw distance that caps at out .999 for demo purposes only"""
-        # This screen has no other dynamic elements, so a full redraw is simpler.
-        self._set_inversion(False)
-        self.oled.fill(0)
         distance = max(0, min(int(distance * 1000), 999))
 
         n1 = distance // 100
@@ -337,20 +390,11 @@ class DisplayManager:
         self.w_digits_large.set_textpos(91, y)
         self.w_digits_large.printstring(str(n3))
 
-        label = "MILES"
-        label_x = self.width - len(label) * 8
-        label_y = self.height - 8
-        self.oled.text(label, label_x, label_y, 1)
-
-        self.oled.show()
-        self._screen_changed = False
-
-    def draw_status(self, uart_blink, timer_state):
+    def render_status_bar(self, uart_blink, timer_state, label_text=None):
         """
         Draw UART and timer indicators on the bottom row.
         """
         y = self.height - 8
-        self.oled.fill_rect(0, y, 40, 8, 0)
 
         if uart_blink:
             self.oled.text("U", 0, y, 1)
@@ -362,12 +406,14 @@ class DisplayManager:
         elif timer_state == "paused":
             self.oled.text("REC", x_rec, y, 1)
 
-    def draw_alert(self, top, bottom):
+        if label_text:
+            label_x = self.width - len(label_text) * 8
+            self.oled.text(label_text, label_x, y, 1)
+
+    def render_alert(self, top, bottom):
         """
         Draw two words in the letter font, centered.
         """
-        self._set_inversion(False)
-        self.oled.fill(0)
         if top:
             top = top.upper()
             x_top = max(0, (self.width - self.w_letters_big.stringlen(top)) // 2)
@@ -378,7 +424,6 @@ class DisplayManager:
             x_bottom = max(0, (self.width - self.w_letters_big.stringlen(bottom)) // 2)
             self.w_letters_big.set_textpos(x_bottom, 24)
             self.w_letters_big.printstring(bottom)
-        self.oled.show()
 
     def show_alert(self, top, bottom, seconds):
         """
@@ -397,33 +442,11 @@ class DisplayManager:
         self._msg_bottom = None
         self._msg_until = 0
 
-    def update_alert(self):
-        """
-        If an alert is active, draw it and return True. Otherwise, return False.
-        """
-        if self._msg_top is None:
-            return False
+    def center_text_x(self, text):
+        return int((self.width - (len(text) * 8)) / 2)
 
-        now = time.ticks_ms()
-        if time.ticks_diff(self._msg_until, now) <= 0:
-            self.clear_alert()
-            return False
-
-        self.draw_alert(self._msg_top, self._msg_bottom)
-        return True
-
-    def draw_screen(self, vehicle, uart_manager):
-        """Dispatch drawing based on the current screen index."""
-        if self.current_screen == 0:
-            invert_speed = vehicle.target_mph > 0 and vehicle.motor_mph < vehicle.target_mph
-            self.draw_large_num(vehicle.motor_mph, "MPH", uart_manager.uart_blink, vehicle.timer_state, invert=invert_speed, eco=vehicle.eco)
-        elif self.current_screen == 1:
-            self.draw_time(vehicle.timer_elapsed_seconds, "ELAPSED", uart_manager.uart_blink, vehicle.timer_state)
-        elif self.current_screen == 2:
-            self.draw_large_num(vehicle.current, "AMPS", uart_manager.uart_blink, vehicle.timer_state)
-        elif self.current_screen == 3:
-            self.draw_large_num(vehicle.voltage, "VOLTS", uart_manager.uart_blink, vehicle.timer_state)
-        elif self.current_screen == 4:
-            self.draw_demo_distance(vehicle.distance_miles)
-        elif self.current_screen == 5:
-            self.draw_large_num(vehicle.target_mph, "TARGET MPH", uart_manager.uart_blink, vehicle.timer_state)
+    def render_menu_gate(self):
+        text1 = "PRESS AND HOLD"
+        text2 = "TO ENTER MENU"
+        self.oled.text(text1, self.center_text_x(text1), 5, 1)
+        self.oled.text(text2, self.center_text_x(text2), 15, 1)
