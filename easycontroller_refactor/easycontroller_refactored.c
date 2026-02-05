@@ -48,9 +48,15 @@ int main(void) {
             read_telemetry();
             parse_telemetry();
             last_UART_send = get_absolute_time();
+            printf("Message to DIS: %s\n", message_to_DIS);
+            printf("Message from DIS: %s\n", message_from_DIS);
+            printf("Mode: %s\n", drive_mode ? "Drive" : (race_mode ? "Race" : "Test"));
+            if (race_mode){
+                printf("Target Speed: %f mph\n", target_speed);
+            }
         }
 
-        // printf(
+        // printf(  
         //     "rpm:%6f | mph:%6.2f | smoothed_ma:%6d | current_ma:%6d | target_ma:%6d | battery_ma:%6d | throttle_norm:%3d%% | throttle_raw:%3d | duty_norm:%3d%% | motor_state:%d | motor_ticks:%9d\n",
         //     rpm,
         //     rpm * rpmtomph,

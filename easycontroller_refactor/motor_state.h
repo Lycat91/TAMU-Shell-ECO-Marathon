@@ -18,6 +18,8 @@ extern int voltage_mv;
 extern int current_ma;
 extern int current_target_ma;
 extern int hall;
+extern int test_current_ma;
+extern int test_time_us;
 extern uint motorState;
 extern int fifo_level;
 extern uint64_t ticks_since_init;
@@ -45,6 +47,7 @@ extern bool launch;
 extern bool race_mode;
 extern bool test_mode;
 extern bool drive_mode;
+extern bool test_active;
 extern float target_speed;
 absolute_time_t time_since_at_target_speed;
 

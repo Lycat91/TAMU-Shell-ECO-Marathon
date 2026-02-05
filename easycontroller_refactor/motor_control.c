@@ -65,6 +65,10 @@ void on_adc_fifo(void) {
         else if (adc_throttle > 2000){ 
             UCO = true;
         }
+        else {
+            launch = false;
+            UCO = false;
+        }
     }
     else if (drive_mode){
         UCO = false;
@@ -72,10 +76,18 @@ void on_adc_fifo(void) {
         if (rpm < 30 && throttle != 0){ 
             launch = true;
         }
+        else {
+            launch = false;
+        }
     }
     else if (test_mode){
-        UCO = false;
         launch = false;
+        if (adc_throttle > 2000){ 
+            UCO = true;
+        }
+        else {
+            UCO = false;
+        }
         //extra test conditions can be added here
     }
 
@@ -148,8 +160,37 @@ void on_adc_fifo(void) {
 
         }
 
-        if (test_mode){
-            //Constant current test conditions
+        if (test_mode){;
+            absolute_time_t test_start_time;
+            //Check if test is starting
+            if (UCO) {
+                if (test_active == false){
+                    test_start_time = get_absolute_time(); 
+                }
+                test_active = true;
+
+                //Check time 
+                if (absolute_time_diff_us(test_start_time, get_absolute_time()) >= test_time_us){
+                    test_active = false;
+                    current_target_ma = 0;
+                    duty_cycle = 0;
+                    writePWM(motorState, (uint)(duty_cycle / 256), do_synchronous);
+                }
+                //If still active, set target current
+                else {
+                    current_target_ma = test_current_ma;
+                    adjust_duty();
+                } 
+            }
+            //Stop moving
+            else {
+                test_active = false;
+                current_target_ma = 0;
+                duty_cycle = 0;
+                writePWM(motorState, (uint)(duty_cycle / 256), do_synchronous);
+            }
+
+
         }
 
     } else {
