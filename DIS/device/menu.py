@@ -79,7 +79,7 @@ class NumberInputScreen(Screen):
                 elif selection == "EDIT":
                     self.state = "EDIT"
                 elif selection == "SEND":
-                    cmd = f"M,T,{self.value}"
+                    cmd = f"M,t,{self.value}"
                     self.manager.push_screen(SendingScreen(self.manager, cmd, "TEST", on_success=lambda: setattr(vehicle, 'state', 'TEST')))
         
         elif self.state == "EDIT":
@@ -161,9 +161,9 @@ class Menu:
         # Define Main Menu Options
         main_options = [
             ("EXIT", self._exit_menu),
-            ("SET DRIVE MODE", lambda d, v, u: self.push_screen(SendingScreen(self, "M,DRIVE", "DRIVE", on_success=lambda: setattr(v, 'state', 'DRIVE')))),
+            ("SET DRIVE MODE", lambda d, v, u: self.push_screen(SendingScreen(self, "M,d", "DRIVE", on_success=lambda: setattr(v, 'state', 'DRIVE')))),
             ("SET TEST MODE", lambda d, v, u: self.push_screen(NumberInputScreen(self))),
-            ("SET RACE MODE", lambda d, v, u: self.push_screen(SendingScreen(self, "M,R", "RACE", on_success=lambda: setattr(v, 'state', 'RACE')))),
+            ("SET RACE MODE", lambda d, v, u: self.push_screen(SendingScreen(self, "M,r", "RACE", on_success=lambda: setattr(v, 'state', 'RACE')))),
             ("SET MOTOR LIMIT", lambda d, v, u: None)
         ]
         self.push_screen(ListScreen(self, main_options))

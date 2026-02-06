@@ -62,7 +62,7 @@ class UartManager:
         Sends a message string encoded as UTF-8
         '''
         # Format the data by adding a newline character
-        formatted_data = message_string + "\n"
+        formatted_data = message_string + ",\n"
 
         # Encode as UTF-8
         encoded_data = formatted_data.encode('utf-8')
