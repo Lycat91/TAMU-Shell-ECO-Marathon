@@ -138,7 +138,11 @@ void parse_telemetry(void) {
     msg_ready = false;
 }
 
-
+void send_acknowledgement() {            
+    char ack_msg[MSG_MAX + 5];
+    snprintf(ack_msg, sizeof(ack_msg), "%s,ACK\n", message_from_DIS);
+    uart_puts(UART_ID, ack_msg);
+}
 
 
 /*
