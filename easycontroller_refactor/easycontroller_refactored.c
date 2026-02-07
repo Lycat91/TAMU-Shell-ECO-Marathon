@@ -48,11 +48,26 @@ int main(void) {
             read_telemetry();
             parse_telemetry();
             last_UART_send = get_absolute_time();
-            printf("Message to DIS: %s\n", message_to_DIS);
-            printf("Message from DIS: %s\n", message_from_DIS);
             printf("Mode: %s\n", drive_mode ? "Drive" : (race_mode ? "Race" : "Test"));
             if (race_mode){
+                printf("Speed: %f mph\n", rpm * rpmtomph);
                 printf("Target Speed: %f mph\n", target_speed);
+                printf("Target Current: %d mA\n", current_target_ma);
+                printf("Battery Current: %d mA\n", battery_current_ma);
+                printf("\n");
+            }
+            if (drive_mode){
+                printf("Speed: %f mph\n", rpm * rpmtomph);
+                printf("Target Current: %d mA\n", current_target_ma);
+                printf("Battery Current: %d mA\n", battery_current_ma);
+                printf("\n");
+            }
+            if (test_mode){
+                printf("Test Current: %d mA\n", test_current_ma);
+                printf("Current Target: %d mA\n", current_target_ma);
+                printf("Speed: %f mph\n", rpm * rpmtomph);
+                printf("UCO: %s\n", UCO ? "ON" : "OFF");
+                printf("\n");
             }
         }
 

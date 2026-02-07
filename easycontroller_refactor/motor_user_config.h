@@ -26,11 +26,11 @@ extern const int CURRENT_CONTROL_LOOP_GAIN;
 
 extern const int HALL_IDENTIFY_DUTY_CYCLE;
 
-int UART_SEND_INTERVAL_US;
+extern int UART_SEND_INTERVAL_US;
 //Smart cruise parameters
-float cruise_error;
-int cruise_increment;
-float CRUISE_INCREMENT_MAX;
-float kp;
-float ki;
-float kd;
+extern float cruise_error;
+extern int cruise_increment;
+extern float CRUISE_INCREMENT_MAX;
+extern float kp;
+extern float ki;
+extern float kd;

@@ -17,6 +17,8 @@ void writePWM(uint motorState, uint duty, bool synchronous);
 void identify_halls(void);
 void commutate_open_loop(void);
 void commutate_open_loop_Computer_Control(void);
+void adjust_duty(void);
+void smart_cruise_func(void);
 
 
 

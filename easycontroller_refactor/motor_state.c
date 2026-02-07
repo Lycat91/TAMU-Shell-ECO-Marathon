@@ -14,7 +14,7 @@ int current_ma = 0;
 int current_target_ma = 0;
 int hall = 0;
 int test_current_ma = 1000; 
-int test_time_us = 10000000; // 10 seconds
+int test_time_us = 5000000; // 5 seconds
 uint motorState = 0;
 int fifo_level = 0;
 uint64_t ticks_since_init = 0;
@@ -43,7 +43,6 @@ bool launch = false;
 bool race_mode = true;
 bool test_mode = false;
 bool drive_mode = false;
-bool test_active = false;
 absolute_time_t time_since_at_target_speed = 0;
 
 

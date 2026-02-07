@@ -55,7 +55,7 @@ void on_adc_fifo(void) {
 
     //-------------------------------Motor drive operation logic tree-----------------------------------------------
     launch = false;
-    race_mode = true; //Temporary default mode for testing
+    //race_mode = true; //Temporary default mode for testing
     UCO = false; //User Configured Operation currently used for smart cruise
 
     if (race_mode){
@@ -126,7 +126,7 @@ void on_adc_fifo(void) {
                 }
             }
             else if (UCO) {
-                smart_cruise();
+                smart_cruise_func();
             }
             else {
                 adjust_duty();
@@ -161,30 +161,14 @@ void on_adc_fifo(void) {
         }
 
         if (test_mode){;
-            absolute_time_t test_start_time;
+
             //Check if test is starting
             if (UCO) {
-                if (test_active == false){
-                    test_start_time = get_absolute_time(); 
-                }
-                test_active = true;
-
-                //Check time 
-                if (absolute_time_diff_us(test_start_time, get_absolute_time()) >= test_time_us){
-                    test_active = false;
-                    current_target_ma = 0;
-                    duty_cycle = 0;
-                    writePWM(motorState, (uint)(duty_cycle / 256), do_synchronous);
-                }
-                //If still active, set target current
-                else {
-                    current_target_ma = test_current_ma;
-                    adjust_duty();
-                } 
+                current_target_ma = test_current_ma;
+                adjust_duty(); 
             }
             //Stop moving
             else {
-                test_active = false;
                 current_target_ma = 0;
                 duty_cycle = 0;
                 writePWM(motorState, (uint)(duty_cycle / 256), do_synchronous);
@@ -331,7 +315,7 @@ void adjust_duty(){ //clamp current, increment duty, clamp duty, synchronous?, w
     writePWM(motorState, (uint)(duty_cycle / 256), do_synchronous);
 }
 
-void smart_cruise(){ //Cruise control target speed calculted on DIS
+void smart_cruise_func(){ //Cruise control target speed calculted on DIS
     //Requires global target_speed to be set prior to calling function
     current_target_ma = prev_current_target_ma; //Build off previous current
     prev_speed = speed;

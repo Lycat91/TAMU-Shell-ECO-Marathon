@@ -16,7 +16,7 @@ char message_from_DIS[MSG_MAX];
 char message_to_DIS[64];
 int msg_len = 0;
 bool msg_ready = false;
-int target_speed = 0;
+float target_speed = 0;
 
 void send_telemetry_uart() {
 
@@ -28,19 +28,19 @@ void send_telemetry_uart() {
     int throttle_mapped = (throttle_norm*100)/90;
     if (throttle_mapped > 100) throttle_mapped = 999; //indicate UCO activated
 
-    // snprintf(message_to_DIS, sizeof(message_to_DIS), "%c,%d,%d,%f,%d,%d,%d,%d,%d\n",
-    //          signal,
-    //          motor_ticks,
-    //          UCO,
-    //          rpm*rpmtomph,
-    //          voltage_mv,
-    //          battery_current_ma,
-    //          throttle_norm,
-    //          throttle_mapped,
-    //          duty_cycle_norm);
+    snprintf(message_to_DIS, sizeof(message_to_DIS), "%c,%d,%d,%f,%d,%d,%d,%d,%d\n",
+             signal,
+             motor_ticks,
+             UCO,
+             rpm*rpmtomph,
+             voltage_mv,
+             battery_current_ma,
+             throttle_norm,
+             throttle_mapped,
+             duty_cycle_norm);
 
-    // uart_puts(UART_ID, message_to_DIS);
-    // printf("Sent message: %s", message_to_DIS);
+    uart_puts(UART_ID, message_to_DIS);
+    //printf("Message to DIS: %s\n", message_to_DIS);
 }
 
 void read_telemetry(void) {
@@ -53,6 +53,7 @@ void read_telemetry(void) {
             message_from_DIS[msg_len] = '\0';  // terminate string
             msg_ready = true;                  // mark message ready
             msg_len = 0;                       // reset for next message
+            printf("Message from DIS: %s\n", message_from_DIS);
             return;                            // stop after one full message
         }
 
@@ -70,6 +71,7 @@ void read_telemetry(void) {
 
 void parse_telemetry(void) {
     if (!msg_ready) return;
+    
 
     char *saveptr = NULL;
     char *tok = strtok_r(message_from_DIS, ",", &saveptr);
@@ -92,11 +94,11 @@ void parse_telemetry(void) {
     char signifier = message[0][0];  
 
    switch (signifier) {
-    case 't': // target speed
-        target_speed = atoi(message[1]);
+    case 'T': // target speed
+        target_speed = atof(message[1]);
         break;
 
-    case 'm': // mode select
+    case 'M': // mode select
         mode = message[1][0];
 
         switch (mode) {
@@ -116,7 +118,7 @@ void parse_telemetry(void) {
                 drive_mode = false;
                 race_mode  = false;
                 test_mode  = true;
-                test_current_ma = atoi(message[2]); // set test current
+                test_current_ma = 1000*atoi(message[2]); // set test current
                 break;
 
             default:
@@ -134,7 +136,6 @@ void parse_telemetry(void) {
 }
 
     msg_ready = false;
-    printf("Parsed message: %s\n", message_from_DIS);
 }
 
 
