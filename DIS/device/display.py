@@ -269,7 +269,7 @@ class DisplayManager:
             label = ""
             
             if self.display_mode == "MENU":
-                self.menu.render_menu_list(self)
+                self.menu.render_menu_list(self, vehicle)
             else:
                 if self.current_screen == 0:
                     self.render_gauge(vehicle.motor_mph, precision=1)

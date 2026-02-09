@@ -20,7 +20,7 @@ class Screen:
     def handle_input(self, display: "DisplayManager", vehicle: "Vehicle", uart: "UartManager", k0: bool, k1: bool, k1_hold: bool):
         pass
 
-    def draw(self, display: "DisplayManager"):
+    def draw(self, display: "DisplayManager", vehicle: "Vehicle"):
         pass
 
     def on_enter(self):
@@ -47,10 +47,14 @@ class ListScreen(Screen):
             # Execute callback, passing dependencies if needed
             callback(display, vehicle, uart)
 
-    def draw(self, display: "DisplayManager"):
+    def draw(self, display: "DisplayManager", vehicle: "Vehicle"):
         y = 0
         h = 12
         for i, (label, _) in enumerate(self.options):
+            # Support dynamic labels (callables)
+            if callable(label):
+                label = label(vehicle)
+            
             if i == self.index:
                 display.oled.fill_rect(0, y, display.width, h, 1)
                 display.oled.text(label, 2, y+2, 0)
@@ -88,7 +92,7 @@ class NumberInputScreen(Screen):
             if k1_hold:
                 self.state = "NAV"
 
-    def draw(self, display: "DisplayManager"):
+    def draw(self, display: "DisplayManager", vehicle: "Vehicle"):
         # Draw Left Menu
         y = 10
         h = 12
@@ -142,7 +146,7 @@ class SendingScreen(Screen):
         # If we came from NumberInput, we might want to pop that too, but prompt implies just pop this.
         display.show_alert(self.alert_text, "MODE", 2)
 
-    def draw(self, display: "DisplayManager"):
+    def draw(self, display: "DisplayManager", vehicle: "Vehicle"):
         display.oled.text("Sending...", 20, 25, 1)
         display.oled.text(self.command, 10, 40, 1)
 
@@ -161,6 +165,7 @@ class Menu:
         # Define Main Menu Options
         main_options = [
             ("EXIT", self._exit_menu),
+            (lambda v: "LOGGING: " + ("ON" if v.logging_armed else "OFF"), self._toggle_logging),
             ("SET DRIVE MODE", lambda d, v, u: self.push_screen(SendingScreen(self, "M,d", "DRIVE", on_success=lambda: setattr(v, 'state', 'DRIVE')))),
             ("SET TEST MODE", lambda d, v, u: self.push_screen(NumberInputScreen(self))),
             ("SET RACE MODE", lambda d, v, u: self.push_screen(SendingScreen(self, "M,r", "RACE", on_success=lambda: setattr(v, 'state', 'RACE')))),
@@ -179,10 +184,13 @@ class Menu:
     def _exit_menu(self, display, vehicle, uart):
         display.display_mode = "CLUSTER"
 
+    def _toggle_logging(self, display, vehicle, uart):
+        vehicle.logging_armed = not vehicle.logging_armed
+
     def handle_input(self, display: "DisplayManager", vehicle: "Vehicle", uart: "UartManager", k0: bool, k1: bool, k1_hold: bool):
         if self.stack:
             self.stack[-1].handle_input(display, vehicle, uart, k0, k1, k1_hold)
 
-    def render_menu_list(self, display: "DisplayManager"):
+    def render_menu_list(self, display: "DisplayManager", vehicle: "Vehicle"):
         if self.stack:
-            self.stack[-1].draw(display)
+            self.stack[-1].draw(display, vehicle)

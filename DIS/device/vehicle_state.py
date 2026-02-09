@@ -9,6 +9,7 @@ class Vehicle:
 
         # State of the vehicle
         self.state = "DRIVE"
+        self.logging_armed = False # Toggle via Menu
 
         # Measured signals from the motor controller
         self.motor_ticks = 0

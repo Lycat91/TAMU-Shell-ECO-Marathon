@@ -4,6 +4,7 @@ from display import DisplayManager, OLEDDriver, ButtonManager
 from performance import PerformanceMonitor
 from uart_manager import UartManager
 from vehicle_state import Vehicle
+from logger import Logger
 
 # --- Hardware Setup ---
 oled_driver = OLEDDriver()
@@ -22,9 +23,7 @@ perf_monitor = (
 # --- Managers ---
 uart_manager = UartManager(hardware.uart)
 vehicle = Vehicle()
-
-
-print("Waiting for UART data...\n")
+logger = Logger(interval_ms=1000)
 
 # ----------------- TIME VARIABLES -----------------
 last_sample_time = time.ticks_ms()
@@ -32,6 +31,8 @@ elapsed_time = 0.0
 sample_dt = 0.0
 last_target_send_time = 0
 # ---------------------------------------------------
+
+print("DIS Initialized\n")
 
 while True:
 
@@ -52,6 +53,9 @@ while True:
     vehicle.update_states(sample_dt, current_time)
 
     button_manager.update(vehicle, display, uart_manager)
+
+    # --------- LOGGING --------------------------------
+    logger.update(vehicle, display)
 
     # --------- DISPLAY (always runs) ------------------
     if perf_monitor: perf_monitor.start()
