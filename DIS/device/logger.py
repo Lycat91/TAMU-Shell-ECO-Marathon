@@ -77,6 +77,8 @@ class Logger:
             if self.file:
                 self.file.close()
                 self.file = None
+                if display:
+                    display.show_alert("LOG", "SAVED", 2)
         except Exception as e:
             print(f"Log Stop Error: {e}")
         
