@@ -47,6 +47,7 @@ extern bool launch;
 extern bool race_mode;
 extern bool test_mode;
 extern bool drive_mode;
+extern bool show_metrics;
 extern float target_speed;
 extern absolute_time_t time_since_at_target_speed;
 
