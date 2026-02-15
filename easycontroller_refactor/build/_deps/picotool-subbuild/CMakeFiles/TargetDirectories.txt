@@ -1,3 +1,0 @@
-C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/_deps/picotool-subbuild/CMakeFiles/picotool-populate.dir
-C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/_deps/picotool-subbuild/CMakeFiles/edit_cache.dir
-C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/_deps/picotool-subbuild/CMakeFiles/rebuild_cache.dir
