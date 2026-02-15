@@ -418,3 +418,18 @@
 367	848	7926394784959766	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.bin	4971e739cfd204b4
 367	848	7926394784959766	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.uf2	4971e739cfd204b4
 143	333	7926383397632529	CMakeFiles/easycontroller_refactored.dir/UART.c.obj	328a9cd2d660881a
+72	115	7928911725211582	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/CMakeFiles/cmake.verify_globs	89d5e9d6fb6e1386
+194	822	7928911726406452	CMakeFiles/easycontroller_refactored.dir/motor_hw.c.obj	522a4a1a44bd060c
+204	825	7928911726499195	CMakeFiles/easycontroller_refactored.dir/motor_state.c.obj	150c8f07dc2743a6
+184	827	7928911726306451	CMakeFiles/easycontroller_refactored.dir/motor_control.c.obj	96ad4a48c749909a
+172	829	7928911726188113	CMakeFiles/easycontroller_refactored.dir/UART.c.obj	328a9cd2d660881a
+164	831	7928911726113026	CMakeFiles/easycontroller_refactored.dir/easycontroller_refactored.c.obj	1fc0690abe16aed2
+832	4666	7928911771026757	easycontroller_refactored.elf	4971e739cfd204b4
+832	4666	7928911771026757	easycontroller_refactored.dis	4971e739cfd204b4
+832	4666	7928911771026757	easycontroller_refactored.hex	4971e739cfd204b4
+832	4666	7928911771026757	easycontroller_refactored.bin	4971e739cfd204b4
+832	4666	7928911771026757	easycontroller_refactored.uf2	4971e739cfd204b4
+832	4666	7928911771026757	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.dis	4971e739cfd204b4
+832	4666	7928911771026757	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.hex	4971e739cfd204b4
+832	4666	7928911771026757	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.bin	4971e739cfd204b4
+832	4666	7928911771026757	C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/easycontroller_refactored.uf2	4971e739cfd204b4

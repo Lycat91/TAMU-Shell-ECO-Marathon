@@ -54,7 +54,6 @@ extern absolute_time_t time_since_at_target_speed;
 
 // Serial helpers (used by debug modes)
 void check_serial_input(void);
-void check_serial_input_for_Phase_Current(void);
 void wait_for_serial_command(const char *message);
 void increment_motor_ticks();
 uint32_t get_motor_ticks();

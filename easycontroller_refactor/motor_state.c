@@ -61,26 +61,6 @@ void wait_for_serial_command(const char *message) {
     (void)c;
 }
 
-void check_serial_input_for_Phase_Current(void) {
-    static char buf[8];
-    static int idx = 0;
-
-    int c;
-    while ((c = getchar_timeout_us(0)) != PICO_ERROR_TIMEOUT) {
-        if (c == '\n' || c == '\r') {
-            if (idx > 0) {
-                buf[idx] = '\0';
-                int val = atoi(buf);
-                if (val > 0 && val < 21001) {
-                    PHASE_MAX_CURRENT_MA = val;
-                }
-                idx = 0;
-            }
-        } else if (idx < (int)(sizeof(buf) - 1)) {
-            buf[idx++] = (char)c;
-        }
-    }
-}
 
 
 void check_serial_input(void) {
