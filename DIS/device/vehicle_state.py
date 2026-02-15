@@ -9,6 +9,7 @@ class Vehicle:
 
         # State of the vehicle
         self.state = "DRIVE"
+        self.logging_armed = False # Toggle via Menu
 
         # Measured signals from the motor controller
         self.motor_ticks = 0
@@ -29,7 +30,7 @@ class Vehicle:
 
         # Race / Timer State
         self.timer_running = False
-        self.timer_state = "RESET" # Reset, running, paused
+        self.timer_state = "reset" # Reset, running, paused
         self.timer_elapsed_seconds = 0.0
         self.target_mph = 0.0
         self.remaining_distance_miles = 0.0
