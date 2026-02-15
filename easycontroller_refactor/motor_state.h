@@ -61,3 +61,6 @@ void reset_motor_ticks();
 void start_motor_ticks();
 void stop_motor_ticks();
 void get_RPM();
+void check_serial();
+bool read_serial_input();
+void process_serial_input();

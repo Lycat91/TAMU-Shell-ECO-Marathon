@@ -16,7 +16,7 @@ char message_from_DIS[MSG_MAX];
 char message_to_DIS[64];
 int msg_len = 0;
 bool msg_ready = false;
-float target_speed = 0;
+float target_speed = 15;
 
 void send_telemetry_uart() {
 

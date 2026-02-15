@@ -2,6 +2,12 @@
 #include "motor_user_config.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "pico/stdlib.h"
+#include "pico/bootrom.h"
+
+#define MAX_MSG_LEN 128
+#define MAX_TOKENS 5
 
 int adc_isense = 0;
 int adc_vsense = 0;
@@ -137,4 +143,113 @@ void get_RPM(){
         rpm = 0;
         motorstate_counter = 0;
     }
+}
+
+
+void enter_bootloader(void) {
+    reset_usb_boot(0, 0); // jumps to BOOTSEL without unplugging
+}
+
+// Global or static variables to persist between function calls
+char input_buffer[MAX_MSG_LEN];
+int buffer_idx = 0;
+char *tokens[MAX_TOKENS];
+int token_count = 0;
+
+/**
+ * Non-blocking function to read serial and tokenize by comma
+ * Returns true if a full message was processed, false otherwise.
+ */
+
+ // Keep your global variables as they are
+// input_buffer, buffer_idx, tokens, token_count, etc.
+
+bool read_serial_input() {
+    while (true) {
+        int c = getchar_timeout_us(0); // Non-blocking read
+
+        if (c == PICO_ERROR_TIMEOUT) {
+            return false; // SILENTLY return. Do not print here!
+        }
+
+        // --- DEBUG: Uncomment this ONLY if you suspect hardware issues ---
+        // printf("Debug Char: %c (%d)\n", c, c); 
+        // ----------------------------------------------------------------
+
+        // Check for end of line (Enter key)
+        if (c == '\n' || c == '\r') {
+            if (buffer_idx > 0) { // Only process if we have data
+                input_buffer[buffer_idx] = '\0'; // Seal the string
+
+                // Tokenize the string
+                token_count = 0;
+                char *token = strtok(input_buffer, ",");
+                while (token != NULL && token_count < MAX_TOKENS) {
+                    tokens[token_count++] = token;
+                    token = strtok(NULL, ",");
+                }
+
+                buffer_idx = 0; // Reset for next message
+                return true;    // MESSAGE READY!
+            }
+            else {
+                // Ignore empty enter key presses
+                buffer_idx = 0;
+                continue; 
+            }
+        } 
+        else {
+            // Store character if there is space
+            if (buffer_idx < MAX_MSG_LEN - 1) {
+                // Optional: Only allow valid characters to keep buffer clean
+                if(c >= 32 && c <= 126) { 
+                    input_buffer[buffer_idx++] = (char)c;
+                }
+            }
+        }
+    }
+}
+
+void process_serial_input() {
+    // This ONLY runs if process_serial_input returns true (End of Line detected)
+    if (read_serial_input()) { 
+        
+        printf(">>> Processing Command: [%s]\n", tokens[0]);
+
+        if (strcmp(tokens[0], "BOOT") == 0) {
+            printf(">>> Jumping to Bootloader...\n");
+            enter_bootloader();
+        } 
+        else if (strcmp(tokens[0], "kp") == 0) {
+            kp = strtof(tokens[1], NULL);
+            printf(">>> kp updated to: %.4f\n", kp);
+        } 
+        else if (strcmp(tokens[0], "ki") == 0) {
+            ki = strtof(tokens[1], NULL); 
+            printf(">>> ki updated to: %.4f\n", ki);
+        } 
+        else if (strcmp(tokens[0], "kd") == 0) {
+            kd = strtof(tokens[1], NULL);
+            printf(">>> kd updated to: %.4f\n", kd);
+        } 
+        else if (strcmp(tokens[0], "BATTERY_MAX_CURRENT_MA") == 0) {
+            BATTERY_MAX_CURRENT_MA = (int)strtof(tokens[1], NULL);
+            printf(">>> Battery Max Current updated: %d\n", BATTERY_MAX_CURRENT_MA);
+        }
+         else if (strcmp(tokens[0], "LAUNCH_DUTY_CYCLE") == 0) {
+            LAUNCH_DUTY_CYCLE = (int)strtof(tokens[1], NULL);
+            printf(">>> Battery Max Current updated: %d\n", BATTERY_MAX_CURRENT_MA);
+        }
+        else if (strcmp(tokens[0], "cruise_error") == 0) {
+            cruise_error = (int)strtof(tokens[1], NULL);
+            printf(">>> Battery Max Current updated: %d\n", BATTERY_MAX_CURRENT_MA);
+        }
+        else if (strcmp(tokens[0], "help") == 0){
+            printf(">>> Commands: BOOT, kp, ki, kd, BATTERY_MAX_CURRENT_MA, LAUNCH_DUTY_CYCLE, cruise_error\n");
+        }
+        else {
+            printf(">>> Unknown command: %s\n", tokens[0]);
+        }
+    }
+    // Do NOT put printf here, or it will flood your console 1000x per second
 }
