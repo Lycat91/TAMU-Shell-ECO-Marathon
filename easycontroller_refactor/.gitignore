@@ -1,8 +1,7 @@
-"build/" 
-"CMakeFiles/" 
-"_deps/" 
-"_deps/" 
-"CMakeCache.txt"
-"CMakeScripts/"
-".ninja_deps"
-".ninja_log"
+build/
+CMakeFiles/
+_deps/
+CMakeCache.txt
+CMakeScripts/
+.ninja_deps
+.ninja_log
