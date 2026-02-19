@@ -1,2 +1,0 @@
-C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/_deps/picotool-build/enc_bootloader_mbedtls/CMakeFiles/edit_cache.dir
-C:/Users/Owner/School/Senior Year/Semester 1/Senior Design/Motor_Control_Code/easycontroller_refactor/build/_deps/picotool-build/enc_bootloader_mbedtls/CMakeFiles/rebuild_cache.dir

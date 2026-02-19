@@ -4,7 +4,6 @@
 
 const bool IDENTIFY_HALLS_ON_BOOT = false;   // If true, controller will initialize the hall table by slowly spinning the motor
 const bool IDENTIFY_HALLS_REVERSE = false;  // If true, will initialize the hall table to spin the motor backwards
-const bool COMPUTER_CONTROL = true;         // If true will enable throttle control via serial communication
 
 int LAUNCH_DUTY_CYCLE = 6553;
 int PHASE_MAX_CURRENT_MA = 15000;
@@ -30,8 +29,8 @@ int UART_SEND_INTERVAL_US = 250000; // 4 Hz
 //Smart cruise parameters
 float cruise_error = 1.0f;
 int cruise_increment = 1; //miliamps
-float CRUISE_INCREMENT_MAX = 500.0f; //max cruise increment in mA
-float kp=.1f;
+float CRUISE_INCREMENT_MAX = 500;
+float kp=.001f;
 float ki=.05f;
 float kd=.4f;
 

@@ -347,16 +347,9 @@ void smart_cruise_func(){ //Cruise control target speed calculted on DIS
     current_target_ma = MAX(0, MIN(PHASE_MAX_CURRENT_MA, current_target_ma)); //Clamp target current to valid range
 
     //Reset timer if within target speed band
-    if (speed >= target_speed - cruise_error && speed <= target_speed + cruise_error){
+    if (speed >= target_speed - cruise_error*target_speed*.1 && speed <= target_speed + cruise_error*target_speed){
         time_since_at_target_speed = get_absolute_time(); //Reset timer if within target speed band
     }
     //Finally
     adjust_duty();
-
-
-    /*
-    NOTE:
-    Still need to adjust constants and limits
-    May want to change dt to milliseconds from microseconds to help with scaling
-    */
 }

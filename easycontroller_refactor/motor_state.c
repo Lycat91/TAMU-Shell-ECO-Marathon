@@ -2,6 +2,12 @@
 #include "motor_user_config.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "pico/stdlib.h"
+#include "pico/bootrom.h"
+
+#define MAX_MSG_LEN 128
+#define MAX_TOKENS 5
 
 int adc_isense = 0;
 int adc_vsense = 0;
@@ -55,26 +61,6 @@ void wait_for_serial_command(const char *message) {
     (void)c;
 }
 
-void check_serial_input_for_Phase_Current(void) {
-    static char buf[8];
-    static int idx = 0;
-
-    int c;
-    while ((c = getchar_timeout_us(0)) != PICO_ERROR_TIMEOUT) {
-        if (c == '\n' || c == '\r') {
-            if (idx > 0) {
-                buf[idx] = '\0';
-                int val = atoi(buf);
-                if (val > 0 && val < 21001) {
-                    PHASE_MAX_CURRENT_MA = val;
-                }
-                idx = 0;
-            }
-        } else if (idx < (int)(sizeof(buf) - 1)) {
-            buf[idx++] = (char)c;
-        }
-    }
-}
 
 
 void check_serial_input(void) {
@@ -137,4 +123,219 @@ void get_RPM(){
         rpm = 0;
         motorstate_counter = 0;
     }
+}
+
+
+void enter_bootloader(void) {
+    reset_usb_boot(0, 0); // jumps to BOOTSEL without unplugging
+}
+
+// Global or static variables to persist between function calls
+char input_buffer[MAX_MSG_LEN];
+int buffer_idx = 0;
+char *tokens[MAX_TOKENS];
+int token_count = 0;
+
+/**
+ * Non-blocking function to read serial and tokenize by comma
+ * Returns true if a full message was processed, false otherwise.
+ */
+
+ // Keep your global variables as they are
+// input_buffer, buffer_idx, tokens, token_count, etc.
+
+bool read_serial_input() {
+    while (true) {
+        int c = getchar_timeout_us(0); // Non-blocking read
+
+        if (c == PICO_ERROR_TIMEOUT) {
+            return false; // SILENTLY return. Do not print here!
+        }
+
+        // --- DEBUG: Uncomment this ONLY if you suspect hardware issues ---
+        // printf("Debug Char: %c (%d)\n", c, c); 
+        // ----------------------------------------------------------------
+
+        // Check for end of line (Enter key)
+        if (c == '\n' || c == '\r') {
+            if (buffer_idx > 0) { // Only process if we have data
+                input_buffer[buffer_idx] = '\0'; // Seal the string
+
+                // Tokenize the string
+                token_count = 0;
+                char *token = strtok(input_buffer, ",");
+                while (token != NULL && token_count < MAX_TOKENS) {
+                    tokens[token_count++] = token;
+                    token = strtok(NULL, ",");
+                }
+
+                buffer_idx = 0; // Reset for next message
+                return true;    // MESSAGE READY!
+            }
+            else {
+                // Ignore empty enter key presses
+                buffer_idx = 0;
+                continue; 
+            }
+        } 
+        else {
+            // Store character if there is space
+            if (buffer_idx < MAX_MSG_LEN - 1) {
+                // Optional: Only allow valid characters to keep buffer clean
+                if(c >= 32 && c <= 126) { 
+                    input_buffer[buffer_idx++] = (char)c;
+                }
+            }
+        }
+    }
+}
+
+bool show_metrics = false; // Set to true to enable printing of metrics in process_serial_input (for debugging)
+
+// Working version 
+
+// void process_serial_input() {
+//     // This ONLY runs if process_serial_input returns true (End of Line detected)
+//     if (read_serial_input()) { 
+        
+//         printf(">>> Processing Command: [%s]\n", tokens[0]);
+
+//         if (strcmp(tokens[0], "BOOT") == 0) {
+//             printf(">>> Jumping to Bootloader...\n");
+//             enter_bootloader();
+//         } 
+//         else if (strcmp(tokens[0], "kp") == 0) {
+//             kp = strtof(tokens[1], NULL);
+//             printf(">>> kp updated to: %.4f\n", kp);
+//         } 
+//         else if (strcmp(tokens[0], "ki") == 0) {
+//             ki = strtof(tokens[1], NULL); 
+//             printf(">>> ki updated to: %.4f\n", ki);
+//         } 
+//         else if (strcmp(tokens[0], "kd") == 0) {
+//             kd = strtof(tokens[1], NULL);
+//             printf(">>> kd updated to: %.4f\n", kd);
+//         } 
+//         else if (strcmp(tokens[0], "BATTERY_MAX_CURRENT_MA") == 0) {
+//             BATTERY_MAX_CURRENT_MA = (int)strtof(tokens[1], NULL);
+//             printf(">>> Battery Max Current updated: %d\n", BATTERY_MAX_CURRENT_MA);
+//         }
+//          else if (strcmp(tokens[0], "LAUNCH_DUTY_CYCLE") == 0) {
+//             LAUNCH_DUTY_CYCLE = (int)strtof(tokens[1], NULL);
+//             printf(">>> Launch Duty Cycle updated: %d\n", LAUNCH_DUTY_CYCLE);
+//         }
+//         else if (strcmp(tokens[0], "cruise_error") == 0) {
+//             cruise_error = (int)strtof(tokens[1], NULL);
+//             printf(">>> Cruise Error updated: %d\n", cruise_error);
+//         }
+//         else if (strcmp(tokens[0], "test_current_ma") == 0) {
+//             test_current_ma = (int)strtof(tokens[1], NULL);
+//             printf(">>> Test Current updated: %d mA\n", test_current_ma);
+//         }
+//         else if (strcmp(tokens[0], "show_metrics") == 0) {
+//             show_metrics = !show_metrics;
+//             printf(">>> Show Metrics: %s\n", show_metrics ? "ON" : "OFF");
+//         }
+//         else if (strcmp(tokens[0], "help") == 0){
+//             printf(">>> Commands: BOOT, kp, ki, kd, BATTERY_MAX_CURRENT_MA, LAUNCH_DUTY_CYCLE, cruise_error, test_current_ma, show_metrics\n");
+//         }
+//         else {
+//             printf(">>> Unknown command: %s\n", tokens[0]);
+//             printf(">>> Type help for list of commands and be sure to seperate variable values with commas.\n");
+//         }
+//     }
+//     // Do NOT put printf here, or it will flood your console 1000x per second
+// }
+
+
+
+// Prototype version of process_serial_input with show_metrics toggle and help command
+
+typedef enum {
+    CMD_FUNC, 
+    CMD_FLOAT,
+    CMD_INT,  
+    CMD_TOGGLE
+} CmdType;
+
+
+typedef struct {
+    const char* name;
+    CmdType type;
+    void* target;      
+} Command;
+
+
+// New commands entered here
+const Command cmd_table[] = {
+    {"BOOT",                   CMD_FUNC,   (void*)enter_bootloader},
+    {"kp",                     CMD_FLOAT,  (void*)&kp},
+    {"ki",                     CMD_FLOAT,  (void*)&ki},
+    {"kd",                     CMD_FLOAT,  (void*)&kd},
+    {"BATTERY_MAX_CURRENT_MA", CMD_INT,    (void*)&BATTERY_MAX_CURRENT_MA},
+    {"LAUNCH_DUTY_CYCLE",      CMD_INT,    (void*)&LAUNCH_DUTY_CYCLE},
+    {"cruise_error",           CMD_INT,    (void*)&cruise_error},
+    {"test_current_ma",        CMD_INT,    (void*)&test_current_ma},
+    {"show_metrics",           CMD_TOGGLE, (void*)&show_metrics}
+};
+
+const int NUM_CMDS = sizeof(cmd_table) / sizeof(cmd_table[0]);
+
+void process_serial_input() {
+    if (!read_serial_input()) {
+        return; 
+    }
+
+    printf(">>> Processing Command: [%s]\n", tokens[0]);
+
+    if (strcmp(tokens[0], "help") == 0) {
+        printf(">>> Commands: ");
+        for (int i = 0; i < NUM_CMDS; i++) {
+            printf("%s, ", cmd_table[i].name);
+        }
+        printf("help\n");
+        return;
+    }
+
+    for (int i = 0; i < NUM_CMDS; i++) {
+        if (strcmp(tokens[0], cmd_table[i].name) == 0) {
+            
+            if ((cmd_table[i].type == CMD_FLOAT || cmd_table[i].type == CMD_INT) && tokens[1] == NULL) {
+                printf(">>> Error: Command '%s' requires a value.\n", tokens[0]);
+                return;
+            }
+
+            switch (cmd_table[i].type) {
+                case CMD_FUNC:
+                    printf(">>> Executing %s...\n", cmd_table[i].name);
+                    ((void (*)(void))cmd_table[i].target)(); 
+                    break;
+                
+                case CMD_FLOAT: {
+                    float* val = (float*)cmd_table[i].target;
+                    *val = strtof(tokens[1], NULL);
+                    printf(">>> %s updated to: %.4f\n", cmd_table[i].name, *val);
+                    break;
+                }
+                
+                case CMD_INT: {
+                    int* val = (int*)cmd_table[i].target;
+                    *val = (int)strtof(tokens[1], NULL);
+                    printf(">>> %s updated to: %d\n", cmd_table[i].name, *val);
+                    break;
+                }
+                
+                case CMD_TOGGLE: {
+                    bool* val = (bool*)cmd_table[i].target;
+                    *val = !(*val); // Invert current state
+                    printf(">>> %s: %s\n", cmd_table[i].name, *val ? "ON" : "OFF");
+                    break;
+                }
+            }
+            return;
+        }
+    }
+
+    printf(">>> Unknown command: %s\n", tokens[0]);
+    printf(">>> Type 'help' for a list of commands.\n");
 }

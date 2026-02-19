@@ -16,6 +16,7 @@
 int main(void) {
     printf("Hello from Pico!\n");
     init_hardware();
+    stdio_init_all(); //debug, remove this when you dont need USB serial communication 
 
     // UART init
     uart_init(UART_ID, BAUD_RATE);
@@ -47,28 +48,32 @@ int main(void) {
             send_telemetry_uart();
             read_telemetry();
             parse_telemetry();
+            process_serial_input();
             last_UART_send = get_absolute_time();
-            printf("Mode: %s\n", drive_mode ? "Drive" : (race_mode ? "Race" : "Test"));
-            if (race_mode){
-                printf("Speed: %f mph\n", rpm * rpmtomph);
-                printf("Target Speed: %f mph\n", target_speed);
-                printf("Target Current: %d mA\n", current_target_ma);
-                printf("Battery Current: %d mA\n", battery_current_ma);
-                printf("\n");
-            }
-            if (drive_mode){
-                printf("Speed: %f mph\n", rpm * rpmtomph);
-                printf("Target Current: %d mA\n", current_target_ma);
-                printf("Battery Current: %d mA\n", battery_current_ma);
-                printf("\n");
-            }
-            if (test_mode){
-                printf("Test Current: %d mA\n", test_current_ma);
-                printf("Current Target: %d mA\n", current_target_ma);
-                printf("Speed: %f mph\n", rpm * rpmtomph);
-                printf("UCO: %s\n", UCO ? "ON" : "OFF");
-                printf("\n");
-            }
+            if (show_metrics){
+                printf("Mode: %s\n", drive_mode ? "Drive" : (race_mode ? "Race" : "Test"));
+                if (race_mode){
+                    printf("Speed: %f mph\n", rpm * rpmtomph);
+                    printf("Target Speed: %f mph\n", target_speed);
+                    printf("Target Current: %d mA\n", current_target_ma);
+                    printf("Battery Current: %d mA\n", battery_current_ma);
+                    printf("\n");
+                }
+                if (drive_mode){
+                    printf("Speed: %f mph\n", rpm * rpmtomph);
+                    printf("Target Current: %d mA\n", current_target_ma);
+                    printf("Battery Current: %d mA\n", battery_current_ma);
+                    printf("\n");
+                }
+                if (test_mode){
+                    printf("Test Current: %d mA\n", test_current_ma);
+                    printf("Current Target: %d mA\n", current_target_ma);
+                    printf("Speed: %f mph\n", rpm * rpmtomph);
+                    printf("UCO: %s\n", UCO ? "ON" : "OFF");
+                    printf("\n");
+                }
+             }
+            gpio_put(LED_PIN, !gpio_get(LED_PIN));
         }
 
         // printf(  
@@ -88,3 +93,4 @@ int main(void) {
 
     return 0;
 }
+
