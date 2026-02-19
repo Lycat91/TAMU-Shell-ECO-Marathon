@@ -61,7 +61,13 @@ class TargetSpeedIndicator:
         pixels = [(0, 0, 0)] * self.num_leds
         self._apply(pixels, force_write=force_write)
 
-    def update(self, current_speed, target_speed, race_mode, smart_cruise):
+    # def update(self, current_speed, target_speed, race_mode, smart_cruise):
+    def update(self, vehicle):
+        current_speed = vehicle.motor_mph
+        target_speed = vehicle.target_mph
+        race_mode = (vehicle.state == "RACE")
+        smart_cruise = vehicle.smart_cruise
+
         #1 Race mode OFF => all off (only write if changed)
         if not race_mode:
             self.off(force_write=(self._last_race_mode is True))

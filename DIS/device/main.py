@@ -14,7 +14,7 @@ button_manager = ButtonManager()
 
 # --- Debug Flags ---
 #BEGIN DEMOOOOOOOOOOOOOOOO ALFREDO EDIT
-DEBUG_TSI = True
+DEBUG_TSI = False
 #END DEMOOOOOOOOOOOOOOOO ALFREDO EDIT
 DEBUG_PERFORMANCE = False
 DEBUG_VERBOSE = False
@@ -57,22 +57,26 @@ while True:
 
     # --------- Derived Values (runs even with stale data)
     vehicle.update_states(sample_dt, current_time)
-    #BEGIN DEMOOOOOOOOOOOOOOOO ALFREDO EDIT
-    if DEBUG_TSI:
-        vehicle.state = "RACE"          # force race mode ON so LEDs are allowed
-        vehicle.smart_cruise = False
+    # #BEGIN DEMOOOOOOOOOOOOOOOO ALFREDO EDIT
+    # if DEBUG_TSI:
+    #     vehicle.state = "RACE"          # force race mode ON so LEDs are allowed
+    #     vehicle.smart_cruise = False
         
-        vehicle.target_mph = 16.0
-        vehicle.motor_mph = 12.0 + (time.ticks_ms() // 500) % 10  # 12..21 repeating
-    #END DEMOOOOOOOOOOOOOOOO ALFREDO EDIT
+    #     vehicle.target_mph = 18.0
+    #     vehicle.motor_mph = 12.0 + (time.ticks_ms() // 1500) % 10  # 12..21 repeating
+    # #END DEMOOOOOOOOOOOOOOOO ALFREDO EDIT
 
 
-    tsi.update(
-        current_speed=vehicle.motor_mph,
-        target_speed=vehicle.target_mph,
-        race_mode=(vehicle.state == "RACE"),
-        smart_cruise=vehicle.smart_cruise
-    )
+
+    tsi.update(vehicle)
+
+
+    # tsi.update(
+    #     current_speed=vehicle.motor_mph,
+    #     target_speed=vehicle.target_mph,
+    #     race_mode=(vehicle.state == "RACE"),
+    #     smart_cruise=vehicle.smart_cruise
+    # )
 
 
     button_manager.update(vehicle, display, uart_manager)
